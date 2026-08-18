@@ -1,1 +1,12 @@
-<p>surveys-list works!</p>
+<ul>
+  @for (item of list(); track item.id) {
+    <li>
+      <button>
+        <h4>{{item.category}}</h4>
+        <h3>{{item.name}}</h3>
+        <span><p> Ends in {{getExpireDay(item.expires_at)}}</p></span>
+        
+      </button>
+    </li>
+  }
+</ul>

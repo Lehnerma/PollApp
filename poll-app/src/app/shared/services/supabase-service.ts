@@ -26,6 +26,5 @@ export class SupabaseService {
       .select('*');
     this.surveyList.set((response.data ?? []) as SurveyInterface[]);
     //*wenn die data nullish ist dann soll es leeres Array setn ansonst soll es die data als das interface das wir deklariert haben seten
-    console.log(this.surveyList());
   }
 }

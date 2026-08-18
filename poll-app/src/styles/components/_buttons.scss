@@ -1,1 +1,51 @@
 @use '../abstracts' as *;
+
+.btn {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  transition:
+    background-color 200ms ease-in-out,
+    color 200ms ease-in-out;
+
+  &__primary {
+    background-color: $main-btn-bg;
+    font-family: $f-txt-btn;
+    color: $primary-black;
+    font-weight: 700;
+    padding: 16px 12px;
+    border-radius: 10px;
+    @include flex-center();
+    gap: 10px;
+
+    &--icon {
+      width: 24px;
+      height: 24px;
+      fill: $primary-black;
+    }
+  }
+}
+
+@include respond-to(lg) {
+  .btn__primary {
+    &--icon {
+      width: 0px;
+      height: 0px;
+
+      visibility: hidden;
+      transition:
+        width $animation-time ease-in-out,
+        width $animation-time ease-in-out;
+    }
+
+    &:hover {
+      background-color: $main-btn-bg-hover;
+
+      .btn__primary--icon {
+        width: 24px;
+        height: 24px;
+        visibility: visible;
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+@use '../abstracts' as *;
+
+.hero {
+  &__title {
+    font-family: $f-title;
+    font-size: clamp(rem(60), 15vw, rem(100));
+    line-height: clamp(rem(50), 15vw, rem(89));
+    color: $secondary-orange;
+    font-weight: 400;
+  }
+
+  &__description-content{
+    font-family: $f-txt;
+    color: white;
+    font-size: clamp(rem(18), 15vw, rem(24));
+    font-weight: 600;
+    max-width: 666px;
+  }
+
+  &__img{
+    width: clamp(270px, 55vw, 426px);
+    // height: clamp(250px, 55vw, 420px);
+    aspect-ratio: 1/1.1;
+
+  }
+
+
+  .btn__primary{
+    height: 48px;
+  }
+
+}

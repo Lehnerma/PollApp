@@ -23,17 +23,18 @@ $card-bg: rgba(250, 245, 254);
 $card-bg-hover: rgba(244, 233, 251, 1);
 
 // Typografie
-//todo add font
 $f-txt:
   'Mulish',
   system-ui,
   -apple-system,
   sans-serif;
+
 $f-title:
   'Nerko One',
   system-ui,
   -apple-system,
   sans-serif;
+
 $f-txt-btn:
   'Nokora',
   system-ui,
@@ -45,8 +46,12 @@ $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
+$max-dp-width: 1220px;
 
 // Z-Index
 $z-index-dropdown: 1000;
 $z-index-modal: 1050;
 $z-index-toast: 1100;
+
+//animation time
+$animation-time: 350ms;

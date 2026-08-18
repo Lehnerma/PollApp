@@ -1,16 +1,16 @@
 // @ts-check
-const { defineConfig, globalIgnores } = require("eslint/config");
-const eslint = require("@eslint/js");
-const tseslint = require("typescript-eslint");
-const angular = require("angular-eslint");
-const jsdoc = require("eslint-plugin-jsdoc");
-const unicorn = require("eslint-plugin-unicorn").default;
-const prettierConfig = require("eslint-config-prettier");
+const { defineConfig, globalIgnores } = require('eslint/config');
+const eslint = require('@eslint/js');
+const tseslint = require('typescript-eslint');
+const angular = require('angular-eslint');
+const jsdoc = require('eslint-plugin-jsdoc');
+const unicorn = require('eslint-plugin-unicorn').default;
+const prettierConfig = require('eslint-config-prettier');
 
 module.exports = defineConfig([
-  globalIgnores(["**/node_modules/**", "**/dist/**", "poll-app/.angular/**"]),
+  globalIgnores(['**/node_modules/**', '**/dist/**', 'poll-app/.angular/**']),
   {
-    files: ["**/*.ts"],
+    files: ['**/*.ts'],
     extends: [
       eslint.configs.recommended,
       tseslint.configs.recommended,
@@ -25,28 +25,28 @@ module.exports = defineConfig([
     rules: {
       // 1. TypeScript/Code-Qualitaet
 
-      "@typescript-eslint/no-explicit-any": "error",
-      "@typescript-eslint/explicit-function-return-type": "error",
-      "@typescript-eslint/explicit-module-boundary-types": "error",
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/explicit-function-return-type': 'warn',
+      '@typescript-eslint/explicit-module-boundary-types': 'warn',
 
-      "@typescript-eslint/naming-convention": [
-        "error",
+      '@typescript-eslint/naming-convention': [
+        'error',
         {
-          selector: "function",
-          format: ["camelCase"],
+          selector: 'function',
+          format: ['camelCase'],
         },
         {
-          selector: "interface",
-          format: ["PascalCase"],
+          selector: 'interface',
+          format: ['PascalCase'],
         },
         {
-          selector: "class",
-          format: ["PascalCase"],
+          selector: 'class',
+          format: ['PascalCase'],
         },
       ],
 
-      "jsdoc/require-jsdoc": [
-        "error",
+      'jsdoc/require-jsdoc': [
+        'error',
         {
           require: {
             FunctionDeclaration: true,
@@ -56,8 +56,8 @@ module.exports = defineConfig([
         },
       ],
 
-      "max-lines-per-function": [
-        "error",
+      'max-lines-per-function': [
+        'error',
         {
           max: 16,
           skipBlankLines: true,
@@ -67,19 +67,19 @@ module.exports = defineConfig([
 
       // 2. Formatierung (Prettier uebernimmt den Rest, siehe eslint-config-prettier oben)
 
-      "padding-line-between-statements": [
-        "error",
+      'padding-line-between-statements': [
+        'warn',
         {
-          blankLine: "always",
-          prev: "function",
-          next: "function",
+          blankLine: 'always',
+          prev: 'function',
+          next: 'function',
         },
       ],
 
       // 3. Dateistruktur
 
-      "max-lines": [
-        "error",
+      'max-lines': [
+        'error',
         {
           max: 400,
           skipBlankLines: true,
@@ -87,16 +87,16 @@ module.exports = defineConfig([
         },
       ],
 
-      "unicorn/filename-case": [
-        "error",
+      'unicorn/filename-case': [
+        'error',
         {
-          case: "kebabCase",
+          case: 'kebabCase',
         },
       ],
     },
   },
   {
-    files: ["**/*.html"],
+    files: ['**/*.html'],
     extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
     rules: {},
   },

@@ -22,18 +22,3 @@
   align-items: center;
   justify-content: center;
 }
-
-// Text-Überlauf mit Ellipsis
-@mixin truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-// Karten-Look
-@mixin card {
-  background-color: $color-white;
-  border-radius: $border-radius-md;
-  box-shadow: $shadow-sm;
-  padding: $spacing-lg;
-}

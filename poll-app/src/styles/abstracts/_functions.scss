@@ -4,13 +4,3 @@
 @function rem($px, $base: 16) {
   @return math.div($px, $base) * 1rem;
 }
-
-// Hellt eine Farbe um einen Prozentsatz auf
-@function tint($color, $percentage) {
-  @return mix(white, $color, $percentage);
-}
-
-// Dunkelt eine Farbe um einen Prozentsatz ab
-@function shade($color, $percentage) {
-  @return mix(black, $color, $percentage);
-}

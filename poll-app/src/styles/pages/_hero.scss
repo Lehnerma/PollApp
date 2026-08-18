@@ -1,0 +1,57 @@
+@use '../abstracts' as *;
+
+.hero {
+  &__title {
+    font-family: $f-title;
+    font-size: clamp(rem(60), 8vw, rem(100));
+    line-height: clamp(rem(50), 5vw, rem(89));
+    color: $secondary-orange;
+    font-weight: 400;
+    grid-area: title;
+  }
+
+  &__description {
+    font-family: $f-txt;
+    color: white;
+    font-size: clamp(rem(18), 15vw, rem(24));
+    font-weight: 600;
+    max-width: 666px;
+    grid-area: desc;
+  }
+
+  &__img-container {
+    justify-self: center;
+    grid-area: img;
+  }
+  &__img {
+    width: clamp(270px, 45vw, 410px);
+    aspect-ratio: 1/1;
+  }
+
+  .btn__primary {
+    height: 48px;
+    grid-area: btn;
+    justify-self: center;
+    @include respond-to(lg) {
+      justify-self: start;
+    }
+  }
+  display: grid;
+  grid-template-rows: repeat(4, auto);
+  justify-items: start;
+  gap: 24px;
+  grid-template-areas:
+    'title'
+    'img'
+    'desc'
+    'btn';
+
+  @include respond-to(lg) {
+    grid-template-rows: repeat(3, auto);
+    justify-items: start;
+    grid-template-areas:
+      'title img'
+      'desc img'
+      'btn img';
+  }
+}

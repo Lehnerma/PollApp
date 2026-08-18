@@ -1,15 +1,2 @@
 @use '../abstracts' as *;
 
-.grid {
-  display: grid;
-  gap: $spacing-lg;
-  grid-template-columns: 1fr;
-
-  @include respond-to(md) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include respond-to(lg) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}

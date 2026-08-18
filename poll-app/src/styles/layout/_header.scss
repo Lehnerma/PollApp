@@ -1,0 +1,15 @@
+@use '../abstracts' as *;
+
+.header {
+  @include flex-center(row);
+  justify-content: space-between;
+  padding: $spacing-md $spacing-xl;
+  background-color: $color-white;
+  border-bottom: 1px solid $color-border;
+
+  &__logo {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+  }
+}

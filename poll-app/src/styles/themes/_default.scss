@@ -1,0 +1,8 @@
+@use '../abstracts' as *;
+
+:root {
+  --color-primary: #{$color-primary};
+  --color-background: #{$color-background};
+  --color-text: #{$color-text};
+  --color-border: #{$color-border};
+}

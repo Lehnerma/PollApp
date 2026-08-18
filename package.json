@@ -4,8 +4,8 @@
     "lint:fix": "eslint . --fix",
     "lint:styles": "stylelint \"poll-app/src/**/*.scss\"",
     "lint:styles:fix": "stylelint \"poll-app/src/**/*.scss\" --fix",
-    "format": "prettier --write \"poll-app/src/**/*.{ts,html,scss}\" --config poll-app/.prettierrc",
-    "format:check": "prettier --check \"poll-app/src/**/*.{ts,html,scss}\" --config poll-app/.prettierrc"
+    "format": "prettier --write \"poll-app/src/**/*.{ts,html,scss}\"",
+    "format:check": "prettier --check \"poll-app/src/**/*.{ts,html,scss}\""
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",

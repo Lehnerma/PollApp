@@ -5,14 +5,8 @@ import { Hero } from './shared/components/hero/hero';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    MainHeader,
-    Hero,
-  ],
+  imports: [RouterOutlet, MainHeader, Hero],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
-
-}
+export class App {}

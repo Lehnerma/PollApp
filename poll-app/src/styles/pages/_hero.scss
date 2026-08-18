@@ -10,7 +10,7 @@
     grid-area: title;
   }
 
-  &__description{
+  &__description {
     font-family: $f-txt;
     color: white;
     font-size: clamp(rem(18), 15vw, rem(24));
@@ -19,39 +19,39 @@
     grid-area: desc;
   }
 
-  &__img-container{
+  &__img-container {
     justify-self: center;
     grid-area: img;
   }
-  &__img{
+  &__img {
     width: clamp(270px, 45vw, 410px);
     aspect-ratio: 1/1;
   }
 
-  .btn__primary{
+  .btn__primary {
     height: 48px;
     grid-area: btn;
     justify-self: center;
-    @include respond-to(lg){
-        justify-self: start;
+    @include respond-to(lg) {
+      justify-self: start;
     }
   }
   display: grid;
   grid-template-rows: repeat(4, auto);
   justify-items: start;
   gap: 24px;
-  grid-template-areas: 
-  'title'
-  'img'
-  'desc'
-  'btn';
+  grid-template-areas:
+    'title'
+    'img'
+    'desc'
+    'btn';
 
-  @include respond-to(lg){
+  @include respond-to(lg) {
     grid-template-rows: repeat(3, auto);
     justify-items: start;
-    grid-template-areas: 
-    'title img'
-    'desc img'
-    'btn img';
+    grid-template-areas:
+      'title img'
+      'desc img'
+      'btn img';
   }
 }

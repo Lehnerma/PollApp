@@ -9,6 +9,8 @@
     "scss/dollar-variable-empty-line-before": null,
     "property-no-vendor-prefix": null,
     "declaration-empty-line-before": null,
+    "selector-class-pattern": null,
+    "at-rule-empty-line-before": null,
     "scss/double-slash-comment-whitespace-inside": [
       null,{
         "severity": "warn"}],

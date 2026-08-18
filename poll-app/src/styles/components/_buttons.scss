@@ -15,7 +15,7 @@
     font-weight: 700;
     padding: 16px 12px;
     border-radius: 10px;
-    @include flex-center();
+    @include flex-center;
     gap: 10px;
 
     &--icon {
@@ -29,8 +29,8 @@
 @include respond-to(lg) {
   .btn__primary {
     &--icon {
-      width: 0px;
-      height: 0px;
+      width: 0;
+      height: 0;
 
       visibility: hidden;
       transition:
@@ -40,7 +40,6 @@
 
     &:hover {
       background-color: $main-btn-bg-hover;
-
       .btn__primary--icon {
         width: 24px;
         height: 24px;

@@ -3,13 +3,21 @@
 // Media-Query Mixin für Breakpoints
 @mixin respond-to($breakpoint) {
   @if $breakpoint == sm {
-    @media (min-width: $breakpoint-sm) { @content; }
+    @media (min-width: $breakpoint-sm) {
+      @content;
+    }
   } @else if $breakpoint == md {
-    @media (min-width: $breakpoint-md) { @content; }
+    @media (min-width: $breakpoint-md) {
+      @content;
+    }
   } @else if $breakpoint == lg {
-    @media (min-width: $breakpoint-lg) { @content; }
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
   } @else if $breakpoint == xl {
-    @media (min-width: $breakpoint-xl) { @content; }
+    @media (min-width: $breakpoint-xl) {
+      @content;
+    }
   } @else {
     @warn "Unbekannter Breakpoint: #{$breakpoint}";
   }
@@ -21,19 +29,4 @@
   flex-direction: $direction;
   align-items: center;
   justify-content: center;
-}
-
-// Text-Überlauf mit Ellipsis
-@mixin truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-// Karten-Look
-@mixin card {
-  background-color: $color-white;
-  border-radius: $border-radius-md;
-  box-shadow: $shadow-sm;
-  padding: $spacing-lg;
 }

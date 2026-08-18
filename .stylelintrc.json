@@ -1,6 +1,23 @@
 {
   "extends": "stylelint-config-standard-scss",
   "rules": {
-    "no-empty-source": null
+    "no-empty-source": null,
+    "color-function-notation": null,
+    "color-function-alias-notation": null,
+    "alpha-value-notation": null,
+    "font-family-name-quotes": null,
+    "scss/dollar-variable-empty-line-before": null,
+    "property-no-vendor-prefix": null,
+    "declaration-empty-line-before": null,
+    "scss/double-slash-comment-whitespace-inside": [
+      null,{
+        "severity": "warn"}],
+    "rule-empty-line-before": [
+      "always",
+      {
+        "except": ["first-nested", "after-single-line-comment"],
+        "ignore": ["after-comment", "inside-block"]
+      }
+    ]
   }
 }

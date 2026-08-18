@@ -1,34 +1,44 @@
 // Farben
-$color-primary: #4f46e5;
-$color-primary-light: #818cf8;
-$color-primary-dark: #3730a3;
+$primary-black: rgba(34, 18, 39);
+$primary-white: rgba(254, 253, 255); //*scondary-btn-font
+$primary-purple: rgba(53, 39, 58); //*filter-btn-font
+$primary-orange: rgba(255, 207, 161);
 
-$color-secondary: #64748b;
-$color-success: #16a34a;
-$color-warning: #f59e0b;
-$color-danger: #dc2626;
+$secondary-orange: rgba(255, 183, 112);
 
-$color-white: #ffffff;
-$color-black: #000000;
+$light-orange: rgba(254, 233, 212);
 
-$color-text: #1e293b;
-$color-text-light: #64748b;
-$color-background: #f8fafc;
-$color-border: #e2e8f0;
+$main-btn-bg: $primary-orange;
+$main-btn-bg-hover: $secondary-orange;
+$main-btn-font: $primary-black;
+
+$secondary-btn-bg: rgba($secondary-orange, 0.3);
+$secondary-btn-bg-hover: rgba($secondary-orange, 0.6);
+
+$filter-btn-bg: rgba(254, 233, 212);
+$filter-btn-bg-hover: $primary-orange;
+$filter-btn-bg-active: $secondary-orange;
+
+$card-bg: rgba(250, 245, 254);
+$card-bg-hover: rgba(244, 233, 251, 1);
 
 // Typografie
-$font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
-
-$font-size-xs: 0.75rem;
-$font-size-sm: 0.875rem;
-$font-size-base: 1rem;
-$font-size-lg: 1.125rem;
-$font-size-xl: 1.5rem;
-$font-size-2xl: 2rem;
-
-$font-weight-regular: 400;
-$font-weight-medium: 500;
-$font-weight-bold: 700;
+//todo add font
+$f-txt:
+  'Mulish',
+  system-ui,
+  -apple-system,
+  sans-serif;
+$f-title:
+  'Nerko One',
+  system-ui,
+  -apple-system,
+  sans-serif;
+$f-txt-btn:
+  'Nokora',
+  system-ui,
+  -apple-system,
+  sans-serif;
 
 // Abstände
 $spacing-xs: 0.25rem;

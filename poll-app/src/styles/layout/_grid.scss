@@ -6,10 +6,4 @@
   margin: 40px 15px;
   max-width: $max-dp-width;
 
-  &__index {
-    grid-template-rows: 100px auto auto;
-    @include respond-to(lg) {
-      grid-template-rows: 138px 420px auto;
-    }
-  }
 }

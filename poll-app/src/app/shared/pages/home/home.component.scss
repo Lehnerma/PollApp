@@ -1,0 +1,10 @@
+@use '../../../../styles/abstracts' as *;
+
+.grid {
+  &__index {
+    grid-template-rows: 100px auto auto;
+    @include respond-to(lg) {
+      grid-template-rows: 138px 420px auto;
+    }
+  }
+}

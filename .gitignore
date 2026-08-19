@@ -1,4 +1,5 @@
 node_modules
-.github/
+.github/*
+!.github/copilot-instructions.md
 .DS_Store
 .claude

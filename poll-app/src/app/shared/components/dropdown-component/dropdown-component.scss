@@ -2,6 +2,7 @@
 .dropdown {
   position: relative;
   font-family: $f-txt;
+  width: 260px;
 
   &__btn {
     color: white;
@@ -11,6 +12,7 @@
     font-size: rem(18);
     font-weight: 700;
     border-radius: 6px;
+    width: 100%;
     &:hover {
       background-color: $light-purple-hover;
       @include animation(background-color);
@@ -24,8 +26,8 @@
   }
 
   &__icon {
-    width: 24px;
-    height: 24px;
+    width: 15px;
+    height: 15px;
     fill: white;
   }
 
@@ -33,11 +35,28 @@
     position: absolute;
     top: 100%;
     left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     background-color: white;
     border-radius: 6px;
     padding: 8px 4px;
+    width: 100%;
 
     border: solid 1px red; //!delet only testing
+  }
+
+  &__option {
+    font-size: rem(14); //todo check if correct
+    letter-spacing: 0.02em;
+    padding: 4px;
+    width: fit-content;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $expire-card-bg-hover;
+      border-radius: 6px;
+    }
   }
 }
 

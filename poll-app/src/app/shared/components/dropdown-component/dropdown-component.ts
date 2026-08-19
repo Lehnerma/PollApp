@@ -18,7 +18,7 @@ export class DropdownComponent {
 
   // categories = input<string[]>([]);
   title = input<string>('Sort by categories');
-  isOpen = signal(false)
+  isOpen = signal(true) //todo change to false
   //* in der parent komponent werden title und categories gesetzt - im template dann als categories() und title() als signal
 
   /**

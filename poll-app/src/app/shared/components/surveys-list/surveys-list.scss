@@ -67,8 +67,8 @@
 
 .nav {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
+  flex-wrap: wrap;
   height: 100px;
   &__ul {
     display: flex;
@@ -79,7 +79,7 @@
     color: $primary-purple;
   }
   &__dropdown {
-    width: 100%;
-    max-width: 206px;
+    min-width: 206px;
+    align-self: flex-end;
   }
 }

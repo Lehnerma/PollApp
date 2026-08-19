@@ -4,7 +4,7 @@
   &__title {
     font-family: $f-title;
     font-size: clamp(rem(60), 8vw, rem(100));
-    line-height: clamp(rem(50), 5vw, rem(89));
+    line-height: clamp(rem(50), 6vw, rem(89));
     color: $secondary-orange;
     font-weight: 400;
     grid-area: title;
@@ -13,7 +13,7 @@
   &__description {
     font-family: $f-txt;
     color: white;
-    font-size: clamp(rem(18), 15vw, rem(24));
+    font-size: clamp(rem(18), 3vw, rem(24));
     font-weight: 600;
     max-width: 666px;
     grid-area: desc;

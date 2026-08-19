@@ -4,11 +4,6 @@
   display: grid;
   min-height: 100dvh;
   margin: 40px 15px;
-  // @include respond-to(md){
-  //   margin: 40px 16px;
-  // }
-
-
   max-width: $max-dp-width;
 
   &__index {

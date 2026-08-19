@@ -2,10 +2,10 @@
 @use 'styles/base';
 @use 'styles/layout';
 @use 'styles/components';
-@use 'styles/pages';
 
 body {
   background-color: $primary-purple;
   max-width: $max-dp-width;
   margin: 0 auto;
 }
+

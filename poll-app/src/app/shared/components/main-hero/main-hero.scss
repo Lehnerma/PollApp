@@ -36,6 +36,7 @@
       justify-self: start;
     }
   }
+
   display: grid;
   grid-template-rows: repeat(4, auto);
   justify-items: start;
@@ -46,7 +47,7 @@
     'desc'
     'btn';
 
-  @include respond-to(lg) {
+  @include respond-to(md) {
     grid-template-rows: repeat(3, auto);
     justify-items: start;
     grid-template-areas:

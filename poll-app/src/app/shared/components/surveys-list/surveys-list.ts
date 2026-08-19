@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { SupabaseService } from '../../services/supabase-service';
+import { DropdownComponent } from '../dropdown-component/dropdown-component';
 
 @Component({
   selector: 'app-surveys-list',
-  imports: [],
+  imports: [DropdownComponent],
   templateUrl: './surveys-list.html',
   styleUrl: './surveys-list.scss',
 })

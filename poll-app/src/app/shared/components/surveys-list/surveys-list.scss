@@ -1,6 +1,7 @@
 @use '../../../../styles/abstracts' as *;
 
 .survay-list {
+  max-width: 1042px;
   &__elements {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(max(200px, (100% - 1rem)/2), 1fr));
@@ -55,14 +56,30 @@
       }
     }
   }
-  &__nav {
-    padding: 5rem;
-    &--ul {
-      @include flex-center;
-      gap: 4rem;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
+
 .active {
   background-color: $filter-btn-bg-active;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+  &__ul {
+    display: flex;
+    gap: clamp(16px, 5vw, 24px);
+  }
+  &__li {
+    font-size: rem(14);
+    color: $primary-purple;
+  }
+  &__dropdown {
+    width: 100%;
+    max-width: 206px;
+  }
 }

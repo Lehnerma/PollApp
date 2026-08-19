@@ -15,6 +15,10 @@
     font-weight: 500;
     border-radius: 5px 50px 5px 5px;
 
+    &:hover {
+      background-color: $light-purple-hover;
+    }
+
     &__btn {
       display: grid;
       grid-template-rows: repeat(3, auto);

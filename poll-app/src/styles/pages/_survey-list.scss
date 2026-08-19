@@ -55,6 +55,13 @@
       }
     }
   }
+  &__nav{
+    padding: 5rem;
+    &--ul{
+        @include flex-center;
+        gap: 4rem;
+    }
+  }
 }
 .active {
   background-color: $filter-btn-bg-active;

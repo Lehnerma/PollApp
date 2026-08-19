@@ -30,3 +30,8 @@
   align-items: center;
   justify-content: center;
 }
+
+// Animation
+@mixin animation($target: all, $flow: ease-in-out){
+  transition: $target $animation-time $flow;
+}

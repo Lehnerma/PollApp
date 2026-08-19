@@ -1,20 +1,29 @@
 <article class="survay-list">
   <nav class="survay-list__nav">
-    <ul>
+    <ul class="survay-list__nav--ul">
       <li>
         <button class="btn btn__filter active">Active survey</button>
       </li>
       <li>
         <button class="btn btn__filter">Past survey</button>
       </li>
+      <li class="select__container">
+        <select name="category" id="survey_category" class="select">
+          <option value="0" class="select__option" selected disabled>Sort by category</option>
+          <option value="all" class="select__option">All Surveys</option>
+          @for (cat of categories(); track $index; let idx = $index) {
+            <option value="{{ cat }}" class="select__option">{{ cat }}</option>
+          }
+        </select>
+        <svg class="select__icon" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M6.5843 7.61702L0.261628 1.44681C0.174419 1.3617 0.109012 1.2695 0.065407 1.17021C0.0218023 1.07092 0 0.964539 0 0.851064C0 0.624114 0.0799419 0.425532 0.239826 0.255319C0.399709 0.0851064 0.610465 0 0.872093 0H14.1279C14.3895 0 14.6003 0.0851064 14.7602 0.255319C14.9201 0.425532 15 0.624114 15 0.851064C15 0.907802 14.9128 1.10638 14.7384 1.44681L8.4157 7.61702C8.27035 7.75887 8.125 7.85816 7.97965 7.91489C7.8343 7.97163 7.67442 8 7.5 8C7.32558 8 7.1657 7.97163 7.02035 7.91489C6.875 7.85816 6.72965 7.75887 6.5843 7.61702Z"
+          />
+        </svg>
+      </li>
     </ul>
-    <select name="category" id="survey_category" class="survay-list__category">
-      <option value="" selected disabled>Sort by categories</option>
-       @for (cat of categories(); track $index; let idx = $index) {
-        <option value="{{cat}}">{{cat}}</option>
-       }
-    </select>
   </nav>
+
   <ul class="survay-list__elements">
     @for (item of list(); track item.id) {
       <li class="card">

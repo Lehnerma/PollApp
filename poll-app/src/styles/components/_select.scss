@@ -1,0 +1,44 @@
+@use '../abstracts' as *;
+.select {
+  font-family: $f-txt;
+  font-weight: 700;
+  font-size: rem(18);
+  border: none;
+  background-color: transparent;
+  color: white;
+  appearance: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  width: 206px;
+  border-radius: 6px;
+
+  &__container {
+    position: relative;
+
+    &:hover {
+      .select {
+        background-color: $light-purple-hover;
+        @include animation(background-color)
+      }
+      .select__icon {
+        fill: $secondary-orange;
+        @include animation(fill)
+      }
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    fill: white;
+    pointer-events: none;
+  }
+
+  &__option{
+    background-color: white;
+  }
+}

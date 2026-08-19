@@ -1,0 +1,32 @@
+import { Component, input, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-dropdown-component',
+  imports: [],
+  templateUrl: './dropdown-component.html',
+  styleUrl: './dropdown-component.scss',
+})
+export class DropdownComponent {
+  categories = [
+    'Allgemein',
+    'Technologie',
+    'Sport',
+    'Politik',
+    'Unterhaltung',
+    'Wissenschaft',
+  ]; //!delet only for programming
+
+  // categories = input<string[]>([]);
+  title = input<string>('Sort by categories');
+  isOpen = signal(false)
+  //* in der parent komponent werden title und categories gesetzt - im template dann als categories() und title() als signal
+
+  /**
+   * Toggles the dropdown menu
+   */
+  toggleDropdown():void{
+    // const currentValue;
+    this.isOpen.update(currentValue => !currentValue)
+  }
+  
+}

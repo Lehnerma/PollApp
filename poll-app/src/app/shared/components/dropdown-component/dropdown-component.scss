@@ -1,0 +1,46 @@
+@use '../../../../styles/abstracts' as *;
+.dropdown {
+  position: relative;
+  font-family: $f-txt;
+
+  &__btn {
+    color: white;
+    display: flex;
+    gap: 9px;
+    padding: 5px 10px;
+    font-size: rem(18);
+    font-weight: 700;
+    border-radius: 6px;
+    &:hover {
+      background-color: $light-purple-hover;
+      @include animation(background-color);
+
+      .dropdown__icon {
+        fill: $primary-orange;
+        @include animation(fill);
+      }
+    }
+    border: solid 1px green; //!delet only testing
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    fill: white;
+  }
+
+  &__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border-radius: 6px;
+    padding: 8px 4px;
+
+    border: solid 1px red; //!delet only testing
+  }
+}
+
+.dnone {
+  display: none;
+}

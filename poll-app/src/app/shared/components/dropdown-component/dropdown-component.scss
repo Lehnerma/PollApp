@@ -1,8 +1,8 @@
 @use '../../../../styles/abstracts' as *;
+
 .dropdown {
   position: relative;
   font-family: $f-txt;
-  
 
   &__btn {
     color: white;
@@ -29,13 +29,11 @@
     width: 15px;
     height: 15px;
     fill: white;
-    // @include animation(rotate)
-    transition: transform 1000ms ease-in-out;
+    transition: rotate 1000ms ease-in-out; //todo geht right animation
   }
 
-  &__icon.is-open{
+  &__icon.is-open {
     transform: rotate(180deg);
-    
   }
 
   &__menu {
@@ -73,8 +71,11 @@
   opacity: 0;
   transform: translateY(-10px);
   visibility: hidden;
-  transition: opacity 300ms ease-in-out, transform 350ms ease-in-out;
+  transition:
+    opacity 300ms ease-in-out,
+    transform 350ms ease-in-out;
 }
+
 .dropdown__menu.is-open {
   opacity: 1;
   transform: translateY(0);

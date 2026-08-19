@@ -8,7 +8,7 @@ export class SupabaseService {
   supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
   surveyCategorieList = signal<string[]>([]); //* category list realtime
   surveyList = signal<SurveyInterface[]>([]); //* survey list realtime
-  
+
   /**
    * todo schreibe noch doku
    */

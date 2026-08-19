@@ -32,6 +32,6 @@
 }
 
 // Animation
-@mixin animation($target: all, $flow: ease-in-out){
+@mixin animation($target: all, $flow: ease-in-out) {
   transition: $target $animation-time $flow;
 }

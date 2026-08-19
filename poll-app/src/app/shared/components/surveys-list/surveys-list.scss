@@ -4,7 +4,7 @@
   max-width: 1042px;
   &__elements {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(max(200px, (100% - 1rem)/2), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(max(200px, (100% - 1rem) / 2), 1fr));
     gap: 16px;
 
     .card {

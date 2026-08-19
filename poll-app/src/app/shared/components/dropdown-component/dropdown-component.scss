@@ -2,11 +2,12 @@
 .dropdown {
   position: relative;
   font-family: $f-txt;
-  width: 260px;
+  
 
   &__btn {
     color: white;
     display: flex;
+    align-items: center;
     gap: 9px;
     padding: 5px 10px;
     font-size: rem(18);
@@ -22,13 +23,19 @@
         @include animation(fill);
       }
     }
-    border: solid 1px green; //!delet only testing
   }
 
   &__icon {
     width: 15px;
     height: 15px;
     fill: white;
+    // @include animation(rotate)
+    transition: transform 1000ms ease-in-out;
+  }
+
+  &__icon.is-open{
+    transform: rotate(180deg);
+    
   }
 
   &__menu {
@@ -41,9 +48,6 @@
     background-color: white;
     border-radius: 6px;
     padding: 8px 4px;
-    width: 100%;
-
-    border: solid 1px red; //!delet only testing
   }
 
   &__option {
@@ -62,4 +66,17 @@
 
 .dnone {
   display: none;
+}
+
+.dropdown__menu {
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  transition: opacity 300ms ease-in-out, transform 350ms ease-in-out;
+}
+.dropdown__menu.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
 }

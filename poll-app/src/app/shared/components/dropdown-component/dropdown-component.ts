@@ -7,16 +7,8 @@ import { Component, input, signal } from '@angular/core';
   styleUrl: './dropdown-component.scss',
 })
 export class DropdownComponent {
-  categories = [
-    'Allgemein',
-    'Technologie',
-    'Sport',
-    'Politik',
-    'Unterhaltung',
-    'Wissenschaft',
-  ]; //!delet only for programming
 
-  // categories = input<string[]>([]);
+   categories = input<string[]>([]);
   title = input<string>('Sort by categories');
   isOpen = signal(true) //todo change to false
   //* in der parent komponent werden title und categories gesetzt - im template dann als categories() und title() als signal

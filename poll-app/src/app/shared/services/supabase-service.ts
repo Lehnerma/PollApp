@@ -6,8 +6,9 @@ import { environment } from '../../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class SupabaseService {
   supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
-
-  surveyList = signal<SurveyInterface[]>([]); //* die survay liste die aktuell ist
+  surveyCategorieList = signal<string[]>([]); //* category list realtime
+  surveyList = signal<SurveyInterface[]>([]); //* survey list realtime
+  
   /**
    * todo schreibe noch doku
    */
@@ -26,5 +27,13 @@ export class SupabaseService {
       .select('*');
     this.surveyList.set((response.data ?? []) as SurveyInterface[]);
     //*wenn die data nullish ist dann soll es leeres Array setn ansonst soll es die data als das interface das wir deklariert haben seten
+    this.setCategories();
+  }
+
+  /**
+   * Updates the category list with the unique categories from the current surveys.
+   */
+  setCategories(): void {
+    this.surveyCategorieList.set([...new Set(this.surveyList().map((item) => item.category))]);
   }
 }

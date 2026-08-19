@@ -1,11 +1,29 @@
-<ul class="sur-list">
-  @for (item of list(); track item.id) {
-    <li class="card">
-      <button class="btn card__btn">
-        <h4 class="card__category">{{ item.category }}</h4>
-        <h3 class="card__title">{{ item.name }}</h3>
-        <p class="card__expire">Ends in {{ getExpireDay(item.expires_at) }} Days</p>
-      </button>
-    </li>
-  }
-</ul>
+<article class="survay-list">
+  <nav class="survay-list__nav">
+    <ul>
+      <li>
+        <button class="btn btn__filter active">Active survey</button>
+      </li>
+      <li>
+        <button class="btn btn__filter">Past survey</button>
+      </li>
+    </ul>
+    <select name="category" id="survey_category" class="survay-list__category">
+      <option value="" selected disabled>Sort by categories</option>
+       @for (cat of categories(); track $index; let idx = $index) {
+        <option value="{{cat}}">{{cat}}</option>
+       }
+    </select>
+  </nav>
+  <ul class="survay-list__elements">
+    @for (item of list(); track item.id) {
+      <li class="card">
+        <button class="card__btn">
+          <h4 class="card__category">{{ item.category }}</h4>
+          <h3 class="card__title">{{ item.name }}</h3>
+          <p class="card__expire">Ends in {{ getExpireDay(item.expires_at) }} Days</p>
+        </button>
+      </li>
+    }
+  </ul>
+</article>

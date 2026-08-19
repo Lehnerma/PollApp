@@ -4,19 +4,20 @@
   cursor: pointer;
   background-color: transparent;
   border: none;
-  transition:
-    background-color 200ms ease-in-out,
-    color 200ms ease-in-out;
+  font-family: $f-txt-btn;
+  color: $primary-black;
 
   &__primary {
     background-color: $main-btn-bg;
-    font-family: $f-txt-btn;
-    color: $primary-black;
+
     font-weight: 700;
     padding: 16px 12px;
     border-radius: 10px;
     @include flex-center;
     gap: 10px;
+    transition:
+      background-color 200ms ease-in-out,
+      color 200ms ease-in-out;
 
     &--icon {
       width: 24px;
@@ -24,26 +25,43 @@
       fill: $primary-black;
     }
   }
-}
 
-@include respond-to(lg) {
-  .btn__primary {
-    &--icon {
-      width: 0;
-      height: 0;
+  &__filter {
+    background-color: $filter-btn-bg;
+    padding: 2px 10px;
+    border-radius: 10px;
 
-      visibility: hidden;
-      transition:
-        width $animation-time ease-in-out,
-        width $animation-time ease-in-out;
+    &:hover:not(.active) {
+      background-color: $filter-btn-bg-hover;
     }
 
-    &:hover {
-      background-color: $main-btn-bg-hover;
-      .btn__primary--icon {
-        width: 24px;
-        height: 24px;
-        visibility: visible;
+    &:active:not(.active) {
+      background-color: $filter-btn-bg-active;
+    }
+  }
+}
+
+//* Responsiv
+@include respond-to(lg) {
+  .btn {
+    &__primary {
+      &--icon {
+        width: 0;
+        height: 0;
+
+        visibility: hidden;
+        transition:
+          width $animation-time ease-in-out,
+          width $animation-time ease-in-out;
+      }
+
+      &:hover {
+        background-color: $main-btn-bg-hover;
+        .btn__primary--icon {
+          width: 24px;
+          height: 24px;
+          visibility: visible;
+        }
       }
     }
   }

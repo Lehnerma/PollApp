@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { SupabaseService } from '../../services/supabase-service';
 
-
 @Component({
   selector: 'app-surveys-list',
   imports: [],
@@ -10,17 +9,19 @@ import { SupabaseService } from '../../services/supabase-service';
 })
 export class SurveysList {
   supabaseService = inject(SupabaseService); //* der service wird injectziert in diese component
-  list = this.supabaseService.surveyList
+  list = this.supabaseService.surveyList;
+  categories = this.supabaseService.surveyCategorieList;
 
-
-/**
- * todo writte comment
- * @param expireDate 
- */
-  getExpireDay(expireDate: string):number{
-  const date = new Date(expireDate);
-  if (isNaN(date.getTime())) return 0;
-  const days = Math.ceil((date.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
-  return days;
+  /**
+   * Calculates the number of days remaining until a survey expires.
+   *
+   * @param expireDate - The survey expiration date as a date-compatible string.
+   * @returns The number of days until expiration, or `0` if the date is invalid.
+   */
+  getExpireDay(expireDate: string): number {
+    const date = new Date(expireDate);
+    if (isNaN(date.getTime())) return 0;
+    const days = Math.ceil((date.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+    return days;
   }
 }

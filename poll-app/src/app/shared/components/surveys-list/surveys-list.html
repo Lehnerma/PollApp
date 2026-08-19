@@ -1,11 +1,10 @@
-<ul>
+<ul class="sur-list">
   @for (item of list(); track item.id) {
-    <li>
-      <button>
-        <h4>{{item.category}}</h4>
-        <h3>{{item.name}}</h3>
-        <span><p> Ends in {{getExpireDay(item.expires_at)}}</p></span>
-        
+    <li class="card">
+      <button class="btn card__btn">
+        <h4 class="card__category">{{ item.category }}</h4>
+        <h3 class="card__title">{{ item.name }}</h3>
+        <p class="card__expire">Ends in {{ getExpireDay(item.expires_at) }} Days</p>
       </button>
     </li>
   }

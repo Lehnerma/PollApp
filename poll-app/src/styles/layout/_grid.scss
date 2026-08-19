@@ -3,7 +3,11 @@
 .grid {
   display: grid;
   min-height: 100dvh;
-  margin: 40px clamp(4px, 5vw, 16px);
+  margin: 40px 15px;
+  @include respond-to(md){
+    margin: 40px 0;
+  }
+
 
   max-width: $max-dp-width;
 

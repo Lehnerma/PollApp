@@ -5,8 +5,10 @@ $primary-purple: rgba(53, 39, 58); //*filter-btn-font
 $primary-orange: rgba(255, 207, 161);
 
 $secondary-orange: rgba(255, 183, 112);
+$secondary-purple: rgba(217, 217, 217);
 
 $light-orange: rgba(254, 233, 212);
+$light-purple: rgba($secondary-purple, 0.08);
 
 $main-btn-bg: $primary-orange;
 $main-btn-bg-hover: $secondary-orange;
@@ -19,8 +21,8 @@ $filter-btn-bg: rgba(254, 233, 212);
 $filter-btn-bg-hover: $primary-orange;
 $filter-btn-bg-active: $secondary-orange;
 
-$card-bg: rgba(250, 245, 254);
-$card-bg-hover: rgba(244, 233, 251, 1);
+$expire-card-bg: rgba(250, 245, 254);
+$expire-card-bg-hover: rgba(244, 233, 251, 1);
 
 // Typografie
 $f-txt:

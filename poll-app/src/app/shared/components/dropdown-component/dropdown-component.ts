@@ -17,7 +17,6 @@ export class DropdownComponent {
    * Toggles the dropdown menu
    */
   toggleDropdown():void{
-    // const currentValue;
     this.isOpen.update(currentValue => !currentValue)
   }
   

@@ -9,7 +9,7 @@ import { Component, input, signal } from '@angular/core';
 export class DropdownComponent {
   categories = input<string[]>([]);
   title = input<string>('Sort by categories');
-  isOpen = signal(true); //todo change to false
+  isOpen = signal(false);
   //* in der parent komponent werden title und categories gesetzt - im template dann als categories() und title() als signal
 
   /**

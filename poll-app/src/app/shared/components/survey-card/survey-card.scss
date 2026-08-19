@@ -1,0 +1,38 @@
+@use '../../../../styles/abstracts' as *;
+
+    .card {
+      @include flex-center;
+      justify-content: stretch;
+      align-items: stretch;
+      font-family: $f-txt;
+      font-weight: 500;
+
+      &__btn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        display: grid;
+        grid-template-rows: repeat(3, auto);
+        align-items: flex-start;
+        width: 100%;
+        padding: 16px 21px;
+      }
+
+      &__category {
+        justify-self: start;
+      }
+
+      &__title {
+        justify-self: start;
+        font-size: rem(24);
+        font-weight: 700;
+        text-align: start;
+      }
+
+      &__expire {
+        justify-self: end;
+        align-self: end;
+        font-size: rem(14); //todo checkn ob richtig
+        padding: 3px 6px;
+      }
+    }

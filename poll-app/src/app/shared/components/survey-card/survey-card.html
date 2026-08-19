@@ -1,0 +1,15 @@
+<ul>
+  <!-- todo copy without the ul -->
+<!-- todo change back to surveyList() -->
+  @for (item of surveyList(); track item.id) {
+    <li class="card">
+      <button class="card__btn">
+        <h4 class="card__category">{{ item.category }}</h4>
+        <h3 class="card__title">{{ item.name }}</h3>
+        <p class="card__expire">Ends in {{ getExpireDay(item.expires_at) }} Days</p>
+      </button>
+    </li>
+  }
+
+  <!-- todo copy only to here -->
+</ul>

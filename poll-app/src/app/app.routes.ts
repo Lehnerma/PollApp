@@ -1,14 +1,13 @@
 import { Routes } from '@angular/router';
-import { DropdownComponent } from './shared/components/dropdown-component/dropdown-component';
 import { HomeComponent } from './shared/pages/home/home.component';
+import { Dev } from './shared/pages/dev/dev';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
   },
-  {
-    path: 'dropdown',
-    component: DropdownComponent,
-  },
+  {path: 'dev',
+    component: Dev
+  }
 ];

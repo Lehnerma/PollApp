@@ -12,7 +12,7 @@ import { SurveyCard } from '../survey-card/survey-card';
   styleUrl: './surveys-list.scss',
 })
 export class SurveysList {
-  supabaseService = inject(SupabaseService); //* der service wird injectziert in diese component
+  supabaseService = inject(SupabaseService);
   list = this.supabaseService.surveyList;
   categories = this.supabaseService.surveyCategorieList;
 }

@@ -4,16 +4,11 @@ import { SupabaseService } from '../../services/supabase-service';
 
 @Component({
   selector: 'app-expire-list',
-  imports: [
-    SurveyCard
-  ],
+  imports: [SurveyCard],
   templateUrl: './expire-list.html',
   styleUrl: './expire-list.scss',
 })
 export class ExpireList {
-supabaseService = inject(SupabaseService);
-allSurveys = this.supabaseService.surveyList;
-expiredList = [];
-
-
+  supabaseService = inject(SupabaseService);
+  expiredList = [this.supabaseService.nextEndingSurveys];
 }

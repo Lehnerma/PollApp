@@ -29,9 +29,9 @@
   }
 
   .btn__primary {
-    height: 48px;
     grid-area: btn;
     justify-self: center;
+    font-size: rem(18);
     @include respond-to(lg) {
       justify-self: start;
     }

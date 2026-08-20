@@ -1,6 +1,6 @@
 export interface SurveyInterface {
   id: number;
-  creat_at: string; // todo check if string is correct
+  creat_at: string; 
   name: string;
   category: string; //todo check if an array for more categorys
   description: string;

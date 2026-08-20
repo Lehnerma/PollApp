@@ -4,9 +4,12 @@
 
 .card {
   &__container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    // display: flex;
+    // flex-direction: column;
+    // gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(max(260px, (100% - 1rem) / 2), 1fr));
+    gap: 16px;
   }
 
   background-color: var(--card-bg, $light-purple);

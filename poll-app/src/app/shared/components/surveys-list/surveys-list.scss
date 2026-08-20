@@ -1,7 +1,6 @@
 @use '../../../../styles/abstracts' as *;
 
 .survay-list {
-  max-width: 1042px;
   &__elements {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(max(200px, (100% - 1rem) / 2), 1fr));
@@ -9,6 +8,8 @@
   }
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 1042px;
   gap: 24px;
 }
 

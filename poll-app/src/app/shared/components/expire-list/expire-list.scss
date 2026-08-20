@@ -1,0 +1,24 @@
+@use '../../../../styles/abstracts' as *;
+
+.expire {
+  max-width: $lg-dp-width;
+
+  &__container {
+    @include flex-center(column);
+    margin-top: 80px;
+  }
+}
+
+.title {
+  font-size: clamp(rem(54), 10vw, rem(72));
+  color: $secondary-orange;
+  font-weight: 400;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: clamp(rem(24), 5vw, rem(32));
+  font-weight: 500;
+  color: white;
+  font-weight: 400;
+}

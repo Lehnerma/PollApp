@@ -4,6 +4,6 @@ export interface SurveyInterface {
   name: string;
   category: string; //todo check if an array for more categorys
   description: string;
-  expires_at: string;
+  expires_at: string | number;
   published: string;
 }

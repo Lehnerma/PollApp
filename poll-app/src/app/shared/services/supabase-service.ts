@@ -6,8 +6,9 @@ import { environment } from '../../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class SupabaseService {
   supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
-  surveyCategorieList = signal<string[]>([]); //* category list realtime
   surveyList = signal<SurveyInterface[]>([]); //* survey list realtime
+  surveyCategorieList = signal<string[]>([]); //* category list realtime
+  nextEndingSurveys = signal<SurveyInterface[]>([]);
 
   /**
    * todo schreibe noch doku
@@ -23,11 +24,11 @@ export class SupabaseService {
    */
   async getAllSurveys(): Promise<void> {
     const response = await this.supabase
-      .from('surveys') // todo delet - only for better reading
+      .from('surveys') // todo delet // only for better reading
       .select('*');
     this.surveyList.set((response.data ?? []) as SurveyInterface[]);
-    //*wenn die data nullish ist dann soll es leeres Array setn ansonst soll es die data als das interface das wir deklariert haben seten
     this.setCategories();
+    this.filterSurvey();
   }
 
   /**
@@ -35,5 +36,20 @@ export class SupabaseService {
    */
   setCategories(): void {
     this.surveyCategorieList.set([...new Set(this.surveyList().map((item) => item.category))]);
+  }
+
+  filterSurvey(): void {
+    console.log(this.surveyList());
+    const now = Date.now();
+    const allSurveys = this.surveyList();
+    const filtered = allSurveys.filter((survey) => {
+      const date = new Date(survey.expires_at).getTime();
+      console.log(date);
+      
+      return date >= now;
+    });
+    
+    
+    console.log(filtered);
   }
 }

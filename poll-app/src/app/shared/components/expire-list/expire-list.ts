@@ -10,5 +10,5 @@ import { SupabaseService } from '../../services/supabase-service';
 })
 export class ExpireList {
   supabaseService = inject(SupabaseService);
-  expiredList = [this.supabaseService.nextEndingSurveys];
+  nextEndingList = this.supabaseService.nextEndingSurveys;
 }

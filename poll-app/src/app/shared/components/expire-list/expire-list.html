@@ -2,6 +2,6 @@
   <h1 class="title">Your surveys</h1>
   <section class="expire__list--container">
     <h2 class="subtitle txt">Ending soon surveys</h2>
-    <app-survey-card class="expire__list"></app-survey-card>
+    <app-survey-card class="expire__list" [surveyList]="nextEndingList()"></app-survey-card>
   </section>
 </main>

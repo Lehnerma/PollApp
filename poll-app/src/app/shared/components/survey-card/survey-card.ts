@@ -17,7 +17,7 @@ export class SurveyCard {
    * @param expireDate - The survey expiration date as a date-compatible string.
    * @returns The number of days until expiration, or `0` if the date is invalid.
    */
-  getExpireDay(expireDate: string): number {
+  getExpireDay(expireDate: string|number): number {
     const date = new Date(expireDate);
     if (isNaN(date.getTime())) return 0;
     const days = Math.ceil((date.getTime() - Date.now()) / (1000 * 60 * 60 * 24));

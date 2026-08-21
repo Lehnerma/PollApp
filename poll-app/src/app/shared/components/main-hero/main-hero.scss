@@ -78,7 +78,7 @@
   }
 }
 
-.icon__check{
+.icon__check {
   display: none;
 }
 @include respond-to(lg) {
@@ -102,12 +102,12 @@
           visibility: visible;
         }
       }
-      &:active{
-        .icon__check{
+      &:active {
+        .icon__check {
           display: inline;
         }
 
-        .icon__add{
+        .icon__add {
           display: none;
         }
       }

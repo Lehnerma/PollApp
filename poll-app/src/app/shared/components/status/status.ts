@@ -7,7 +7,6 @@ import { Component, input } from '@angular/core';
   templateUrl: './status.html',
   styleUrl: './status.scss',
 })
-
 export class Status {
-  status = (input('draft'));
+  status = input('draft');
 }

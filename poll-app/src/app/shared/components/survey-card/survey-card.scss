@@ -1,7 +1,5 @@
 @use '../../../../styles/abstracts' as *;
 
-//* we can set the variables in the component where we use these componten to get outer styling
-
 .card {
   &__container {
     display: grid;

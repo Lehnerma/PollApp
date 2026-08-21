@@ -1,0 +1,24 @@
+@use '../../../../styles/abstracts' as *;
+
+// creat two classes published and draft to be reuseable
+
+.status {
+  &__label {
+    padding: 3px 12px 3px 8px;
+    width: fit-content;
+    border-top-right-radius: 14px;
+    &--draft {
+      background-color: $primary-orange;
+    }
+    &--published {
+      background-color: $secondary-orange;
+    }
+  }
+
+  &__txt {
+    font-family: $f-txt;
+    color: $primary-black;
+    font-size: rem(16);
+    font-weight: 600;
+  }
+}

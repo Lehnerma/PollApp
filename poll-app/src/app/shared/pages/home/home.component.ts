@@ -6,10 +6,7 @@ import { ExpireList } from '../../components/expire-list/expire-list';
 
 @Component({
   selector: 'app-home.component',
-  imports: [MainHeader, 
-    MainHero,
-    ExpireList,
-    SurveysList],
+  imports: [MainHeader, MainHero, ExpireList, SurveysList],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

@@ -11,8 +11,8 @@
     --card-date-bg: #{$primary-orange};
     --card-date-bg-hover: #{$secondary-orange};
 
-    &--container{
-        align-self: flex-start;
+    &--container {
+      align-self: flex-start;
     }
   }
 
@@ -23,16 +23,14 @@
   }
 
   &__title {
-  font-size: clamp(rem(54), 10vw, rem(72));
-  color: $secondary-orange;
-  font-weight: 400;
-  text-align: center;
-}
-
+    font-size: clamp(rem(54), 10vw, rem(72));
+    color: $secondary-orange;
+    font-weight: 400;
+    text-align: center;
+  }
 
   &__subtitle {
     font-size: clamp(rem(24), 5vw, rem(32));
-    font-weight: 500;
     color: white;
     font-weight: 400;
     margin-bottom: 16px;
@@ -46,4 +44,3 @@
 .txt {
   font-family: $f-txt;
 }
-

@@ -5,9 +5,7 @@ import { SurveyCard } from '../survey-card/survey-card';
 
 @Component({
   selector: 'app-surveys-list',
-  imports: [
-    DropdownComponent,
-    SurveyCard],
+  imports: [DropdownComponent, SurveyCard],
   templateUrl: './surveys-list.html',
   styleUrl: './surveys-list.scss',
 })

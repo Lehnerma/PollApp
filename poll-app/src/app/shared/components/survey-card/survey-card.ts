@@ -11,7 +11,6 @@ export class SurveyCard {
   surveyList = input<SurveyInterface[]>([]);
   listLayout = input('row');
 
-
   /**
    * Calculates the number of days remaining until a survey expires.
    *
@@ -25,11 +24,11 @@ export class SurveyCard {
     return days;
   }
 
-/**
- * Wir bekommen die classe zuruck die wir benotigen fur die verschiedneen grid layouts in unserer app fur die surveys
- * @returns the right stylin class for the grid layout for the surveylists
- */
-  getGridLayout():string {
-    return this.listLayout() === 'row' ? 'up-next-row': 'list-grid';
+  /**
+   * Wir bekommen die classe zuruck die wir benotigen fur die verschiedneen grid layouts in unserer app fur die surveys
+   * @returns the right stylin class for the grid layout for the surveylists
+   */
+  getGridLayout(): string {
+    return this.listLayout() === 'row' ? 'up-next-row' : 'list-grid';
   }
 }

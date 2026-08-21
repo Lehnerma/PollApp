@@ -4,16 +4,13 @@
 
 .card {
   &__container {
-    // display: flex;
-    // flex-direction: column;
-    // gap: 15px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(max(260px, (100% - 1rem) / 2), 1fr));
     gap: 16px;
   }
 
   background-color: var(--card-bg, $light-purple);
-  height: var(--card-height, 150px);
+  min-height: 150px;
+  max-width: var(--card-max-width, 512px);
   @include flex-center;
   justify-content: stretch;
   align-items: stretch;
@@ -22,7 +19,11 @@
   border-radius: 5px 50px 5px 5px;
 
   &:hover {
-    background-color: $light-purple-hover;
+    background-color: var(--card-bg-hover, $light-purple-hover);
+
+    .card__expire {
+      background-color: var(--card-date-bg, $primary-orange);
+    }
   }
 
   &__btn {
@@ -30,32 +31,56 @@
     border: none;
     cursor: pointer;
     display: grid;
-    grid-template-rows: repeat(3, auto);
+    grid-template-rows: auto 1fr auto;
     align-items: flex-start;
     width: 100%;
     padding: 16px 21px;
   }
 
   &__category {
+    font-family: $f-txt;
+    font-size: var(--card-category-f-size, rem(16));
+    font-weight: 400;
     justify-self: start;
-    color: $primary-orange;
+    color: var(--card-category-color, $primary-orange);
   }
 
   &__title {
     justify-self: start;
-    color: white;
-    font-size: rem(24);
+    color: var(--card-title-color, white);
+    font-size: var(--card-title-f-size, rem(24));
     font-weight: 700;
     text-align: start;
+    overflow-wrap: wrap;
   }
 
   &__expire {
-    justify-self: end;
-    align-self: end;
-    background-color: $primary-orange;
+    justify-self: var(--expire-date-justify, end);
+    background-color: var(--card-date-bg, $primary-orange);
+    font-family: $f-txt;
     font-size: rem(14);
     color: $primary-black;
     padding: 3px 6px;
     border-top-right-radius: 14px;
   }
+}
+
+.row {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 80vw;
+  .card {
+    min-width: 250px;
+    flex: 1 1 250px;
+    min-height: clamp(233px, 15vw, 310px);
+
+    &__expire {
+      justify-self: flex-start;
+    }
+  }
+}
+
+.column {
+  grid-template-columns: repeat(auto-fit, minmax(max(260px, (100% - 1rem) / 2), 1fr));
 }

@@ -22,7 +22,7 @@ $filter-btn-bg: $light-orange;
 $filter-btn-bg-hover: $primary-orange;
 $filter-btn-bg-active: $secondary-orange;
 
-$expire-card-bg: rgba(250, 245, 254);
+$expire-card-bg: rgba(250, 245, 254, 1);
 $expire-card-bg-hover: rgba(244, 233, 251, 1);
 
 // Typografie
@@ -49,7 +49,9 @@ $breakpoint-sm: 576px;
 $breakpoint-md: 800px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
+
 $max-dp-width: 1220px;
+$lg-dp-width: 1042px;
 
 // Z-Index
 $z-index-dropdown: 1000;

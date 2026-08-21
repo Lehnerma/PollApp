@@ -1,4 +1,4 @@
-<ul class="card__container">
+<ul class="card__container" [class]="listLayout()">
   @for (item of surveyList(); track item.id) {
     <li class="card">
       <button class="card__btn">

@@ -1,16 +1,25 @@
 @use '../../../../styles/abstracts' as *;
 
 .grid {
+  display: grid;
+  min-height: 100dvh;
+  margin: 40px 15px;
+  max-width: $max-dp-width;
+
   &__index {
-    grid-template-rows: 100px auto auto;
+    grid-template-rows: 100px auto auto auto;
     @include respond-to(lg) {
-      grid-template-rows: 138px 420px auto;
+      grid-template-rows: 138px 420px auto auto;
     }
   }
+}
+
+.expire-list {
+  justify-self: center;
 }
 
 .survay-list {
   margin-top: 48px;
   display: flex;
-justify-content: center;
+  justify-content: center;
 }

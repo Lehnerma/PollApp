@@ -12,16 +12,16 @@ export class SurveyCard {
   listLayout = input('row');
 
   /**
-   * Calculates the number of days remaining until a survey expires.
+   * Returns the remaining time until the survey expires, expressed in days.
    *
-   * @param expireDate - The survey expiration date as a date-compatible string.
-   * @returns The number of days until expiration, or `0` if the date is invalid.
+   * @param expireDate - A date-compatible value representing the expiration date.
+   * @returns The number of remaining days as a formatted string, or `'n/a'` if the date is invalid.
    */
-  getExpireDay(expireDate: string | number): number {
+  getExpireDay(expireDate: string | number): string {
     const date = new Date(expireDate);
-    if (isNaN(date.getTime())) return 0;
+    if (isNaN(date.getTime())) return 'n/a';
     const days = Math.ceil((date.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
-    return days;
+    return days === 1 ? days + ' Day' : days + ' Days';
   }
 
   /**

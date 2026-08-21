@@ -31,7 +31,7 @@
     border: none;
     cursor: pointer;
     display: grid;
-    grid-template-rows: repeat(3, auto);
+    grid-template-rows: auto 1fr auto;
     align-items: flex-start;
     width: 100%;
     padding: 16px 21px;
@@ -55,8 +55,7 @@
   }
 
   &__expire {
-    justify-self: end;
-    align-self: end;
+    justify-self: var(--expire-date-justify, end);
     background-color: var(--card-date-bg, $primary-orange);
     font-family: $f-txt;
     font-size: rem(14);
@@ -74,7 +73,11 @@
   .card {
     min-width: 250px;
     flex: 1 1 250px;
-    height: clamp(233px, 15vw, 310px);
+    min-height: clamp(233px, 15vw, 310px);
+
+    &__expire{
+      justify-self: flex-start;
+    }
   }
 }
 

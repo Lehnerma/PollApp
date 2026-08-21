@@ -9,7 +9,7 @@
   </button>
   <ul class="dropdown__menu" [class.is-open]="isOpen()">
     @for (item of categories(); track $index) {
-      <li class="dropdown__option" value="{{ item }}">{{ item }}</li>
+      <li class="dropdown__option" value="{{ item }}">{{ item | titlecase }}</li>
     }
   </ul>
 </aside>

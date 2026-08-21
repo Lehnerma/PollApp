@@ -1,8 +1,9 @@
+import { TitleCasePipe } from '@angular/common';
 import { Component, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown-component',
-  imports: [],
+  imports: [TitleCasePipe],
   templateUrl: './dropdown-component.html',
   styleUrl: './dropdown-component.scss',
 })

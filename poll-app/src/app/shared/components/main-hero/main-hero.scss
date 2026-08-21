@@ -59,10 +59,10 @@
 
 .btn {
   &__primary {
-    background-color: $main-btn-bg;
-
+    background-color: $secondary-orange;
+    height: 48px;
     font-weight: 700;
-    padding: 16px 12px;
+    padding: 0 16px;
     border-radius: 10px;
     @include flex-center;
     gap: 10px;
@@ -71,17 +71,20 @@
       color 200ms ease-in-out;
 
     &--icon {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       fill: $primary-black;
     }
   }
 }
 
-//* Responsiv
+.icon__check {
+  display: none;
+}
 @include respond-to(lg) {
   .btn {
     &__primary {
+      background-color: $main-btn-bg;
       &--icon {
         width: 0;
         height: 0;
@@ -97,6 +100,15 @@
           width: 24px;
           height: 24px;
           visibility: visible;
+        }
+      }
+      &:active {
+        .icon__check {
+          display: inline;
+        }
+
+        .icon__add {
+          display: none;
         }
       }
     }

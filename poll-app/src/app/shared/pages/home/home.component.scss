@@ -1,6 +1,11 @@
 @use '../../../../styles/abstracts' as *;
 
 .grid {
+  display: grid;
+  min-height: 100dvh;
+  margin: 40px 15px;
+  max-width: $max-dp-width;
+
   &__index {
     grid-template-rows: 100px auto auto auto;
     @include respond-to(lg) {

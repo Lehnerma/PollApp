@@ -13,6 +13,22 @@
   gap: 24px;
 }
 
+.btn {
+  &__filter {
+    background-color: $filter-btn-bg;
+    padding: 2px 10px;
+    border-radius: 10px;
+
+    &:hover:not(.active) {
+      background-color: $filter-btn-bg-hover;
+    }
+
+    &:active:not(.active) {
+      background-color: $filter-btn-bg-active;
+    }
+  }
+}
+
 .active {
   background-color: $filter-btn-bg-active;
 }

@@ -56,3 +56,49 @@
       'btn img';
   }
 }
+
+.btn {
+  &__primary {
+    background-color: $main-btn-bg;
+
+    font-weight: 700;
+    padding: 16px 12px;
+    border-radius: 10px;
+    @include flex-center;
+    gap: 10px;
+    transition:
+      background-color 200ms ease-in-out,
+      color 200ms ease-in-out;
+
+    &--icon {
+      width: 24px;
+      height: 24px;
+      fill: $primary-black;
+    }
+  }
+}
+
+//* Responsiv
+@include respond-to(lg) {
+  .btn {
+    &__primary {
+      &--icon {
+        width: 0;
+        height: 0;
+        visibility: hidden;
+        transition:
+          width $animation-time ease-in-out,
+          width $animation-time ease-in-out;
+      }
+
+      &:hover {
+        background-color: $main-btn-bg-hover;
+        .btn__primary--icon {
+          width: 24px;
+          height: 24px;
+          visibility: visible;
+        }
+      }
+    }
+  }
+}

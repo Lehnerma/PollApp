@@ -1,8 +1,1 @@
 @use '../abstracts' as *;
-
-.grid {
-  display: grid;
-  min-height: 100dvh;
-  margin: 40px 15px;
-  max-width: $max-dp-width;
-}

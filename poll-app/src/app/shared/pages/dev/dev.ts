@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { SurveyCard } from '../../components/survey-card/survey-card';
+import { Status } from '../../components/status/status';
 
 @Component({
   selector: 'app-dev',
-  imports: [SurveyCard],
+  imports: [Status],
   templateUrl: './dev.html',
   styleUrl: './dev.scss',
 })

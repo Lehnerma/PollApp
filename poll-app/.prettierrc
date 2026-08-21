@@ -1,6 +1,5 @@
-
 {
-  "printWidth": 200,
+  "printWidth": 130,
   "singleQuote": true,
   "overrides": [
     {

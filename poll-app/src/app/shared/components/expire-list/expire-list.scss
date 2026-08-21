@@ -1,8 +1,6 @@
 @use '../../../../styles/abstracts' as *;
 
 .expire {
-  max-width: $lg-dp-width;
-
   &__list {
     --card-bg: #{$expire-card-bg};
     --card-bg-hover: #{$expire-card-bg-hover};
@@ -12,24 +10,32 @@
     --card-category-color: #{$primary-purple};
     --card-date-bg: #{$primary-orange};
     --card-date-bg-hover: #{$secondary-orange};
+
+    &--container{
+        align-self: flex-start;
+    }
   }
 
   &__container {
     @include flex-center(column);
     margin-top: 80px;
+    max-width: $lg-dp-width;
   }
-}
 
-.title {
+  &__title {
   font-size: clamp(rem(54), 10vw, rem(72));
   color: $secondary-orange;
   font-weight: 400;
   text-align: center;
 }
 
-.subtitle {
-  font-size: clamp(rem(24), 5vw, rem(32));
-  font-weight: 500;
-  color: white;
-  font-weight: 400;
+
+  &__subtitle {
+    font-size: clamp(rem(24), 5vw, rem(32));
+    font-weight: 500;
+    color: white;
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
 }
+

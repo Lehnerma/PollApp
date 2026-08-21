@@ -5,7 +5,6 @@
 .card {
   &__container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(max(260px, (100% - 1rem) / 2), 1fr));
     gap: 16px;
   }
 
@@ -65,4 +64,20 @@
     padding: 3px 6px;
     border-top-right-radius: 14px;
   }
+}
+
+.row {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 80vw;
+  .card {
+    min-width: 250px;
+    flex: 1 1 250px;
+    height: clamp(233px, 15vw, 310px);
+  }
+}
+
+.column {
+  grid-template-columns: repeat(auto-fit, minmax(max(260px, (100% - 1rem) / 2), 1fr));
 }

@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, input } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-question-editor',
@@ -8,6 +8,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Va
   styleUrl: './question-editor.scss',
 })
 export class QuestionEditor {
+  questionNumber = input<number>(1);
   fb = inject(FormBuilder);
   form = this.fb.group({
     question: ['', Validators.required],
@@ -40,7 +41,7 @@ export class QuestionEditor {
    */
   addNewOption(): void {
     if (this.options.controls.length <= 5) {
-      this.options.push(this.createOption())
+      this.options.push(this.createOption());
     }
     console.log(this.options.controls);
   }
@@ -58,8 +59,8 @@ export class QuestionEditor {
   /**
    * test
    */
-  onSubmit():void{
-    const values = this.form.value
+  onSubmit(): void {
+    const values = this.form.value;
     console.log(values);
   }
 }

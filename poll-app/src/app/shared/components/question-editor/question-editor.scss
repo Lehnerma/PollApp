@@ -1,0 +1,87 @@
+@use '../../../../styles/abstracts' as *;
+
+.question,
+.option {
+  border: none;
+  display: grid;
+  grid-template-rows: 24px 37px; //todo for desktop change to 1 rowlayout height 37px
+  align-items: center;
+  gap: 8px;
+}
+
+.options {
+  border: none;
+}
+
+.option {
+  gap: 4px;
+  &__label {
+    font-family: $f-txt;
+    font-size: 18px; //todo desktop value
+    font-weight: 700;
+    color: $primary-white;
+    padding: 4px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border: solid 3px red;
+
+  &__label {
+    font-family: $f-txt;
+    font-size: 18px; //todo desktop value
+    font-weight: 700;
+    color: $primary-white;
+    padding: 8px;
+  }
+
+  &__input {
+    grid-column: span 2;
+    font-family: $f-txt;
+    font-size: rem(16);
+    font-weight: 400;
+    color: $primary-purple;
+    height: rem(37);
+    padding-left: 13px;
+    border-radius: 5px 20px 5px 5px;
+    border: none;
+
+    &:focus {
+      background-color: $light-orange;
+      border: none;
+      outline: none;
+    }
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.btn {
+  &__bin {
+    margin-right: 16px;
+    padding: 4px;
+    @include flex-center;
+    justify-self: end;
+    border-radius: 3px;
+
+    &--icon {
+      width: 18px;
+      height: 20px;
+      fill: white;
+    }
+
+    &:hover {
+      background-color: $primary-orange;
+      .btn__bin--icon {
+        fill: $primary-purple;
+      }
+    }
+  }
+}

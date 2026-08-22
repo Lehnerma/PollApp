@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { QuestionEditor } from '../../components/question-editor/question-editor';
 
-
 @Component({
   selector: 'app-dev',
   imports: [QuestionEditor],

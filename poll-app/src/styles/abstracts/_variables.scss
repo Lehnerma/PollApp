@@ -11,6 +11,7 @@ $light-orange: rgba(254, 233, 212);
 $light-purple: rgba($secondary-purple, 0.08);
 $light-purple-hover: rgba($secondary-purple, 0.16);
 
+$grey-bg-light: rgba(250, 245, 254, 0.2);
 $main-btn-bg: $primary-orange;
 $main-btn-bg-hover: $secondary-orange;
 $main-btn-font: $primary-black;
@@ -59,4 +60,4 @@ $z-index-modal: 1050;
 $z-index-toast: 1100;
 
 //animation time
-$animation-time: 350ms;
+$animation-time: 250ms;

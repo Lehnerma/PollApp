@@ -1,0 +1,193 @@
+@use '../../../../styles/abstracts' as *;
+
+.question,
+.option {
+  border: none;
+  display: grid;
+  grid-template-rows: 24px 37px; //todo for desktop change to 1 rowlayout height 37px
+  align-items: center;
+  gap: 8px;
+}
+
+.options {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.option {
+  gap: 4px;
+  &__label {
+    font-family: $f-txt;
+    font-size: 18px;
+    font-weight: 700;
+    color: $primary-white;
+    padding: 4px;
+  }
+}
+
+.form {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border: solid 3px red;
+
+  &__label {
+    font-family: $f-txt;
+    font-size: rem(18px);
+    font-weight: 700;
+    color: $primary-white;
+    padding: 8px;
+  }
+
+  &__input {
+    grid-column: span 2;
+    font-family: $f-txt;
+    font-size: rem(16);
+    font-weight: 400;
+    color: $primary-purple;
+    height: rem(37);
+    padding-left: 13px;
+    border-radius: 5px 20px 5px 5px;
+    border: none;
+
+    &:focus {
+      background-color: $light-orange;
+      border: none;
+      outline: none;
+    }
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.checkbox {
+  cursor: pointer;
+  opacity: 0;
+
+  &__container {
+    position: relative;
+  }
+
+  &__label {
+    font-size: rem(14);
+    font-weight: 400;
+  }
+
+  &__checkmark {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    border: solid 1.5px white;
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    @include flex-center;
+
+    &:hover {
+      background-color: $secondary-btn-bg-hover;
+      border-color: $primary-white;
+    }
+
+    &--check {
+      width: 10px;
+      height: 8px;
+      fill: $primary-purple;
+      opacity: 0;
+    }
+  }
+
+  &:checked + .checkbox__label {
+    .checkbox__checkmark {
+      background-color: $secondary-orange;
+      border-color: $secondary-orange;
+    }
+    .checkbox__checkmark--check {
+      background-color: $secondary-orange;
+      opacity: 1;
+    }
+  }
+}
+
+.btn {
+  &__bin {
+    margin-right: 16px;
+    padding: 4px;
+    @include flex-center;
+    justify-self: end;
+    border-radius: 3px;
+
+    &--icon {
+      width: 18px;
+      height: 20px;
+      fill: white;
+    }
+
+    &:hover {
+      background-color: $primary-orange;
+      .btn__bin--icon {
+        fill: $primary-purple;
+      }
+    }
+  }
+
+  &__addOption {
+    align-self: flex-start;
+    font-family: $f-txt-btn;
+    font-size: rem(16);
+    font-weight: 700;
+    color: $primary-white;
+
+    padding: 8px 12px;
+
+    &--container {
+      @include flex-center;
+      gap: 4px;
+      border-bottom: solid 1px $primary-white;
+    }
+
+    &--icon {
+      width: 16px;
+      aspect-ratio: 1/1;
+      fill: $primary-white;
+    }
+    &:hover {
+      background-color: $grey-bg-light;
+    }
+  }
+
+  &__addQuestion {
+    background-color: $secondary-btn-bg;
+    border-radius: 10px;
+    @include animation(background-color);
+
+    &:hover {
+      background-color: $secondary-btn-bg-hover;
+    }
+
+    &--contianer {
+      @include flex-center;
+      gap: 4px;
+    }
+
+    &--icon {
+      width: 16px;
+      aspect-ratio: 1/1;
+      fill: $primary-white;
+    }
+  }
+}

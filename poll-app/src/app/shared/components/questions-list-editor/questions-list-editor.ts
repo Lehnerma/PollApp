@@ -21,14 +21,21 @@ export class QuestionsListEditor {
       question: ['', Validators.required],
       multipleOptions: ['false'],
       options: this.fb.array([
-        this.createOption(),//
-        this.createOption()
+        this.createOption(), //
+        this.createOption(),
       ]),
     });
   }
 
 
-    /**
+  /**
+   * add
+   */
+  addNewQuestion(): void {
+    this.questions.push(this.createQuestion());
+  }
+
+  /**
    * Creats a new option input for the question
    * @returns a new formgroup input element for a option
    */
@@ -37,6 +44,4 @@ export class QuestionsListEditor {
       text: ['', Validators.required],
     });
   }
-
-  
 }

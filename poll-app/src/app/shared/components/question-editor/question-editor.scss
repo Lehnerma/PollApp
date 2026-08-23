@@ -11,13 +11,16 @@
 
 .options {
   border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .option {
   gap: 4px;
   &__label {
     font-family: $f-txt;
-    font-size: 18px; //todo desktop value
+    font-size: 18px;
     font-weight: 700;
     color: $primary-white;
     padding: 4px;
@@ -32,7 +35,7 @@
 
   &__label {
     font-family: $f-txt;
-    font-size: 18px; //todo desktop value
+    font-size: rem(18px);
     font-weight: 700;
     color: $primary-white;
     padding: 8px;
@@ -86,13 +89,43 @@
   }
 
   &__addOption {
+    align-self: flex-start;
     font-family: $f-txt-btn;
     font-size: rem(16);
     font-weight: 700;
     color: $primary-white;
-    @include flex-center;
-    gap: 4px;
-    border-bottom: solid 1px $primary-white;
+
+    padding: 8px 12px;
+
+    &--container {
+      @include flex-center;
+      gap: 4px;
+      border-bottom: solid 1px $primary-white;
+    }
+
+    &--icon {
+      width: 16px;
+      aspect-ratio: 1/1;
+      fill: $primary-white;
+    }
+    &:hover {
+      background-color: $grey-bg-light;
+    }
+  }
+
+  &__addQuestion {
+    background-color: $secondary-btn-bg;
+    border-radius: 10px;
+    @include animation(background-color);
+
+    &:hover {
+      background-color: $secondary-btn-bg-hover;
+    }
+
+    &--contianer {
+      @include flex-center;
+      gap: 4px;
+    }
 
     &--icon {
       width: 16px;

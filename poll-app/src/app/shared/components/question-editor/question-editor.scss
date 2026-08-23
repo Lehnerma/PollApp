@@ -38,7 +38,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  border: solid 3px red;
 
   &__label {
     font-family: $f-txt;
@@ -145,7 +144,7 @@
     }
   }
 
-  &__addOption {
+  &__add {
     align-self: flex-start;
     font-family: $f-txt-btn;
     font-size: rem(16);

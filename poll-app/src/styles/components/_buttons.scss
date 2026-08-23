@@ -6,4 +6,15 @@
   border: none;
   font-family: $f-txt-btn;
   color: $primary-black;
+
+  &__add {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__add--icon {
+    width: 16px;
+    aspect-ratio: 1 / 1;
+  }
 }

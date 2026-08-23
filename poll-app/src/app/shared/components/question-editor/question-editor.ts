@@ -40,7 +40,16 @@ export class QuestionEditor {
     if (this.options.controls.length <= 5) {
       this.options.push(this.createOption());
     }
-    console.log(this.options.controls);
+  }
+
+  /**
+   * Deltes an Option if the array is over 2 options
+   * @param index The index of the options to delet the right one
+   */
+  deleteOption(index: number): void {
+    if (this.options.controls.length > 2) {
+      this.options.removeAt(index);
+    }
   }
 
   /**

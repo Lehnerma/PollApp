@@ -12,11 +12,8 @@ export class QuestionEditor {
   fb = inject(FormBuilder);
   form = this.fb.group({
     question: ['', Validators.required],
-    options: this.fb.array([
-      //todo add function to create fb.group
-      this.createOption(),
-      this.createOption(),
-    ]),
+    multipleOptions: ['false'],
+    options: this.fb.array([this.createOption(), this.createOption()]),
   });
 
   /**
@@ -54,13 +51,5 @@ export class QuestionEditor {
    */
   getLetterFromIndex(index: number): string {
     return String.fromCharCode(65 + index);
-  }
-
-  /**
-   * test
-   */
-  onSubmit(): void {
-    const values = this.form.value;
-    console.log(values);
   }
 }

@@ -84,4 +84,20 @@
       }
     }
   }
+
+  &__addOption {
+    font-family: $f-txt-btn;
+    font-size: rem(16);
+    font-weight: 700;
+    color: $primary-white;
+    @include flex-center;
+    gap: 4px;
+    border-bottom: solid 1px $primary-white;
+
+    &--icon {
+      width: 16px;
+      aspect-ratio: 1/1;
+      fill: $primary-white;
+    }
+  }
 }

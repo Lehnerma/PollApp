@@ -1,11 +1,11 @@
 <ul class="question-list">
   <!-- add for statement -->
-  <li class="question-list__item">
-    <app-question-editor></app-question-editor>
-  </li>
-  <li class="question-list__item">
-    <app-question-editor></app-question-editor>
-  </li>
+
+  @for (question of questions.controls; track question; let index = $index) {
+    <li class="question-list__item">
+      <app-question-editor [questionForm]="question" [questionNumber]="$index + 1"></app-question-editor>
+    </li>
+  }
 </ul>
 <button class="btn btn__add">
   Add next question

@@ -8,13 +8,11 @@ import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } fr
   styleUrl: './question-editor.scss',
 })
 export class QuestionEditor {
+  
   questionNumber = input<number>(1);
+
   fb = inject(FormBuilder);
-  form = this.fb.group({
-    question: ['', Validators.required],
-    multipleOptions: ['false'],
-    options: this.fb.array([this.createOption(), this.createOption()]),
-  });
+  questionForm = input.required<FormGroup>();
 
   /**
    * Creats a new option input for the question
@@ -30,7 +28,7 @@ export class QuestionEditor {
    * returns the Form control array for options
    */
   get options(): FormArray {
-    return this.form.controls.options;
+    return this.questionForm().controls['options'] as FormArray;
   }
 
   /**

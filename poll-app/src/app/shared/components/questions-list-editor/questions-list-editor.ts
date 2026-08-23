@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { QuestionEditor } from '../question-editor/question-editor';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-questions-list-editor',
@@ -8,7 +9,34 @@ import { QuestionEditor } from '../question-editor/question-editor';
   styleUrl: './questions-list-editor.scss',
 })
 export class QuestionsListEditor {
-  // addquestion
-  //delete question > 1
-  //reset question
+  fb = inject(FormBuilder);
+  questions = this.fb.array([this.createQuestion()]);
+
+  /**
+   *
+   * @returns
+   */
+  createQuestion(): FormGroup {
+    return this.fb.group({
+      question: ['', Validators.required],
+      multipleOptions: ['false'],
+      options: this.fb.array([
+        this.createOption(),//
+        this.createOption()
+      ]),
+    });
+  }
+
+
+    /**
+   * Creats a new option input for the question
+   * @returns a new formgroup input element for a option
+   */
+  createOption(): FormGroup {
+    return this.fb.group({
+      text: ['', Validators.required],
+    });
+  }
+
+  
 }

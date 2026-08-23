@@ -4,7 +4,7 @@
 .option {
   border: none;
   display: grid;
-  grid-template-rows: 24px 37px; //todo for desktop change to 1 rowlayout height 37px
+  grid-template-rows: 24px 37px;
   align-items: center;
   gap: 8px;
 }
@@ -24,6 +24,25 @@
 
 .option {
   gap: 4px;
+
+  @include respond-to(md) {
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 37px;
+    grid-template-areas: 'name input bin';
+
+    > .option__label {
+      grid-area: name;
+    }
+
+    > .form__input {
+      grid-area: input;
+    }
+
+    > .btn__bin {
+      grid-area: bin;
+    }
+  }
+
   &__label {
     font-family: $f-txt;
     font-size: 18px;

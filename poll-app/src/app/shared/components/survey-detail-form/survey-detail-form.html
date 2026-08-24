@@ -1,7 +1,6 @@
 <form class="form">
   <!-- col 1 on desktop -->
   <fieldset class="form__fieldset detail__main">
-
     <section class="form__fieldset--heading detail__name">
       <label class="form__label" for="detail_name">Survey name</label>
       <button type="button" class="btn btn__bin">
@@ -15,7 +14,7 @@
     </section>
 
     <app-dropdown-component
-      class="form__dropdown detail__dropdown"
+      class="form__dropdown detail__category"
       [title]="'Choose category'"
       [categories]="list"
     ></app-dropdown-component>
@@ -31,7 +30,6 @@
       </button>
       <input class="form__input detail_date" type="date" name="end of Survey" id="survey_end_date" />
     </section>
-
   </fieldset>
 
   <!-- col 2 on desktop -->
@@ -44,7 +42,7 @@
         />
       </svg>
     </button>
-    <!-- <textarea class="form__input form__input--txtarea" name="description" id="survey_description"></textarea> -->
-    <input class="form__input" type="text" id="survey_description" />
+    <!-- <input class="form__input form__input--desc" type="text" id="survey_description" /> -->
+    <textarea class="form__input form__input--desc" name="description" id="survey_description"></textarea>
   </fieldset>
 </form>

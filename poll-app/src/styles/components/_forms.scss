@@ -1,1 +1,72 @@
 @use '../abstracts' as *;
+
+.form {
+  max-width: $lg-dp-width;
+  &__fieldset {
+    border: none;
+
+    &--main {
+      border: none;
+      display: grid;
+      grid-template-rows: 24px 37px;
+      align-items: center;
+      gap: 8px;
+    }
+
+    &--heading {
+      border: none;
+      display: grid;
+      grid-template-rows: 24px 37px;
+      align-items: center;
+      gap: 4px;
+      grid-template-areas:
+        'name bin'
+        'input input';
+
+      @include respond-to(sm) {
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+          'name name'
+          'input bin';
+
+        > .form__label {
+          grid-area: name;
+        }
+        > .form__input {
+          grid-area: input;
+        }
+        > .btn__bin {
+          grid-area: bin;
+        }
+      }
+    }
+  }
+
+  &__label {
+    font-family: $f-txt;
+    font-size: rem(18);
+    font-weight: 700;
+    color: $primary-white;
+  }
+
+  &__input {
+    grid-column: span 2;
+    font-family: $f-txt;
+    font-size: rem(16);
+    font-weight: 400;
+    color: $primary-purple;
+
+    // padding: 7px 13px 10px 13px;
+
+    padding: 10px 13px;
+    border-radius: 5px 20px 5px 5px;
+    border: none;
+
+    &:focus {
+      background-color: $light-orange;
+      border: none;
+      outline: none;
+    }
+  }
+}

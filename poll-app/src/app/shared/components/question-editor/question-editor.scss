@@ -25,7 +25,7 @@
 .option {
   gap: 4px;
 
-  @include respond-to(md) {
+  @include respond-to(sm) {
     grid-template-columns: auto 1fr auto;
     grid-template-rows: 37px;
     grid-template-areas: 'name input bin';
@@ -44,11 +44,7 @@
   }
 
   &__label {
-    font-family: $f-txt;
-    font-size: 18px;
-    font-weight: 700;
-    color: $primary-white;
-    padding: 4px;
+    --label-padding: 4px;
   }
 }
 
@@ -57,32 +53,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-
-  &__label {
-    font-family: $f-txt;
-    font-size: rem(18px);
-    font-weight: 700;
-    color: $primary-white;
-    padding: 8px;
-  }
-
-  &__input {
-    grid-column: span 2;
-    font-family: $f-txt;
-    font-size: rem(16);
-    font-weight: 400;
-    color: $primary-purple;
-    height: rem(37);
-    padding-left: 13px;
-    border-radius: 5px 20px 5px 5px;
-    border: none;
-
-    &:focus {
-      background-color: $light-orange;
-      border: none;
-      outline: none;
-    }
-  }
 
   &__options {
     display: flex;
@@ -142,27 +112,6 @@
 }
 
 .btn {
-  &__bin {
-    margin-right: 16px;
-    padding: 4px;
-    @include flex-center;
-    justify-self: end;
-    border-radius: 3px;
-
-    &--icon {
-      width: 18px;
-      height: 20px;
-      fill: white;
-    }
-
-    &:hover {
-      background-color: $primary-orange;
-      .btn__bin--icon {
-        fill: $primary-purple;
-      }
-    }
-  }
-
   &__add {
     align-self: flex-start;
     font-family: $f-txt-btn;

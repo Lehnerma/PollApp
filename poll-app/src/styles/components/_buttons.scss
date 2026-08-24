@@ -4,17 +4,37 @@
   cursor: pointer;
   background-color: transparent;
   border: none;
-  font-family: $f-txt-btn;
   color: $primary-black;
 
   &__add {
     display: flex;
     align-items: center;
     gap: 4px;
+
+    &--icon {
+      width: 16px;
+      aspect-ratio: 1 / 1;
+    }
   }
 
-  &__add--icon {
-    width: 16px;
-    aspect-ratio: 1 / 1;
+  &__bin {
+    margin-right: 16px;
+    padding: 4px;
+    @include flex-center;
+    justify-self: end;
+    border-radius: 3px;
+
+    &--icon {
+      width: 18px;
+      height: 20px;
+      fill: white;
+    }
+
+    &:hover {
+      background-color: $primary-orange;
+      .btn__bin--icon {
+        fill: $primary-purple;
+      }
+    }
   }
 }

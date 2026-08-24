@@ -25,7 +25,7 @@
 .option {
   gap: 4px;
 
-  @include respond-to(md) {
+  @include respond-to(sm) {
     grid-template-columns: auto 1fr auto;
     grid-template-rows: 37px;
     grid-template-areas: 'name input bin';
@@ -44,11 +44,7 @@
   }
 
   &__label {
-    font-family: $f-txt;
-    font-size: 18px;
-    font-weight: 700;
-    color: $primary-white;
-    padding: 4px;
+    --label-padding: 4px;
   }
 }
 

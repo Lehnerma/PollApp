@@ -3,7 +3,8 @@
 .dropdown {
   position: relative;
   font-family: $f-txt;
-
+  width: fit-content;
+  max-width: 200px;
   &__btn {
     color: white;
     display: flex;
@@ -13,7 +14,7 @@
     font-size: rem(18);
     font-weight: 700;
     border-radius: 6px;
-    width: 100%;
+
     &:hover {
       background-color: $light-purple-hover;
       @include animation(background-color);

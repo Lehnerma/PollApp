@@ -33,7 +33,7 @@
     <article class="form__options" formArrayName="options">
       @for (item of options.controls; track item; let index = $index) {
         <section class="option" [formGroupName]="$index">
-          <label class="option__label" for="option-{{ getLetterFromIndex($index) }}">{{ getLetterFromIndex($index) }}.</label>
+          <label class="form__label option__label" for="option-{{ getLetterFromIndex($index) }}">{{ getLetterFromIndex($index) }}.</label>
           <button type="button" class="btn btn__bin" (click)="deleteOption($index)">
             <svg class="btn__bin--icon" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path

@@ -27,7 +27,6 @@ export class QuestionsListEditor {
     });
   }
 
-
   /**
    * add
    */

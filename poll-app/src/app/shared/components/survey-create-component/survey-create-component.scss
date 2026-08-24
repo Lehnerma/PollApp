@@ -1,0 +1,11 @@
+@use '../../../../styles/abstracts' as *;
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap:  clamp(48px, 7vw, 64px);
+    padding: 40px 10px;
+    background-color: $survey-purple;
+    border-radius: 5px;
+    border-top-right-radius: 80px;
+}

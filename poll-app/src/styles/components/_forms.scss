@@ -1,1 +1,40 @@
 @use '../abstracts' as *;
+
+.form {
+
+  &__fieldset {
+    &--main {
+      border: none;
+      display: grid;
+      grid-template-rows: 24px 37px;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  &__label {
+    font-family: $f-txt;
+    font-size: rem(18px);
+    font-weight: 700;
+    color: $primary-white;
+    padding: 8px;
+  }
+
+  &__input {
+    grid-column: span 2;
+    font-family: $f-txt;
+    font-size: rem(16);
+    font-weight: 400;
+    color: $primary-purple;
+    height: rem(37);
+    padding-left: 13px;
+    border-radius: 5px 20px 5px 5px;
+    border: none;
+
+    &:focus {
+      background-color: $light-orange;
+      border: none;
+      outline: none;
+    }
+  }
+}

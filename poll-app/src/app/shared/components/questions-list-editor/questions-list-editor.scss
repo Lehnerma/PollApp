@@ -1,0 +1,39 @@
+@use '../../../../styles/abstracts' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.question-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(290px, (100% - 101px) / 2), 1fr));
+  row-gap: 40px;
+  column-gap: clamp(30px, 15vw, 100px);
+  width: 100%;
+  max-width: $lg-dp-width;
+}
+
+.btn {
+  align-self: center;
+  @include respond-to(md) {
+    align-self: flex-start;
+  }
+  &__add {
+    font-size: rem(16);
+    color: $primary-white;
+    font-weight: 700;
+    padding: 10px 12px;
+    background-color: $secondary-btn-bg;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: $secondary-btn-bg-hover;
+    }
+    &--icon {
+      fill: $primary-white;
+      width: 20px;
+    }
+  }
+}

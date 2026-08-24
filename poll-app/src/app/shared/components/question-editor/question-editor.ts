@@ -10,15 +10,12 @@ import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } fr
 export class QuestionEditor {
   questionNumber = input<number>(1);
   fb = inject(FormBuilder);
-  form = this.fb.group({
-    question: ['', Validators.required],
-    multipleOptions: ['false'],
-    options: this.fb.array([this.createOption(), this.createOption()]),
-  });
+  questionForm = input.required<FormGroup>();
 
   /**
-   * Creats a new option input for the question
-   * @returns a new formgroup input element for a option
+   * Creates a new form group for a single answer option.
+   *
+   * @returns A new option form group with a required text control.
    */
   createOption(): FormGroup {
     return this.fb.group({
@@ -27,14 +24,18 @@ export class QuestionEditor {
   }
 
   /**
-   * returns the Form control array for options
+   * Returns the FormArray containing all answer options for the current question.
+   *
+   * @returns The options form array.
    */
   get options(): FormArray {
-    return this.form.controls.options;
+    return this.questionForm().controls['options'] as FormArray;
   }
 
   /**
-   * Adds a new Option to the Questioin
+   * Adds a new answer option to the current question.
+   *
+   * The maximum number of options is limited to 6.
    */
   addNewOption(): void {
     if (this.options.controls.length <= 5) {
@@ -43,8 +44,9 @@ export class QuestionEditor {
   }
 
   /**
-   * Deltes an Option if the array is over 2 options
-   * @param index The index of the options to delet the right one
+   * Removes an answer option from the current question if more than two options exist.
+   *
+   * @param index The index of the option to remove.
    */
   deleteOption(index: number): void {
     if (this.options.controls.length > 2) {
@@ -53,10 +55,10 @@ export class QuestionEditor {
   }
 
   /**
-   * Returns the answer option letter for the specified index.
+   * Returns the uppercase letter for the given option index.
    *
    * @param index The zero-based option index.
-   * @returns The corresponding uppercase letter.
+   * @returns The corresponding uppercase letter (A, B, C, ...).
    */
   getLetterFromIndex(index: number): string {
     return String.fromCharCode(65 + index);

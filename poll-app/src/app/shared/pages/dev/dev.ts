@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { QuestionEditor } from '../../components/question-editor/question-editor';
+import { QuestionsListEditor } from '../../components/questions-list-editor/questions-list-editor';
 
 @Component({
   selector: 'app-dev',
-  imports: [QuestionEditor],
+  imports: [QuestionsListEditor],
   templateUrl: './dev.html',
   styleUrl: './dev.scss',
 })

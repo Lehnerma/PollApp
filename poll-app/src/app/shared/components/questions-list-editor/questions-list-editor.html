@@ -1,12 +1,12 @@
 <ul class="question-list">
   <!-- add for statement -->
 
-  @for (question of questions.controls; track question; let index = $index) {
+  @for (question of questions().controls; track question; let index = $index) {
     <li class="question-list__item">
       <app-question-editor [questionForm]="question" [questionNumber]="$index + 1"></app-question-editor>
     </li>
   }
-  <button class="btn btn__add content-width" type="button" (click)="addNewQuestion()">
+  <button class="btn btn__add content-width" type="button">
     Add next question
     <svg class="btn__add--icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
       <path

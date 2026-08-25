@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
 import { QuestionEditor } from '../question-editor/question-editor';
-import { FormArray } from '@angular/forms';
+import { QuestionForm } from '../../interfaces/question-form';
+import { FormArray, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-questions-list-editor',
@@ -9,5 +10,5 @@ import { FormArray } from '@angular/forms';
   styleUrl: './questions-list-editor.scss',
 })
 export class QuestionsListEditor {
-  questions = input.required<FormArray>();
+  questions = input.required<FormArray<FormGroup<QuestionForm>>>();
 }

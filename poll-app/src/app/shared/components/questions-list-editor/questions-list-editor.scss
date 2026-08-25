@@ -9,7 +9,6 @@
 .question-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(max(290px, (100% - 101px) / 2), 1fr));
-  // grid-template-columns: 1fr 1fr;
   row-gap: 40px;
   column-gap: clamp(30px, 15vw, 100px);
   width: 100%;

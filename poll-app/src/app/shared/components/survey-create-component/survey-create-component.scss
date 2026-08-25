@@ -1,11 +1,26 @@
 @use '../../../../styles/abstracts' as *;
 
-.form{
+.form {
+display: flex;
+flex-direction: column;
+gap: 48px;
+
+  &__container {
     display: flex;
     flex-direction: column;
-    gap:  clamp(48px, 7vw, 64px);
+    gap: clamp(48px, 7vw, 64px);
     padding: 40px 10px;
     background-color: $survey-purple;
     border-radius: 5px;
     border-top-right-radius: 80px;
+  }
+}
+
+.btn {
+  &__primary {
+    align-self: center;
+    @include respond-to(md) {
+      align-self: end;
+    }
+  }
 }

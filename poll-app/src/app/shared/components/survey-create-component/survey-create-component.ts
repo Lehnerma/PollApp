@@ -4,10 +4,7 @@ import { SurveyDetailForm } from '../survey-detail-form/survey-detail-form';
 
 @Component({
   selector: 'survey-create-component',
-  imports: [
-    QuestionsListEditor,
-    SurveyDetailForm
-  ],
+  imports: [QuestionsListEditor, SurveyDetailForm],
   templateUrl: './survey-create-component.html',
   styleUrl: './survey-create-component.scss',
 })

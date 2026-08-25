@@ -1,58 +1,51 @@
 import { Component, inject } from '@angular/core';
-import { SurveyDetailForm } from '../survey-detail-form/survey-detail-form';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
-import { QuestionForm } from '../../interfaces/question-form';
+import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
+import { DropdownComponent } from '../dropdown-component/dropdown-component';
 
 @Component({
   selector: 'survey-create-component',
-  imports: [SurveyDetailForm, ɵInternalFormsSharedModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule, DropdownComponent],
   templateUrl: './survey-create-component.html',
   styleUrl: './survey-create-component.scss',
 })
 export class SurveyCreateComponent {
-  //surveyDetail: name, category, endDate, describing
-  //questions: name, multiplequestion, position, survey-id
-  //options: array[option1,option2,...], question-id, vote-count
-
   fb = inject(FormBuilder);
+  categories = ['Banana', 'apple', 'coconut', 'pear'];
 
-  surveyForm = this.fb.group({
-    details: this.createDetails(),
-    questions: this.fb.array([this.createQuestion()]),
+  surveyForm = new FormGroup({
+    details: this.createDetailsForm(),
+    questions: this.fb.array([this.createQuestionForm()]),
+    options: this.fb.array([this.createOptionForm(), this.createOptionForm()]),
   });
 
   /**
-   * Returns the FormGroup for the Details in the Survey-detail-form file
-   * @returns FormGroup of the controlls.
+   * Creates the form group for the details of the servey
    */
-  createDetails(): FormGroup {
+  createDetailsForm(): FormGroup {
     return this.fb.nonNullable.group({
       name: ['', Validators.required],
       category: ['', Validators.required],
       endDate: [''],
-      description: [''],
+      description: ['', Validators.maxLength(300)],
     });
   }
 
   /**
-   *Return the FormGroup for the questions
-   * @returns FormGroup of question and options in an array. in these array we can push more options.
+   * Creates the form group for a question
    */
-  createQuestion(): FormGroup<QuestionForm> {
+  createQuestionForm(): FormGroup {
     return this.fb.nonNullable.group({
       name: ['', Validators.required],
-      multipleOptions: [false],
-      options: this.fb.array([this.createOption(), this.createOption()]),
+      multiple_options: [false],
     });
   }
 
   /**
-   * Creats a new option input for the question
-   * @returns a new formgroup input element for a option
+   * Creates the form group for a question option.
    */
-  createOption(): FormGroup {
+  createOptionForm(): FormGroup {
     return this.fb.nonNullable.group({
-      text: ['', Validators.required],
+      name: ['', Validators.required],
     });
   }
 }

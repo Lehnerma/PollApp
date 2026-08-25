@@ -6,7 +6,7 @@
       <app-question-editor [questionForm]="question" [questionNumber]="$index + 1"></app-question-editor>
     </li>
   }
-  <button class="btn btn__add content-width" (click)="addNewQuestion()">
+  <button class="btn btn__add content-width" type="button" (click)="addNewQuestion()">
     Add next question
     <svg class="btn__add--icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
       <path

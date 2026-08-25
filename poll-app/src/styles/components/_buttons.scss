@@ -6,6 +6,12 @@
   border: none;
   color: $primary-black;
 
+  &__primary {
+    grid-area: btn;
+    justify-self: center;
+    font-size: rem(18);
+  }
+
   &__add {
     display: flex;
     align-items: center;

@@ -9,13 +9,13 @@
           />
         </svg>
       </button>
-      <input class="form__input" id="detail_name" type="text" />
+      <input class="form__input" id="detail_name" type="text" formControlName="name" />
     </section>
 
     <app-dropdown-component
       class="form__dropdown detail__category"
       [title]="'Choose category'"
-      [categories]="list"
+      [categories]="categories()"
     ></app-dropdown-component>
 
     <section class="form__fieldset--heading detail__date">
@@ -27,7 +27,7 @@
           />
         </svg>
       </button>
-      <input class="form__input detail_date" type="date" name="end of Survey" id="survey_end_date" />
+      <input class="form__input detail_date" type="date" name="end of Survey" id="survey_end_date" formControlName="endDate" />
     </section>
   </fieldset>
 
@@ -41,6 +41,6 @@
       </svg>
     </button>
     <!-- <input class="form__input form__input--desc" type="text" id="survey_description" /> -->
-    <textarea class="form__input form__input--desc" name="description" id="survey_description"></textarea>
+    <textarea class="form__input form__input--desc" name="description" id="survey_description" formControlName="description"></textarea>
   </fieldset>
 </article>

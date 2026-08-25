@@ -1,9 +1,9 @@
 @use '../../../../styles/abstracts' as *;
 
 .form {
-display: flex;
-flex-direction: column;
-gap: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
 
   &__container {
     display: flex;

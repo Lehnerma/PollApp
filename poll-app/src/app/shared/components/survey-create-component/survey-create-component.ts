@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { QuestionsListEditor } from '../questions-list-editor/questions-list-editor';
 import { SurveyDetailForm } from '../survey-detail-form/survey-detail-form';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
 import { QuestionForm } from '../../interfaces/question-form';
 
 @Component({
   selector: 'survey-create-component',
-  imports: [QuestionsListEditor, SurveyDetailForm, ɵInternalFormsSharedModule, ReactiveFormsModule],
+  imports: [SurveyDetailForm, ɵInternalFormsSharedModule, ReactiveFormsModule],
   templateUrl: './survey-create-component.html',
   styleUrl: './survey-create-component.scss',
 })

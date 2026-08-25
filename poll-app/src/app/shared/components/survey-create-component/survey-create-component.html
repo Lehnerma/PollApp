@@ -1,7 +1,7 @@
 <form class="form">
   <article class="form__container">
-    <survey-detail-form></survey-detail-form>
-    <app-questions-list-editor></app-questions-list-editor>
+    <survey-detail-form [detailForm]="surveyForm.controls.details"></survey-detail-form>
+    <app-questions-list-editor [questions]="surveyForm.controls.questions" ></app-questions-list-editor>
   </article>
 
   <!-- type="submit" -->

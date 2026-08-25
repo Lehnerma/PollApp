@@ -14,6 +14,127 @@
     border-radius: 5px;
     border-top-right-radius: 80px;
   }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.question-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(290px, (100% - 101px) / 2), 1fr));
+  row-gap: 40px;
+  column-gap: clamp(30px, 15vw, 100px);
+  width: 100%;
+  max-width: $lg-dp-width;
+}
+
+.question-form {
+  max-width: $lg-dp-width;
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.question,
+.option {
+  border: none;
+  display: grid;
+  grid-template-rows: 24px 37px;
+  align-items: center;
+  gap: 8px;
+}
+
+.options {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.option {
+  gap: 4px;
+
+  @include respond-to(sm) {
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 37px;
+    grid-template-areas: 'name input bin';
+
+    > .option__label {
+      grid-area: name;
+    }
+
+    > .form__input {
+      grid-area: input;
+    }
+
+    > .btn__bin {
+      grid-area: bin;
+    }
+  }
+
+  &__label {
+    --label-padding: 4px;
+  }
+}
+
+.checkbox {
+  cursor: pointer;
+  opacity: 0;
+
+  &__container {
+    position: relative;
+  }
+
+  &__label {
+    font-size: rem(14);
+    font-weight: 400;
+  }
+
+  &__checkmark {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    border: solid 1.5px white;
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    @include flex-center;
+
+    &:hover {
+      background-color: $secondary-btn-bg-hover;
+      border-color: $primary-white;
+    }
+
+    &--check {
+      width: 10px;
+      height: 8px;
+      fill: $primary-purple;
+      opacity: 0;
+    }
+  }
+
+  &:checked + .checkbox__label {
+    .checkbox__checkmark {
+      background-color: $secondary-orange;
+      border-color: $secondary-orange;
+    }
+    .checkbox__checkmark--check {
+      background-color: $secondary-orange;
+      opacity: 1;
+    }
+  }
 }
 
 .btn {
@@ -23,4 +144,54 @@
       align-self: end;
     }
   }
+
+  &__add {
+    align-self: flex-start;
+    font-family: $f-txt-btn;
+    font-size: rem(16);
+    font-weight: 700;
+    color: $primary-white;
+
+    padding: 8px 12px;
+
+    &--container {
+      @include flex-center;
+      gap: 4px;
+      border-bottom: solid 1px $primary-white;
+    }
+
+    &--icon {
+      width: 16px;
+      aspect-ratio: 1/1;
+      fill: $primary-white;
+    }
+    &:hover {
+      background-color: $grey-bg-light;
+    }
+  }
+
+  &__add-question {
+    align-self: center;
+    @include respond-to(md) {
+      align-self: flex-start;
+    }
+    font-size: rem(16);
+    color: $primary-white;
+    font-weight: 700;
+    padding: 10px 12px;
+    background-color: $secondary-btn-bg;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: $secondary-btn-bg-hover;
+    }
+    &--icon {
+      fill: $primary-white;
+      width: 20px;
+    }
+  }
+}
+
+.content-width {
+  width: fit-content;
 }

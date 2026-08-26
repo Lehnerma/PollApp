@@ -71,7 +71,7 @@
                   />
                 </svg>
               </button>
-              <input class="form__input" type="text" id="question" formControlName="questionName" />
+              <input class="form__input" type="text" id="question_{{index}}" formControlName="questionName" />
             </div>
 
             <fieldset class="form__fieldset options">
@@ -155,6 +155,7 @@
           </div>
         </li>
       }
+    <li>
       <button class="btn btn__add-question content-width" type="button" (click)="addQuestion()">
         Add next question
         <svg class="btn__add-question--icon" aria-hidden="true" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -163,6 +164,7 @@
           />
         </svg>
       </button>
+    </li>
     </ul>
   </div>
 

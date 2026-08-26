@@ -211,6 +211,9 @@
 
   &__add-question {
     align-self: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
     @include respond-to(md) {
       align-self: flex-start;
     }

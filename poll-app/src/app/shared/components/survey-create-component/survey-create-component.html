@@ -108,7 +108,7 @@
               <!-- ! Options -->
               <ul class="form__options" formArrayName="options">
                 @for (opt of getOptions(question).controls; track opt; let optionIndex = $index) {
-                  <li class="option" [formGroupName]="index">
+                  <li class="option" [formGroupName]="optionIndex">
                     <label class="form__label option__label" for="option-{{ getLetterFromIndex(optionIndex) }}"
                       >{{ getLetterFromIndex(optionIndex) }}.
                     </label>

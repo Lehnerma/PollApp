@@ -12,14 +12,9 @@ export class SurveyCreateComponent {
   fb = inject(FormBuilder);
   categories = ['Banana', 'apple', 'coconut', 'pear']; //todo festlegen der Categories
 
-  // constructor() {
-  //   console.log(this.surveyForm.controls.questions);
-  // }
-
   get questions(): FormGroup[] {
     return this.surveyForm.controls.questions.controls;
   }
-
 
   surveyForm = new FormGroup({
     details: this.createDetailsForm(),
@@ -58,8 +53,7 @@ export class SurveyCreateComponent {
     });
   }
 
-
-    /**
+  /**
    * Removes an answer option from the current question if more than two options exist.
    *
    * @param index The index of the option to remove.
@@ -70,7 +64,7 @@ export class SurveyCreateComponent {
   //   }
   // }
 
-    /**
+  /**
    * Returns the uppercase letter for the given option index.
    *
    * @param index The zero-based option index.

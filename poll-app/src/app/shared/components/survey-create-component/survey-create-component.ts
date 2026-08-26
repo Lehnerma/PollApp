@@ -12,7 +12,7 @@ import { DetailsForm } from '../../interfaces/details-form';
 })
 export class SurveyCreateComponent {
   fb = inject(FormBuilder);
-  categories = ['Banana', 'apple', 'coconut', 'pear']; //todo festlegen der Categories
+  categories = ['Banana', 'apple', 'coconut', 'pear']; //todo create the categories
 
   /**
    * Returns the question form groups of the survey form.
@@ -36,7 +36,7 @@ export class SurveyCreateComponent {
   });
 
   /**
-   * Creates the form group for the details of the servey
+   * Creates the form group for the details of the survey
    */
   createDetailsForm(): FormGroup<DetailsForm> {
     return this.fb.nonNullable.group({
@@ -69,7 +69,7 @@ export class SurveyCreateComponent {
 
   /**
    * add a new option to the question limit of 6
-   * @param question The Question form groupe
+   * @param question The Question form group
    */
   addOption(question: FormGroup<QuestionForm>): void {
     const curOpt = this.getOptions(question);
@@ -86,12 +86,27 @@ export class SurveyCreateComponent {
   /**
    * Removes an answer option from the current question if more than two options exist.
    *
+   * @param question The question form group.
    * @param index The index of the option to remove.
    */
   deleteOption(question: FormGroup<QuestionForm>, index: number): void {
     const curOpt = this.getOptions(question);
     if (curOpt.length <= 2) return;
     curOpt.removeAt(index);
+  }
+
+  /**
+   * Removes a question from the survey form, or resets it if it's the last question.
+   *
+   * @param index The index of the question to remove.
+   */
+  deleteQuestion(index: number): void {
+    if (this.questions.length === 1) {
+      // todo reset question input
+      console.log('reset the form');
+    } else {
+      this.surveyForm.controls.questions.removeAt(index);
+    }
   }
 
   /**

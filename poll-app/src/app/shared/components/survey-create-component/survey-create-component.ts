@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators, FormGroup, FormArray } from '@angular/forms';
 import { DropdownComponent } from '../dropdown-component/dropdown-component';
 
 @Component({
@@ -10,12 +10,20 @@ import { DropdownComponent } from '../dropdown-component/dropdown-component';
 })
 export class SurveyCreateComponent {
   fb = inject(FormBuilder);
-  categories = ['Banana', 'apple', 'coconut', 'pear'];
+  categories = ['Banana', 'apple', 'coconut', 'pear']; //todo festlegen der Categories
+
+  // constructor() {
+  //   console.log(this.surveyForm.controls.questions);
+  // }
+
+  get questions(): FormGroup[] {
+    return this.surveyForm.controls.questions.controls;
+  }
+
 
   surveyForm = new FormGroup({
     details: this.createDetailsForm(),
     questions: this.fb.array([this.createQuestionForm()]),
-    options: this.fb.array([this.createOptionForm(), this.createOptionForm()]),
   });
 
   /**
@@ -23,7 +31,7 @@ export class SurveyCreateComponent {
    */
   createDetailsForm(): FormGroup {
     return this.fb.nonNullable.group({
-      name: ['', Validators.required],
+      surveyName: ['', Validators.required],
       category: ['', Validators.required],
       endDate: [''],
       description: ['', Validators.maxLength(300)],
@@ -35,8 +43,9 @@ export class SurveyCreateComponent {
    */
   createQuestionForm(): FormGroup {
     return this.fb.nonNullable.group({
-      name: ['', Validators.required],
-      multiple_options: [false],
+      questionName: ['', Validators.required],
+      multipleOptions: [false],
+      options: this.fb.array([this.createOptionForm(), this.createOptionForm()]),
     });
   }
 
@@ -45,7 +54,29 @@ export class SurveyCreateComponent {
    */
   createOptionForm(): FormGroup {
     return this.fb.nonNullable.group({
-      name: ['', Validators.required],
+      text: ['', Validators.required],
     });
+  }
+
+
+    /**
+   * Removes an answer option from the current question if more than two options exist.
+   *
+   * @param index The index of the option to remove.
+   */
+  // deleteOption(index: number): void {
+  //   if (this.options.controls.length > 2) {
+  //     this.options.removeAt(index);
+  //   }
+  // }
+
+    /**
+   * Returns the uppercase letter for the given option index.
+   *
+   * @param index The zero-based option index.
+   * @returns The corresponding uppercase letter (A, B, C, ...).
+   */
+  getLetterFromIndex(index: number): string {
+    return String.fromCharCode(65 + index);
   }
 }

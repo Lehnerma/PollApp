@@ -76,6 +76,9 @@ export class SurveyCreateComponent {
     if (curOpt.length < 6) curOpt.push(this.createOptionForm());
   }
 
+  /**
+   * Adds a new question to the survey form.
+   */
   addQuestion():void {
     this.questions.push(this.createQuestionForm());
   }

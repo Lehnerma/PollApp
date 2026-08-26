@@ -1,7 +1,7 @@
 import { FormControl } from '@angular/forms';
 
 export interface DetailsForm {
-  name: FormControl<string>;
+  surveyName: FormControl<string>;
   category: FormControl<string>;
   endDate: FormControl<string>;
   description: FormControl<string>;

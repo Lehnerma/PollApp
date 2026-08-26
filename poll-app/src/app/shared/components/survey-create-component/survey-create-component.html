@@ -1,6 +1,6 @@
-<form class="form">
-  <article class="form__container">
-    <article class="form">
+<form class="form" [formGroup]="surveyForm">
+  <div class="form__container">
+    <article class="form" formGroupName="details">
       <fieldset class="form__fieldset detail__main">
         <section class="form__fieldset--heading detail__name">
           <label class="form__label" for="detail_name">Survey name</label>
@@ -11,7 +11,7 @@
               />
             </svg>
           </button>
-          <input class="form__input" id="detail_name" type="text" formControlName="name" />
+          <input class="form__input" id="detail_name" type="text" formControlName="surveyName" />
         </section>
 
         <app-dropdown-component
@@ -48,7 +48,6 @@
             />
           </svg>
         </button>
-        <!-- <input class="form__input form__input--desc" type="text" id="survey_description" /> -->
         <textarea
           class="form__input form__input--desc"
           name="description"
@@ -58,10 +57,11 @@
       </fieldset>
     </article>
 
-    <ul class="question-list">
-      @for (question of surveyForm.controls.questions.controls; track question; let index = $index) {
-        <li class="question-list__item">
-          <article class="question-form" [formGroup]="question">
+    <ul class="question-list" formArrayName="questions">
+      <!-- ! Question -->
+      @for (item of questions; track item; let index = $index) {
+        <li class="question-list__item" [formGroupName]="index">
+          <article class="question-form">
             <fieldset class="form__fieldset--main question">
               <label class="form__label" for="question">{{ index + 1 }}. Question</label>
               <button type="button" class="btn btn__bin">
@@ -71,7 +71,7 @@
                   />
                 </svg>
               </button>
-              <input class="form__input" type="text" id="question" formControlName="question" />
+              <input class="form__input" type="text" id="question" formControlName="questionName" />
             </fieldset>
 
             <fieldset class="form__fieldset options">
@@ -84,7 +84,7 @@
                     type="checkbox"
                     name="multiple answers"
                     id="multiple_answers"
-                    /* formControlName="multiple" */
+                    formControlName="multipleOptions"
                   />
                   <label class="form__label checkbox__label" for="multiple_answers">
                     <span class="checkbox__checkmark">
@@ -94,18 +94,19 @@
                         />
                       </svg>
                     </span>
-                    Allow multiple answers.</label
-                  >
+                    Allow multiple answers.
+                  </label>
                 </aside>
               </section>
-              <article class="form__options" formArrayName="options">
 
-                <!-- @for (item of question.controls.options.controls; track item; let optionIndex = $index) {
-                  <section class="option" [formGroupName]="optionIndex">
+              <!-- ! Options -->
+              <ul class="form__options" formArrayName="options">
+                @for (opt of questions; track opt; let optionIndex = $index) {
+                  <li class="option">
                     <label class="form__label option__label" for="option-{{ getLetterFromIndex(optionIndex) }}"
-                      >{{ getLetterFromIndex(optionIndex) }}.</label
-                    >
-                    <button type="button" class="btn btn__bin" (click)="deleteOption(index, optionIndex)">
+                      >{{ getLetterFromIndex(optionIndex) }}.
+                    </label>
+                    <button type="button" class="btn btn__bin">
                       <svg class="btn__bin--icon" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M3.25 19.5C2.65417 19.5 2.1441 19.2878 1.71979 18.8635C1.29549 18.4392 1.08333 17.9292 1.08333 17.3333V3.25C0.776389 3.25 0.519097 3.14618 0.311458 2.93854C0.103819 2.7309 0 2.47361 0 2.16667C0 1.85972 0.103819 1.60243 0.311458 1.39479C0.519097 1.18715 0.776389 1.08333 1.08333 1.08333H5.41667C5.41667 0.776389 5.52049 0.519097 5.72813 0.311458C5.93576 0.103819 6.19306 0 6.5 0H10.8333C11.1403 0 11.3976 0.103819 11.6052 0.311458C11.8128 0.519097 11.9167 0.776389 11.9167 1.08333H16.25C16.5569 1.08333 16.8142 1.18715 17.0219 1.39479C17.2295 1.60243 17.3333 1.85972 17.3333 2.16667C17.3333 2.47361 17.2295 2.7309 17.0219 2.93854C16.8142 3.14618 16.5569 3.25 16.25 3.25V17.3333C16.25 17.9292 16.0378 18.4392 15.6135 18.8635C15.1892 19.2878 14.6792 19.5 14.0833 19.5H3.25ZM14.0833 3.25H3.25V17.3333H14.0833V3.25ZM6.5 15.1667C6.80694 15.1667 7.06424 15.0628 7.27188 14.8552C7.47951 14.6476 7.58333 14.3903 7.58333 14.0833V6.5C7.58333 6.19306 7.47951 5.93576 7.27188 5.72813C7.06424 5.52049 6.80694 5.41667 6.5 5.41667C6.19306 5.41667 5.93576 5.52049 5.72813 5.72813C5.52049 5.93576 5.41667 6.19306 5.41667 6.5V14.0833C5.41667 14.3903 5.52049 14.6476 5.72813 14.8552C5.93576 15.0628 6.19306 15.1667 6.5 15.1667ZM10.8333 15.1667C11.1403 15.1667 11.3976 15.0628 11.6052 14.8552C11.8128 14.6476 11.9167 14.3903 11.9167 14.0833V6.5C11.9167 6.19306 11.8128 5.93576 11.6052 5.72813C11.3976 5.52049 11.1403 5.41667 10.8333 5.41667C10.5264 5.41667 10.2691 5.52049 10.0615 5.72813C9.85382 5.93576 9.75 6.19306 9.75 6.5V14.0833C9.75 14.3903 9.85382 14.6476 10.0615 14.8552C10.2691 15.0628 10.5264 15.1667 10.8333 15.1667Z"
@@ -119,10 +120,9 @@
                       id="option-{{ getLetterFromIndex(optionIndex) }}"
                       name="option-{{ getLetterFromIndex(optionIndex) }}"
                     />
-                  </section>
-                } -->
-
-              </article>
+                  </li>
+                }
+              </ul>
               <button class="btn btn__add" type="button">
                 <div class="btn__add--container">
                   Add answer
@@ -146,7 +146,7 @@
         </svg>
       </button>
     </ul>
-  </article>
+  </div>
 
   <!-- type="submit" -->
   <button class="btn btn__primary">

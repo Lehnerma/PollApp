@@ -76,6 +76,10 @@ export class SurveyCreateComponent {
     if (curOpt.length < 6) curOpt.push(this.createOptionForm());
   }
 
+  addQuestion():void {
+    this.questions.push(this.createQuestionForm());
+  }
+
   /**
    * Removes an answer option from the current question if more than two options exist.
    *

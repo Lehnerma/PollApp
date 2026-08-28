@@ -12,7 +12,13 @@ import { DetailsForm } from '../../interfaces/details-form';
 })
 export class SurveyCreateComponent {
   fb = inject(FormBuilder);
-  categories = ['Banana', 'apple', 'coconut', 'pear']; //todo create the categories
+  //todo create the categories
+  categories = ['Banana', 'apple', 'coconut', 'pear'];
+
+  surveyForm = new FormGroup({
+    details: this.createDetailsForm(),
+    questions: this.fb.array([this.createQuestionForm()]),
+  });
 
   /**
    * Returns the question form groups of the survey form.
@@ -29,11 +35,6 @@ export class SurveyCreateComponent {
   getOptions(question: FormGroup<QuestionForm>): FormArray<FormGroup<OptionForm>> {
     return question.controls.options;
   }
-
-  surveyForm = new FormGroup({
-    details: this.createDetailsForm(),
-    questions: this.fb.array([this.createQuestionForm()]),
-  });
 
   /**
    * Creates the form group for the details of the survey
@@ -79,7 +80,8 @@ export class SurveyCreateComponent {
   /**
    * Adds a new question to the survey form.
    */
-  addQuestion():void {
+  addQuestion(): void {
+    if (this.questions.length >= 6) return;
     this.questions.push(this.createQuestionForm());
   }
 
@@ -102,11 +104,18 @@ export class SurveyCreateComponent {
    */
   deleteQuestion(index: number): void {
     if (this.questions.length === 1) {
-      // todo reset question input
-      console.log('reset the form');
+      this.surveyForm.controls.questions.reset();
     } else {
       this.surveyForm.controls.questions.removeAt(index);
     }
+  }
+
+  /**
+   * Resets the hole form.
+   */
+  resetForm(): void {
+    this.surveyForm.reset();
+    this.surveyForm.controls.questions.reset();
   }
 
   /**

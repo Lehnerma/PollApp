@@ -207,6 +207,9 @@
     &:hover {
       background-color: $grey-bg-light;
     }
+    &:disabled {
+      display: none;
+    }
   }
 
   &__add-question {
@@ -230,6 +233,9 @@
     &--icon {
       fill: $primary-white;
       width: 20px;
+    }
+    &:disabled {
+      display: none;
     }
   }
 }

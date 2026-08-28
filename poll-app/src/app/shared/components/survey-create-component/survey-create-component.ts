@@ -3,7 +3,6 @@ import { FormBuilder, ReactiveFormsModule, Validators, FormGroup, FormArray } fr
 import { DropdownComponent } from '../dropdown-component/dropdown-component';
 import { OptionForm, QuestionForm } from '../../interfaces/question-form';
 import { DetailsForm } from '../../interfaces/details-form';
-import { noPastDays } from '../../validators/no-past-days';
 
 @Component({
   selector: 'survey-create-component',
@@ -26,6 +25,13 @@ export class SurveyCreateComponent {
    */
   get questions(): FormGroup<QuestionForm>[] {
     return this.surveyForm.controls.questions.controls;
+  }
+
+  /**
+   * Returns the details form groups of the survey form.
+   */
+  get details(): FormGroup<DetailsForm> {
+    return this.surveyForm.controls.details;
   }
 
   /**
@@ -116,7 +122,14 @@ export class SurveyCreateComponent {
    */
   resetForm(): void {
     this.surveyForm.reset();
-    this.surveyForm.controls.questions.reset();
+    this.surveyForm.controls.questions.controls.splice(1);
+  }
+
+  /**
+   * Resets the survey description field.
+   */
+  resetDescription(): void {
+    this.details.controls.description.reset();
   }
 
   /**

@@ -122,7 +122,10 @@ export class SurveyCreateComponent {
    */
   resetForm(): void {
     this.surveyForm.reset();
-    this.surveyForm.controls.questions.controls.splice(1);
+    this.surveyForm = new FormGroup({
+      details: this.createDetailsForm(),
+      questions: this.fb.array([this.createQuestionForm()]),
+    });
   }
 
   /**
@@ -136,7 +139,7 @@ export class SurveyCreateComponent {
    * Returns the uppercase letter for the given option index.
    *
    * @param index The zero-based option index.
-   * @returns The corresponding uppercase letter (A, B, C, ...).
+   * @returns The corresponding uppercase letter A, B ...
    */
   getLetterFromIndex(index: number): string {
     return String.fromCharCode(65 + index);

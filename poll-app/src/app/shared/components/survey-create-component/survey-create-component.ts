@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators, FormGroup, FormArray } fr
 import { DropdownComponent } from '../dropdown-component/dropdown-component';
 import { OptionForm, QuestionForm } from '../../interfaces/question-form';
 import { DetailsForm } from '../../interfaces/details-form';
+import { noPastDays } from '../../validators/no-past-days';
 
 @Component({
   selector: 'survey-create-component',
@@ -14,7 +15,7 @@ export class SurveyCreateComponent {
   fb = inject(FormBuilder);
   //todo create the categories
   categories = ['Banana', 'apple', 'coconut', 'pear'];
-
+  today = new Date().toISOString().split('T')[0];
   surveyForm = new FormGroup({
     details: this.createDetailsForm(),
     questions: this.fb.array([this.createQuestionForm()]),

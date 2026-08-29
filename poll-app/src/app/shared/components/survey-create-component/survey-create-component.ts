@@ -144,4 +144,8 @@ export class SurveyCreateComponent {
   getLetterFromIndex(index: number): string {
     return String.fromCharCode(65 + index);
   }
+
+  onSubmit(): void {
+    console.log(this.surveyForm.value);
+  }
 }

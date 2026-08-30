@@ -1,4 +1,4 @@
-<form [formGroup]="surveyForm" class="form">
+<form (ngSubmit)="onSubmit()" [formGroup]="surveyForm" class="form">
   <div class="form__container">
     <div class="form" formGroupName="details">
       <div class="form__fieldset detail__main">
@@ -19,6 +19,7 @@
           [categories]="categories"
           [title]="'Choose category'"
           class="form__dropdown detail__category"
+          formControlName="category"
         ></app-dropdown-component>
 
         <div class="form__fieldset--heading detail__date">
@@ -34,7 +35,7 @@
           <input
             [min]="today"
             class="form__input detail_date"
-            formControlName="endDate"
+            formControlName="expires_at"
             id="survey_end_date"
             name="end-of-service"
             type="date"

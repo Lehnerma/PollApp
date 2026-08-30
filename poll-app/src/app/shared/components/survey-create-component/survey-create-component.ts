@@ -3,6 +3,8 @@ import { FormBuilder, ReactiveFormsModule, Validators, FormGroup, FormArray } fr
 import { DropdownComponent } from '../dropdown-component/dropdown-component';
 import { OptionForm, QuestionForm } from '../../interfaces/question-form';
 import { DetailsForm } from '../../interfaces/details-form';
+import { SupabaseService } from '../../services/supabase-service';
+import { SurveyModel } from '../../models/survey-model';
 
 @Component({
   selector: 'survey-create-component',
@@ -15,6 +17,7 @@ export class SurveyCreateComponent {
   //todo create the categories
   categories = ['Banana', 'apple', 'coconut', 'pear'];
   today = new Date().toISOString().split('T')[0];
+  supabase = inject(SupabaseService);
   surveyForm = new FormGroup({
     details: this.createDetailsForm(),
     questions: this.fb.array([this.createQuestionForm()]),
@@ -50,7 +53,7 @@ export class SurveyCreateComponent {
     return this.fb.nonNullable.group({
       surveyName: ['', Validators.required],
       category: ['', Validators.required],
-      endDate: [''],
+      expires_at: [''],
       description: ['', Validators.maxLength(300)],
     });
   }
@@ -143,5 +146,15 @@ export class SurveyCreateComponent {
    */
   getLetterFromIndex(index: number): string {
     return String.fromCharCode(65 + index);
+  }
+
+  /**
+   * Creates the form data for the tables in supabase
+   */
+  async onSubmit(): Promise<void> {
+    const survey = new SurveyModel(this.surveyForm.controls.details.value);
+    await this.supabase.addSurvey(survey);
+
+    //todo router navigation to home
   }
 }

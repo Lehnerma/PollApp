@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
 import { SurveyInterface } from '../interfaces/survey-interface';
 import { environment } from '../../../environments/environment';
+import { SurveyModel } from '../models/survey-model';
 
 /**
  * Service for loading and preparing survey data from Supabase.
@@ -72,5 +73,18 @@ export class SupabaseService {
    */
   sortByDaySurveys(survey: SurveyInterface[]): SurveyInterface[] {
     return survey.sort((first, second) => new Date(first.expires_at).getTime() - new Date(second.expires_at).getTime());
+  }
+
+  /**
+   * Pushes the survey to supabase
+   * @param survey
+   */
+  async addSurvey(survey: SurveyModel): Promise<void> {
+    const survey_data = survey.getCleanSurveyJson();
+    const { error } = await this.supabase
+      .from('surveys')
+      .insert([survey_data]) // die daten die gepusht werden soll.
+      .select();
+    console.log(error);
   }
 }

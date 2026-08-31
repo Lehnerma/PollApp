@@ -1,8 +1,8 @@
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 export interface QuestionForm {
-  questionName: FormControl<string>;
-  multipleOptions: FormControl<boolean>;
+  question_name: FormControl<string>;
+  multiple_options: FormControl<boolean>;
   options: FormArray<FormGroup<OptionForm>>;
 }
 

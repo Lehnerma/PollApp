@@ -5,6 +5,7 @@ import { OptionForm, QuestionForm } from '../../interfaces/question-form';
 import { DetailsForm } from '../../interfaces/details-form';
 import { SupabaseService } from '../../services/supabase-service';
 import { SurveyModel } from '../../models/survey-model';
+import { QuestionModel } from '../../models/question-model';
 
 @Component({
   selector: 'survey-create-component',
@@ -51,7 +52,7 @@ export class SurveyCreateComponent {
    */
   createDetailsForm(): FormGroup<DetailsForm> {
     return this.fb.nonNullable.group({
-      surveyName: ['', Validators.required],
+      survey_name: ['', Validators.required],
       category: ['', Validators.required],
       expires_at: [''],
       description: ['', Validators.maxLength(300)],
@@ -63,8 +64,8 @@ export class SurveyCreateComponent {
    */
   createQuestionForm(): FormGroup<QuestionForm> {
     return this.fb.nonNullable.group({
-      questionName: ['', Validators.required],
-      multipleOptions: [false],
+      question_name: ['', Validators.required],
+      multiple_options: [false],
       options: this.fb.array([this.createOptionForm(), this.createOptionForm()]),
     });
   }
@@ -153,8 +154,11 @@ export class SurveyCreateComponent {
    */
   async onSubmit(): Promise<void> {
     const survey = new SurveyModel(this.surveyForm.controls.details.value);
-    await this.supabase.addSurvey(survey);
-
+    console.log(survey.id);
+    const questions = this.surveyForm.controls.questions.value;
+    const test = await Promise.all(questions.map((q) => this.supabase.addQuestion(new QuestionModel(q), survey.id)));
+    console.log(test);
+    // await this.supabase.addSurvey(survey);
     //todo router navigation to home
   }
 }

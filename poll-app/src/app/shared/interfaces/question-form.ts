@@ -7,5 +7,5 @@ export interface QuestionForm {
 }
 
 export interface OptionForm {
-  text: FormControl<string>;
+  option_name: FormControl<string>;
 }

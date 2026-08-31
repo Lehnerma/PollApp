@@ -143,7 +143,7 @@
                     </button>
                     <input
                       class="form__input"
-                      formControlName="text"
+                      formControlName="option_name"
                       id="option-{{ getLetterFromIndex(optionIndex) }}"
                       name="option-{{ getLetterFromIndex(optionIndex) }}"
                       type="text"
@@ -152,8 +152,12 @@
                 }
               </ul>
 
-              <button (click)="addOption(question)" [disabled]="question.controls.options.length >= 6"
-                      class="btn btn__add" type="button">
+              <button
+                (click)="addOption(question)"
+                [disabled]="question.controls.options.length >= 6"
+                class="btn btn__add"
+                type="button"
+              >
                 <div class="btn__add--container">
                   Add answer
                   <svg aria-hidden="true" class="btn__add--icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">

@@ -75,8 +75,9 @@
   opacity: 0;
   transform: translateY(-10px);
   visibility: hidden;
-  transition: opacity 300ms ease-in-out,
-  transform 350ms ease-in-out;
+  transition:
+    opacity 300ms ease-in-out,
+    transform 350ms ease-in-out;
 }
 
 .dropdown__menu.is-open {

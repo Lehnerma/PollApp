@@ -2,6 +2,9 @@ import { Injectable, signal } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
 import { SurveyInterface } from '../interfaces/survey-interface';
 import { environment } from '../../../environments/environment';
+import { SurveyModel } from '../models/survey-model';
+import { QuestionModel } from '../models/question-model';
+import { OptionModel } from '../models/options-model';
 
 /**
  * Service for loading and preparing survey data from Supabase.
@@ -11,7 +14,7 @@ import { environment } from '../../../environments/environment';
 export class SupabaseService {
   supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
   surveyList = signal<SurveyInterface[]>([]); //* survey list realtime
-  surveyCategorieList = signal<string[]>([]); //* category list realtime
+  surveyCategoryList = signal<string[]>([]); //* category list realtime
   nextEndingSurveys = signal<SurveyInterface[]>([]);
 
   /**
@@ -39,7 +42,7 @@ export class SupabaseService {
    * Updates the category list with unique categories from the current survey data.
    */
   setCategories(): void {
-    this.surveyCategorieList.set([...new Set(this.surveyList().map((item) => item.category))]);
+    this.surveyCategoryList.set([...new Set(this.surveyList().map((item) => item.category))]);
   }
 
   /**
@@ -72,5 +75,48 @@ export class SupabaseService {
    */
   sortByDaySurveys(survey: SurveyInterface[]): SurveyInterface[] {
     return survey.sort((first, second) => new Date(first.expires_at).getTime() - new Date(second.expires_at).getTime());
+  }
+
+  /**
+   * Pushes the survey to supabase
+   * @param survey
+   */
+  async addSurvey(survey: SurveyModel): Promise<string | number> {
+    const survey_data = survey.getCleanSurveyJson();
+    const { error } = await this.supabase
+      .from('surveys')
+      .insert([survey_data]) // die daten die gepusht werden soll.
+      .select();
+    if (error) throw error;
+    return survey_data.id;
+  }
+
+  /**
+   * pushes the question to supabase
+   * @param question - is the model with default values
+   * @param id - is the connection to the survey
+   */
+  async addQuestion(question: QuestionModel, id: string | number): Promise<string | number> {
+    const question_data = question.getCleanQuestionJson(id);
+    const { error } = await this.supabase
+      .from('questions')
+      .insert([question_data]) // diese daten werden gepusht
+      .select();
+    if (error) throw error;
+    return question_data.id;
+  }
+
+  /**
+   * pushes the options with the id of the question to connect them
+   * @param option - is the model with the values we need
+   * @param questionId - is the connection to the question in the superbase
+   */
+  async addOptions(option: OptionModel, questionId: string | number): Promise<void> {
+    const options_data = option.getCleanQuestionJson(questionId);
+    const { error } = await this.supabase
+      .from('options')
+      .insert([options_data]) // diese daten werden gepusht
+      .select();
+    if (error) throw error;
   }
 }

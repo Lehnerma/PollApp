@@ -1,7 +1,7 @@
 export interface QuestionInterface {
-  id: number;
+  id: number | string;
   created_at: string;
-  name: string;
-  survey_id: number; //* connection to the survey
-  position: number; //* maybe not needed
+  question_name: string;
+  survey_id: string | number; //* connection to the survey
+  multiple_options: boolean;
 }

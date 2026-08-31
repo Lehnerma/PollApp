@@ -1,8 +1,7 @@
 export interface OptionInterface {
-  id: number;
+  id: number | string;
   created_at: string;
-  name: string;
-  position: number;
-  question_id: number; //* verlinkung zur question
-  vote_count: number;
+  option_name: string;
+  question_id: string | number; //* verlinkung zur question
+  votes: number;
 }

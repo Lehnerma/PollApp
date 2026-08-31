@@ -5,6 +5,7 @@
   font-family: $f-txt;
   width: fit-content;
   max-width: 200px;
+
   &__btn {
     color: white;
     display: flex;
@@ -51,15 +52,17 @@
   }
 
   &__option {
-    font-size: rem(14); //todo check if correct
-    letter-spacing: 0.02em;
-    padding: 4px;
-    width: fit-content;
-    cursor: pointer;
+    &--btn {
+      font-size: rem(16);
+      letter-spacing: 0.02em;
+      padding: 4px;
+      width: fit-content;
+      cursor: pointer;
 
-    &:hover {
-      background-color: $expire-card-bg-hover;
-      border-radius: 6px;
+      &:hover {
+        background-color: $expire-card-bg-hover;
+        border-radius: 6px;
+      }
     }
   }
 }

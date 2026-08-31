@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { SurveyInterface } from '../interfaces/survey-interface';
 import { environment } from '../../../environments/environment';
 import { SurveyModel } from '../models/survey-model';
+import { QuestionModel } from '../models/question-model';
 
 /**
  * Service for loading and preparing survey data from Supabase.
@@ -12,7 +13,7 @@ import { SurveyModel } from '../models/survey-model';
 export class SupabaseService {
   supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
   surveyList = signal<SurveyInterface[]>([]); //* survey list realtime
-  surveyCategorieList = signal<string[]>([]); //* category list realtime
+  surveyCategoryList = signal<string[]>([]); //* category list realtime
   nextEndingSurveys = signal<SurveyInterface[]>([]);
 
   /**
@@ -40,7 +41,7 @@ export class SupabaseService {
    * Updates the category list with unique categories from the current survey data.
    */
   setCategories(): void {
-    this.surveyCategorieList.set([...new Set(this.surveyList().map((item) => item.category))]);
+    this.surveyCategoryList.set([...new Set(this.surveyList().map((item) => item.category))]);
   }
 
   /**
@@ -79,11 +80,26 @@ export class SupabaseService {
    * Pushes the survey to supabase
    * @param survey
    */
-  async addSurvey(survey: SurveyModel): Promise<void> {
+  async addSurvey(survey: SurveyModel): Promise<string | number> {
     const survey_data = survey.getCleanSurveyJson();
     const { error } = await this.supabase
       .from('surveys')
       .insert([survey_data]) // die daten die gepusht werden soll.
+      .select();
+    if (error) throw error;
+    return survey_data.id;
+  }
+
+  /**
+   * pushes the question to supabase
+   * @param question - is the model with default values
+   * @param id - is the connection to the survey
+   */
+  async addQuestion(question: QuestionModel, id: string | number): Promise<void> {
+    const question_data = question.getCleanQuestionJson(id);
+    const { data, error } = await this.supabase
+      .from('questions')
+      .insert([question_data]) // diese daten werden gepusht
       .select();
     console.log(error);
   }

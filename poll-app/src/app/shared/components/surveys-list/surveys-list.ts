@@ -12,5 +12,5 @@ import { SurveyCard } from '../survey-card/survey-card';
 export class SurveysList {
   supabaseService = inject(SupabaseService);
   list = this.supabaseService.surveyList;
-  categories = this.supabaseService.surveyCategorieList;
+  categories = this.supabaseService.surveyCategoryList;
 }

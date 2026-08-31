@@ -93,7 +93,7 @@ export class SurveyCreateComponent {
    */
   addQuestion(): void {
     if (this.questions.length >= 6) return;
-    this.questions.push(this.createQuestionForm());
+    this.surveyForm.controls.questions.push(this.createQuestionForm());
   }
 
   /**
@@ -154,11 +154,10 @@ export class SurveyCreateComponent {
    */
   async onSubmit(): Promise<void> {
     const survey = new SurveyModel(this.surveyForm.controls.details.value);
-    console.log(survey.id);
-    const questions = this.surveyForm.controls.questions.value;
-    const test = await Promise.all(questions.map((q) => this.supabase.addQuestion(new QuestionModel(q), survey.id)));
-    console.log(test);
-    // await this.supabase.addSurvey(survey);
+    await this.supabase.addSurvey(survey);
+    const questions_data = this.surveyForm.controls.questions.value;
+    await Promise.all(questions_data.map((q) => this.supabase.addQuestion(new QuestionModel(q), survey.id)));
+
     //todo router navigation to home
   }
 }

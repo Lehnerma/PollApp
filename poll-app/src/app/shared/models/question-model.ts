@@ -12,7 +12,7 @@ export class QuestionModel implements QuestionInterface {
    * @param data
    */
   constructor(data: Partial<QuestionInterface> = {}) {
-    this.id = data.id ?? 0;
+    this.id = data.id ?? crypto.randomUUID();
     this.question_name = data.question_name ?? '';
     this.created_at = data.created_at ?? new Date().toISOString();
     this.survey_id = data.survey_id ?? 0;

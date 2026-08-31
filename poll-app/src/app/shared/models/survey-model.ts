@@ -17,7 +17,7 @@ export class SurveyModel implements SurveyInterface {
     this.survey_name = data.survey_name ?? '';
     this.category = data.category ?? ''; //todo check the default value
     this.description = data.description ?? '';
-    this.expires_at = data.expires_at ?? 0;
+    this.expires_at = data.expires_at ? data.expires_at : this.getDefaultExpiryDate();
   }
 
   /**
@@ -31,5 +31,15 @@ export class SurveyModel implements SurveyInterface {
       description: this.description,
       expires_at: this.expires_at,
     };
+  }
+
+  /**
+   * It creats a default expire date in 6 month!
+   * @returns return da date in 6 months
+   */
+  getDefaultExpiryDate(): string {
+    const today = new Date();
+    today.setMonth(today.getMonth() + 6);
+    return today.toISOString();
   }
 }

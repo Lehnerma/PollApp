@@ -4,6 +4,7 @@ import { SurveyInterface } from '../interfaces/survey-interface';
 import { environment } from '../../../environments/environment';
 import { SurveyModel } from '../models/survey-model';
 import { QuestionModel } from '../models/question-model';
+import { OptionModel } from '../models/options-model';
 
 /**
  * Service for loading and preparing survey data from Supabase.
@@ -95,11 +96,26 @@ export class SupabaseService {
    * @param question - is the model with default values
    * @param id - is the connection to the survey
    */
-  async addQuestion(question: QuestionModel, id: string | number): Promise<void> {
+  async addQuestion(question: QuestionModel, id: string | number): Promise<string | number> {
     const question_data = question.getCleanQuestionJson(id);
-    const { data, error } = await this.supabase
+    const { error } = await this.supabase
       .from('questions')
       .insert([question_data]) // diese daten werden gepusht
+      .select();
+    if (error) throw error;
+    return question_data.id;
+  }
+
+  /**
+   * pushes the options with the id of the question to connect them
+   * @param option - is the model with the values we need
+   * @param questionId - is the connection to the question in the superbase
+   */
+  async addOptions(option: OptionModel, questionId: string | number): Promise<void> {
+    const options_data = option.getCleanQuestionJson(questionId);
+    const { error } = await this.supabase
+      .from('options')
+      .insert([options_data]) // diese daten werden gepusht
       .select();
     if (error) throw error;
   }

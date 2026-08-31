@@ -6,6 +6,9 @@ import { DetailsForm } from '../../interfaces/details-form';
 import { SupabaseService } from '../../services/supabase-service';
 import { SurveyModel } from '../../models/survey-model';
 import { QuestionModel } from '../../models/question-model';
+import { OptionModel } from '../../models/options-model';
+import { QuestionInterface } from '../../interfaces/question-interface';
+import { QuestionFormValue } from '../../interfaces/question-form-value';
 
 @Component({
   selector: 'survey-create-component',
@@ -75,7 +78,7 @@ export class SurveyCreateComponent {
    */
   createOptionForm(): FormGroup<OptionForm> {
     return this.fb.nonNullable.group({
-      text: ['', Validators.required],
+      option_name: ['', Validators.required],
     });
   }
 
@@ -155,9 +158,32 @@ export class SurveyCreateComponent {
   async onSubmit(): Promise<void> {
     const survey = new SurveyModel(this.surveyForm.controls.details.value);
     await this.supabase.addSurvey(survey);
-    const questions_data = this.surveyForm.controls.questions.value;
-    await Promise.all(questions_data.map((q) => this.supabase.addQuestion(new QuestionModel(q), survey.id)));
-
+    const questions_data = this.surveyForm.controls.questions.getRawValue();
+    await this.pushQuestion(questions_data, survey.id);
+    console.log('pushed submitted');
     //todo router navigation to home
+  }
+
+  /**
+   * pushes the options to the supabase
+   * @param question - is the question with the options array in it
+   * @param surveyId - connection to the survey
+   */
+  private async pushQuestionsWithOptions(question: QuestionFormValue, surveyId: string | number): Promise<void> {
+    const savedQuestion = await this.supabase.addQuestion(new QuestionModel(question), surveyId);
+    await Promise.all(
+      question.options.map((option) => {
+        this.supabase.addOptions(new OptionModel(option), savedQuestion);
+      }),
+    );
+  }
+
+  /**
+   * pushes the question to supabase
+   * @param questions is the modul question with right values
+   * @param surveyId is the connection to the survey
+   */
+  private async pushQuestion(questions: QuestionFormValue[], surveyId: string | number): Promise<void> {
+    await Promise.all(questions.map((question) => this.pushQuestionsWithOptions(question, surveyId)));
   }
 }

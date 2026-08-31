@@ -17,8 +17,22 @@ import { QuestionFormValue } from '../../interfaces/question-form-value';
 })
 export class SurveyCreateComponent {
   fb = inject(FormBuilder);
-  //todo create the categories
-  categories = ['Banana', 'apple', 'coconut', 'pear'];
+  categories = [
+    'Zelda',
+    'Super Mario',
+    'Nintendo',
+    'Speedrunning',
+    'Retro Gaming',
+    'One Piece',
+    'Detective Conan',
+    'Anime',
+    'Manga',
+    'Frontend Development',
+    'JavaScript',
+    'Angular',
+    'CSS',
+    'CSS Battle',
+  ];
   today = new Date().toISOString().split('T')[0];
   supabase = inject(SupabaseService);
   surveyForm = new FormGroup({

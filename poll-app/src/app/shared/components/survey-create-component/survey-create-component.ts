@@ -7,7 +7,6 @@ import { SupabaseService } from '../../services/supabase-service';
 import { SurveyModel } from '../../models/survey-model';
 import { QuestionModel } from '../../models/question-model';
 import { OptionModel } from '../../models/options-model';
-import { QuestionInterface } from '../../interfaces/question-interface';
 import { QuestionFormValue } from '../../interfaces/question-form-value';
 
 @Component({

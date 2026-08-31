@@ -101,6 +101,6 @@ export class SupabaseService {
       .from('questions')
       .insert([question_data]) // diese daten werden gepusht
       .select();
-    console.log(error);
+    if (error) throw error;
   }
 }

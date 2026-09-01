@@ -8,10 +8,11 @@ import { SurveyModel } from '../../models/survey-model';
 import { QuestionModel } from '../../models/question-model';
 import { OptionModel } from '../../models/options-model';
 import { QuestionFormValue } from '../../interfaces/question-form-value';
+import { Status } from '../status/status';
 
 @Component({
   selector: 'survey-create-component',
-  imports: [ReactiveFormsModule, DropdownComponent],
+  imports: [ReactiveFormsModule, DropdownComponent, Status],
   templateUrl: './survey-create-component.html',
   styleUrl: './survey-create-component.scss',
 })

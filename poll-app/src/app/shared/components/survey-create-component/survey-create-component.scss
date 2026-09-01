@@ -169,6 +169,7 @@
       background-color: $secondary-orange;
       border-color: $secondary-orange;
     }
+
     .checkbox__checkmark--check {
       background-color: $secondary-orange;
       opacity: 1;
@@ -204,9 +205,11 @@
       aspect-ratio: 1/1;
       fill: $primary-white;
     }
+
     &:hover {
       background-color: $grey-bg-light;
     }
+
     &:disabled {
       display: none;
     }
@@ -230,10 +233,12 @@
     &:hover {
       background-color: $secondary-btn-bg-hover;
     }
+
     &--icon {
       fill: $primary-white;
       width: 20px;
     }
+
     &:disabled {
       display: none;
     }

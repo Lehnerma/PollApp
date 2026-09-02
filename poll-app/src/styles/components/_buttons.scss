@@ -26,6 +26,27 @@
     }
   }
 
+  &__secondary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: rem(16);
+    color: $primary-white;
+    font-weight: 700;
+    background-color: $secondary-btn-bg;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: $secondary-btn-bg-hover;
+    }
+
+    &--icon {
+      fill: $primary-white;
+      width: 20px;
+    }
+  }
+
   &__add {
     display: flex;
     align-items: center;

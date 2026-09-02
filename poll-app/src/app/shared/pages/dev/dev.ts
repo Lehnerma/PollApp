@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { SurveyCreateComponent } from '../../components/survey-create-component/survey-create-component';
-import { DropdownComponent } from '../../components/dropdown-component/dropdown-component';
 
 @Component({
   selector: 'app-dev',
-  imports: [SurveyCreateComponent, DropdownComponent],
+  imports: [SurveyCreateComponent],
   templateUrl: './dev.html',
   styleUrl: './dev.scss',
 })

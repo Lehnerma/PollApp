@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators, FormGroup, FormArray } from '@angular/forms';
 import { DropdownComponent } from '../dropdown-component/dropdown-component';
 import { OptionForm, QuestionForm } from '../../interfaces/question-form';
@@ -37,6 +37,7 @@ export class SurveyCreateComponent {
   ];
   today = new Date().toISOString().split('T')[0];
   supabase = inject(SupabaseService);
+  toastVisible = signal(false);
   surveyForm = new FormGroup({
     details: this.createDetailsForm(),
     questions: this.fb.array([this.createQuestionForm()]),
@@ -175,8 +176,7 @@ export class SurveyCreateComponent {
     await this.supabase.addSurvey(survey);
     const questions_data = this.surveyForm.controls.questions.getRawValue();
     await this.pushQuestion(questions_data, survey.id);
-    console.log('pushed submitted');
-    //todo router navigation to home
+    this.toastVisible.set(true);
   }
 
   /**

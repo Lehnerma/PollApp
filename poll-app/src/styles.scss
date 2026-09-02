@@ -3,11 +3,7 @@
 @use 'styles/layout';
 @use 'styles/components';
 
-body {
-  max-width: $max-dp-width;
-  margin: 0 auto;
-}
 
-.main-bg{
+.main-bg {
   background-color: $primary-purple;
 }

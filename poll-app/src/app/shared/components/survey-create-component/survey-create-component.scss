@@ -49,6 +49,9 @@
   gap: 48px;
   padding: 40px clamp(4px, 2vw, 54px);
   border-radius: 5px 100px 5px 5px;
+  overflow-x: hidden;
+
+  width: 100dvw;
 
   &__container {
     display: flex;
@@ -295,6 +298,12 @@
   width: fit-content;
 }
 
-.toast {
+.publish-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
 
+  @include respond-to(md) {
+    justify-content: flex-end;
+  }
 }

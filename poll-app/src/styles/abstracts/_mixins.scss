@@ -35,3 +35,9 @@
 @mixin animation($target: all, $flow: ease-in-out) {
   transition: $target $animation-time $flow;
 }
+
+@mixin page-bg($color) {
+  background-color: $color;
+  min-height: 100dvh;
+  display: block;
+}

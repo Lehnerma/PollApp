@@ -1,0 +1,45 @@
+@use '../../../../styles/abstracts' as *;
+
+.toast {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: $z-index-toast;
+  background-color: $light-orange;
+  max-width: 352px;
+  font-family: $f-title;
+  font-size: rem(24);
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 26px;
+  border-radius: 5px 50px 5px 5px;
+  visibility: hidden;
+  transform: translateX(calc(100% + 26px));
+  transition:
+    transform 350ms ease-out,
+    visibility 0s linear 350ms;
+
+  &--visible {
+    visibility: visible;
+    transform: translateX(0);
+    transition-delay: 0s;
+  }
+
+  &__btn {
+    word-break: auto-phrase;
+    align-self: start;
+
+    &--icon {
+      width: rem(14);
+      height: rem(14);
+      fill: $primary-purple;
+      @include animation(transform);
+    }
+
+    &:hover {
+      .toast__btn--icon {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}

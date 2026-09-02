@@ -1,0 +1,18 @@
+@use '../../../../styles/abstracts' as *;
+
+:host {
+  @include page-bg($primary-white);
+}
+
+.page {
+  min-height: 100dvh;
+  @include flex-center;
+  flex-direction: column;
+}
+
+@include respond-to(lg) {
+  .header {
+    display: none;
+    visibility: hidden;
+  }
+}

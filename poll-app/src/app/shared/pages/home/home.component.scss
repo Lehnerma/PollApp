@@ -1,10 +1,15 @@
 @use '../../../../styles/abstracts' as *;
 
+:host {
+  @include page-bg($primary-purple);
+}
+
 .grid {
   display: grid;
   min-height: 100dvh;
-  margin: 40px 15px;
+  padding: 40px 15px;
   max-width: $max-dp-width;
+  margin: 0 auto;
 
   &__index {
     grid-template-rows: 100px auto auto auto;

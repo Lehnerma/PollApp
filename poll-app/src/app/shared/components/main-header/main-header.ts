@@ -8,8 +8,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './main-header.scss',
 })
 export class MainHeader {
-  route = inject(ActivatedRoute);
-  private path = this.route.snapshot;
+  private route = inject(ActivatedRoute);
+  private path = this.route.snapshot.routeConfig?.path;
 
-  currentLogo = this.route.url ? '../assets/img/logo-full-orange.png' : '../assets/img/logo-full-purple.png';
+  currentLogo = this.path === '' ? '../assets/img/logo-full-orange.png' : '../assets/img/logo-full-purple.png';
 }

@@ -15,7 +15,9 @@
   border-radius: 5px 50px 5px 5px;
   visibility: hidden;
   transform: translateX(calc(100% + 26px));
-  transition: transform 350ms ease-out, visibility 0s linear 350ms;
+  transition:
+    transform 350ms ease-out,
+    visibility 0s linear 350ms;
 
   &--visible {
     visibility: visible;

@@ -1,13 +1,12 @@
 @use '../../../../styles/abstracts' as *;
 
 :host {
-  @include page-bg($primary-white)
+  @include page-bg($primary-white);
 }
 
 .page {
   min-height: 100dvh;
-  //margin: 0 auto;
-  @include flex-center();
+  @include flex-center;
   flex-direction: column;
 }
 
@@ -16,6 +15,4 @@
     display: none;
     visibility: hidden;
   }
-
-
 }

@@ -15,8 +15,9 @@
     border-radius: 10px;
     @include flex-center;
     gap: 10px;
-    transition: background-color 200ms ease-in-out,
-    color 200ms ease-in-out;
+    transition:
+      background-color 200ms ease-in-out,
+      color 200ms ease-in-out;
 
     &--icon {
       width: 18px;
@@ -94,8 +95,9 @@
         width: 0;
         height: 0;
         visibility: hidden;
-        transition: width $animation-time ease-in-out,
-        width $animation-time ease-in-out;
+        transition:
+          width $animation-time ease-in-out,
+          width $animation-time ease-in-out;
       }
 
       &:hover {
@@ -119,5 +121,4 @@
       }
     }
   }
-
 }

@@ -1,18 +1,11 @@
 @use '../../../../styles/abstracts' as *;
 
-.wrapper {
-  //display: flex;
-  //flex-direction: column;
-  gap: 54px;
-  padding-top: 48px;
-
-  display: grid;
-  grid-template-rows: auto 1fr;
-}
 
 @include respond-to(lg) {
-  .wrapper {
-    padding: 0;
+  :host {
+    display: flex;
+    min-height: 100dvh;
+    @include flex-center()
   }
   .header {
     display: none;

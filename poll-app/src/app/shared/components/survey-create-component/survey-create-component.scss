@@ -47,7 +47,7 @@
   display: flex;
   flex-direction: column;
   gap: 48px;
-  padding: 40px clamp(0px, 5vw, 54px);
+  padding: 40px clamp(4px, 2vw, 54px);
   border-radius: 5px 100px 5px 5px;
 
   &__container {
@@ -293,4 +293,8 @@
 
 .content-width {
   width: fit-content;
+}
+
+.toast {
+
 }

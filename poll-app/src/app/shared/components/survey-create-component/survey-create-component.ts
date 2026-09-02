@@ -10,7 +10,7 @@ import { OptionModel } from '../../models/options-model';
 import { QuestionFormValue } from '../../interfaces/question-form-value';
 import { Status } from '../status/status';
 import { ToastMsg } from '../toast-msg/toast-msg';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'survey-create-component',

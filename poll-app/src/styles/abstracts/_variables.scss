@@ -28,24 +28,23 @@ $expire-card-bg-hover: rgba(244, 233, 251, 1);
 
 $survey-purple: rgba(142, 112, 153, 0.16);
 
+$create_survey-orange: rgba(238, 146, 54);
+
 // Typografie
-$f-txt:
-  'Mulish',
-  system-ui,
-  -apple-system,
-  sans-serif;
+$f-txt: 'Mulish',
+system-ui,
+-apple-system,
+sans-serif;
 
-$f-title:
-  'Nerko One',
-  system-ui,
-  -apple-system,
-  sans-serif;
+$f-title: 'Nerko One',
+system-ui,
+-apple-system,
+sans-serif;
 
-$f-txt-btn:
-  'Nokora',
-  system-ui,
-  -apple-system,
-  sans-serif;
+$f-txt-btn: 'Nokora',
+system-ui,
+-apple-system,
+sans-serif;
 
 // Breakpoints
 $breakpoint-sm: 500px;

@@ -1,9 +1,54 @@
 @use '../../../../styles/abstracts' as *;
 
+.header {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 8px;
+  grid-template-areas:
+  'status btn'
+  'title title';
+  @include respond-to(md) {
+    grid-template-areas:
+  'status status'
+  'title btn';
+  }
+
+  &__status {
+    grid-area: status;
+  }
+
+  &__title {
+    grid-area: title;
+    font-family: $f-title;
+    font-size: rem(56);
+    font-weight: 400;
+    color: $create_survey-orange;
+  }
+
+  &__btn {
+    padding: 10px 12px;
+    width: fit-content;
+    justify-self: end;
+    align-self: center;
+    max-height: 40px;
+  }
+}
+
+.btn__secondary--txt {
+  display: none;
+  @include respond-to(md) {
+    display: block;
+  }
+}
+
 .form {
   display: flex;
   flex-direction: column;
   gap: 48px;
+  padding: 40px clamp(0px, 5vw, 54px);
+  border-radius: 5px 100px 5px 5px;
 
   &__container {
     display: flex;
@@ -13,6 +58,19 @@
     background-color: $survey-purple;
     border-radius: 5px;
     border-top-right-radius: 80px;
+  }
+
+  &__details {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'detail-main'
+      'detail-description';
+    @include respond-to(lg) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+      'detail-main detail-description'
+    }
   }
 
   &__options {
@@ -28,14 +86,19 @@
       resize: none;
     }
   }
+
+  &__dropdown {
+    margin-bottom: 31px;
+  }
 }
 
 .detail {
   &__main {
     display: grid;
     gap: 8px;
+    grid-area: detail-main;
 
-    @include respond-to(lg) {
+    @include respond-to(md) {
       grid-template-columns: 1fr 1fr;
       grid-template-rows: auto 1fr;
       gap: 16px;
@@ -56,14 +119,14 @@
     }
   }
 
-  &__dropdown {
-    margin-bottom: 31px;
+  &__description {
+    grid-area: detail-description;
   }
 }
 
 .question-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(max(290px, (100% - 101px) / 2), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
   row-gap: 40px;
   column-gap: clamp(30px, 15vw, 100px);
   width: 100%;
@@ -217,26 +280,9 @@
 
   &__add-question {
     align-self: center;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+    padding: 10px 12px;
     @include respond-to(md) {
       align-self: flex-start;
-    }
-    font-size: rem(16);
-    color: $primary-white;
-    font-weight: 700;
-    padding: 10px 12px;
-    background-color: $secondary-btn-bg;
-    border-radius: 10px;
-
-    &:hover {
-      background-color: $secondary-btn-bg-hover;
-    }
-
-    &--icon {
-      fill: $primary-white;
-      width: 20px;
     }
 
     &:disabled {

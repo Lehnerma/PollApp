@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ToastMsg } from '../../components/toast-msg/toast-msg';
+import { FillOut } from '../../components/fillout/fillout';
 
 @Component({
   selector: 'app-dev',
-  imports: [ToastMsg],
+  imports: [FillOut],
   templateUrl: './dev.html',
   styleUrl: './dev.scss',
 })

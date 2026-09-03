@@ -1,0 +1,92 @@
+@use '../../../../styles/abstracts' as *;
+
+.header {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 8px;
+  grid-template-areas:
+    'status btn'
+    'infos infos';
+  @include respond-to(md) {
+    grid-template-areas:
+      'status btn'
+      'infos infos';
+  }
+
+  &__status {
+    grid-area: status;
+  }
+
+  &__infos {
+    grid-area: infos;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__info{
+    font-family: $f-txt;
+    font-size: rem(14);
+    font-weight: 500;
+
+  }
+
+  &__btn {
+    grid-area: btn;
+    padding: 10px 12px;
+    width: fit-content;
+    justify-self: end;
+    align-self: center;
+    max-height: 40px;
+    background-color: $primary-orange;
+    @include animation(background-color);
+    @include respond-to(md) {
+      display: none;
+      visibility: hidden;
+    }
+    &:hover {
+      background-color: $secondary-orange;
+    }
+  }
+
+}
+.d-none{
+    display: none;
+    visibility: hidden;
+}
+
+.form {
+  background-color: $survey-purple;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 40px clamp(4px, 2vw, 54px);
+  border-radius: 5px 100px 5px 5px;
+  width: 100dvw;
+  max-width: $lg-dp-width;
+
+  &__main{
+    padding: 0 11px;
+    display: grid;
+    gap: 40px;
+  }
+
+  &__headings{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  &__title{
+    font-family: $f-title;
+    font-size: rem(48);
+    color: $create-survey-orange;
+
+  }
+
+  &__description{
+    font-family: $f-txt;
+    font-size: rem(16);
+    font-weight: 500;
+  }
+}

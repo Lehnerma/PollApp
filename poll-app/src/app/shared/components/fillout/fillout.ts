@@ -26,9 +26,10 @@ export class FillOut {
   constructor() {
     this.survey.survey_name = 'Lass uns einen umfrage starten';
     this.survey.description = 'Das soll eine beschreibung sein um die Form besser zu stylen';
+    
     this.questions[0].question_name = 'Lass uns die erste Frage stellen?'
-
     this.questions[0].multiple_options = true;
+
     this.questions[1].question_name = 'Lass uns die zweite Frage stellen?'
     this.questions[1].multiple_options = false;
   }

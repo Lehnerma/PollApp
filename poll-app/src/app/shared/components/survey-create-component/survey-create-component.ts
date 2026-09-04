@@ -11,10 +11,11 @@ import { QuestionFormValue } from '../../interfaces/question-form-value';
 import { Status } from '../status/status';
 import { ToastMsg } from '../toast-msg/toast-msg';
 import { RouterLink } from '@angular/router';
+import { CheckboxComponent } from "../checkbox-component/checkbox-component";
 
 @Component({
   selector: 'survey-create-component',
-  imports: [ReactiveFormsModule, DropdownComponent, Status, ToastMsg, RouterLink],
+  imports: [ReactiveFormsModule, DropdownComponent, Status, ToastMsg, RouterLink, CheckboxComponent],
   templateUrl: './survey-create-component.html',
   styleUrl: './survey-create-component.scss',
 })

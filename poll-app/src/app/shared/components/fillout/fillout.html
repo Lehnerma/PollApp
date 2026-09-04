@@ -18,14 +18,19 @@
       <h1 class="form__title">{{ survey.survey_name }}</h1>
       <h2 class="form__description">{{ survey.description }}</h2>
     </article>
-    <article>
-      <ol>
+    <article class="question">
+      <ol class="question__list">
         @for (question of questions; track $index; let index = $index) {
-          <li class="question-list__item">
-            <h3>{{ index + 1 }}. {{questions[index].question_name}}</h3>
-            <p class="question__multiply" [class.d-none]="!questions[index].multiple_options">More than one answer are possible</p>
+          <li class="question__item">
+            <div class="question__item--container">
+              <h3 class="question__name">{{ index + 1 }}. {{ questions[index].question_name }}</h3>
+              <p class="question__multiply" [class.d-none]="!questions[index].multiple_options">
+                More than one answer are possible
+              </p>
+            </div>
             <fieldset class="form__fieldset">
-              <input id="option-index" name="" type="checkbox" />
+              
+              <input id="option-index" name="option+index" type="checkbox" />
               <label for="option_index">test</label>
             </fieldset>
           </li>

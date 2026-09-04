@@ -90,3 +90,29 @@
     font-weight: 500;
   }
 }
+
+.question{
+  &__list{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+    column-gap: clamp(30px, 15vw, 100px);
+    row-gap: 40px;
+  }
+
+  &__name{
+    font-family: $f-txt;
+    font-size: rem(18);
+  }
+
+  &__item{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    &--container{
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+  }
+}

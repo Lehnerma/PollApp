@@ -97,32 +97,8 @@
             <fieldset class="form__fieldset options">
               <div class="options__header">
                 <legend class="form__label">Answers</legend>
-
-                <div class="checkbox__container">
-                  <input
-                    class="checkbox"
-                    formControlName="multiple_options"
-                    id="multiple_answers"
-                    name="multiple answers"
-                    type="checkbox"
-                  />
-                  <label class="form__label checkbox__label" for="multiple_answers">
-                    <span class="checkbox__checkmark">
-                      <svg
-                        aria-hidden="true"
-                        class="checkbox__checkmark--check"
-                        fill="none"
-                        viewBox="0 0 10 8"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M3.41978 6.2539L8.9006 0.213808C9.02994 0.0712695 9.18084 0 9.3533 0C9.52575 0 9.67665 0.0712695 9.80599 0.213808C9.93533 0.356347 10 0.525612 10 0.721604C10 0.917595 9.93533 1.08686 9.80599 1.2294L3.87247 7.78619C3.74313 7.92873 3.59223 8 3.41978 8C3.24732 8 3.09642 7.92873 2.96708 7.78619L0.186251 4.7216C0.0569101 4.57906 -0.00506586 4.4098 0.000323353 4.21381C0.00571256 4.01782 0.0730777 3.84855 0.202419 3.70601C0.33176 3.56347 0.485352 3.4922 0.663196 3.4922C0.84104 3.4922 0.994632 3.56347 1.12397 3.70601L3.41978 6.2539Z"
-                        />
-                      </svg>
-                    </span>
-                    Allow multiple answers.
-                  </label>
-                </div>
+                <!-- todo check styling -->
+                 <app-checkbox-component label="Allow multiple answers." id="multiple_answers_{{index}}"></app-checkbox-component>
               </div>
 
               <!-- ! Options -->

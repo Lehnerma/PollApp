@@ -6,6 +6,13 @@
 
   &__container {
     position: relative;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 3px;
+    &:hover {
+      background-color: var(--container-bg-hover, none);
+    }
   }
 
   &__label {
@@ -13,16 +20,20 @@
     font-weight: 400;
     padding-left: 4px;
     color: var(--label-color, white);
+    width: 100%;
+    cursor: pointer;
+    @include animation(color);
   }
 
   &__checkmark {
     width: 15px;
     height: 15px;
     cursor: pointer;
-    border: solid 1.5px var(--border-color, white);
+    border: solid 1.5px;
+    border-color: var(--border-color, white);
     border-radius: 3px;
     position: absolute;
-    left: 0;
+    left: 2px;
     top: 50%;
     transform: translateY(-50%);
     @include flex-center;

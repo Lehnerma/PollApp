@@ -17,7 +17,7 @@ export class FillOut {
   router = inject(Router);
   private route = inject(ActivatedRoute);
   //currentId = Number(this.route.snapshot.paramMap.get('id'));
-
+  
   survey: SurveyInterface = new SurveyModel();
   questions = [new QuestionModel(), new QuestionModel];
 

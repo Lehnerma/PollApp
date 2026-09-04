@@ -115,6 +115,9 @@
 }
 
 .checkbox {
-  --label-color: $primary-purple;
-  --border-color: $primary-purple;
+  --label-color: #{$primary-purple};
+  --label-color-hover: #{$secondary-purple};
+  --container-bg-hover: #{$fillout-option-hover};
+  --border-color: #{$primary-purple};
+
 }

@@ -12,13 +12,14 @@
     font-size: rem(14);
     font-weight: 400;
     padding-left: 4px;
+    color: var(--label-color, white);
   }
 
   &__checkmark {
     width: 15px;
     height: 15px;
     cursor: pointer;
-    border: solid 1.5px white;
+    border: solid 1.5px var(--border-color, white);
     border-radius: 3px;
     position: absolute;
     left: 0;
@@ -28,7 +29,7 @@
 
     &:hover {
       background-color: $secondary-btn-bg-hover;
-      border-color: $primary-white;
+      border-color: var(--border-color-hover, $primary-white);
     }
 
     &--check {

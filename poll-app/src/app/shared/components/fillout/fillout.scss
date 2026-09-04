@@ -25,11 +25,10 @@
     justify-content: space-between;
   }
 
-  &__info{
+  &__info {
     font-family: $f-txt;
     font-size: rem(14);
     font-weight: 500;
-
   }
 
   &__btn {
@@ -49,11 +48,10 @@
       background-color: $secondary-orange;
     }
   }
-
 }
-.d-none{
-    display: none;
-    visibility: hidden;
+.d-none {
+  display: none;
+  visibility: hidden;
 }
 
 .form {
@@ -66,53 +64,57 @@
   width: 100dvw;
   max-width: $lg-dp-width;
 
-  &__main{
+  &__main {
     padding: 0 11px;
     display: grid;
     gap: 40px;
   }
 
-  &__headings{
+  &__headings {
     display: flex;
     flex-direction: column;
     gap: 24px;
   }
-  &__title{
+  &__title {
     font-family: $f-title;
     font-size: rem(48);
     color: $create-survey-orange;
-
   }
 
-  &__description{
+  &__description {
     font-family: $f-txt;
     font-size: rem(16);
     font-weight: 500;
   }
 }
 
-.question{
-  &__list{
+.question {
+  &__list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
     column-gap: clamp(30px, 15vw, 100px);
     row-gap: 40px;
   }
 
-  &__name{
+  &__name {
     font-family: $f-txt;
     font-size: rem(18);
   }
 
-  &__item{
+  &__item {
     display: flex;
     flex-direction: column;
     gap: 24px;
 
-    &--container{
+    &--container {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
   }
+}
+
+.checkbox {
+  --label-color: $primary-purple;
+  --border-color: $primary-purple;
 }

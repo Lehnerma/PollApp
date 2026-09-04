@@ -5,10 +5,11 @@ import { SurveyInterface } from '../../interfaces/survey-interface';
 import { SurveyModel } from '../../models/survey-model';
 import { DatePipe } from '@angular/common';
 import { QuestionModel } from '../../models/question-model';
+import { CheckboxComponent } from '../checkbox-component/checkbox-component';
 
 @Component({
   selector: 'fill-out',
-  imports: [Status, RouterLink, DatePipe],
+  imports: [Status, RouterLink, DatePipe, CheckboxComponent],
   templateUrl: './fillout.html',
   styleUrl: './fillout.scss',
 })

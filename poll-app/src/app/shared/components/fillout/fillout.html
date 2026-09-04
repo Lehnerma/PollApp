@@ -29,9 +29,7 @@
               </p>
             </div>
             <fieldset class="form__fieldset">
-              
-              <input id="option-index" name="option+index" type="checkbox" />
-              <label for="option_index">test</label>
+              <app-checkbox-component class="checkbox" id="question-{{index}}" [label]="question.question_name"></app-checkbox-component>
             </fieldset>
           </li>
         }

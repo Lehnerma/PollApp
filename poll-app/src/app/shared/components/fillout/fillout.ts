@@ -23,4 +23,14 @@ export class FillOut {
     params: () => ({ id: this.currentId }),
     loader: ({ params }) => this.supabase.getSurveyWithQuestions(params.id),
   });
+
+  /**
+   * Returns the uppercase letter for the given option index.
+   *
+   * @param index The zero-based option index.
+   * @returns The corresponding uppercase letter A, B ...
+   */
+  getLetterFromIndex(index: number): string {
+    return String.fromCharCode(65 + index);
+  }
 }

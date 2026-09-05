@@ -41,12 +41,10 @@
                 <h3 class="question__name">{{ index + 1 }}. {{ question.question_name }}</h3>
                 <p class="question__multiply" [class.d-none]="!question.multiple_options">More than one answer are possible</p>
               </div>
+              <!-- ! Options -->
+
               <fieldset class="form__fieldset">
-                <app-checkbox-component
-                  class="checkbox"
-                  id="question-{{ index }}"
-                  [label]="question.question_name"
-                ></app-checkbox-component>
+                @for (opt of question.options; track $index; let i = $index) {}
               </fieldset>
             </li>
           }

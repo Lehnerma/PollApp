@@ -14,11 +14,4 @@ export class CheckboxComponent {
   id = input<string>(''); // aktuell untypisiert -> unknown
   checked = input(false); // State liegt beim Parent
   changed = output<string>();
-
-  /**
-   * Toggles the checkbox value and emits the new state.
-   */
-  // toggle(): void {
-  //   this.checked.set(!this.checked());
-  // }
 }

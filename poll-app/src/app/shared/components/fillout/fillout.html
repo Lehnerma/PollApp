@@ -5,8 +5,7 @@
   <p>Survey could not be loaded.</p>
   <!-- todo add a route to the home page -->
 } @else if (surveyResource.value(); as survey) {
-  <!-- todo (ngSubmit)="onSubmit()" -->
-  <form class="form">
+  <form class="form" (ngSubmit)="onSubmit()">
     <header class="header">
       <app-status class="header__status" status="Published"></app-status>
       <button class="btn btn__secondary header__btn" routerLink="">
@@ -68,7 +67,7 @@
     </main>
 
     <!-- todo change to submit only for styling and testing -->
-    <button class="btn btn__primary btn--content" type="button">
+    <button class="btn btn__primary btn--content" type="submit" routerLink="">
       Complete
       <svg class="btn__primary--icon" width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path

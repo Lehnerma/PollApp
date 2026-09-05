@@ -57,8 +57,10 @@ export class FillOut {
   select(question: QuestionInterface, optionId: string): void {
     const next = new Map(this.answer()); // copy the map
     const current = next.get(String(question.id)) ?? new Set<string>(); // get the existing set or create a new one
+    const deltas = this.voteDeltas(question, optionId, current);
     next.set(String(question.id), this.nextSelection(question, optionId, current)); // set the new set
     this.answer.set(next);
+    deltas.forEach(([id, delta]) => this.supabase.changeVote(id, delta));
   }
 
   /**
@@ -74,5 +76,32 @@ export class FillOut {
     if (next.has(optionId)) next.delete(optionId);
     else next.add(optionId);
     return next;
+  }
+
+  /**
+   * Determines which options have to be up- or downvoted for a click.
+   * Must be called before nextSelection() because that mutates the current set.
+   *
+   * @param question The question the clicked option belongs to.
+   * @param optionId The ID of the clicked option.
+   * @param current The set of selected options before the click.
+   * @returns Pairs of option ID and vote delta, e.g. [['abc', -1], ['def', 1]].
+   */
+  voteDeltas(question: QuestionInterface, optionId: string, current: Set<string>): [string, number][] {
+    if (question.multiple_options) return [[optionId, current.has(optionId) ? -1 : 1]]; // toggle
+    const previous = [...current][0]; // single choice holds one option at most
+    if (!previous) return [[optionId, 1]];
+    if (previous === optionId) return [];
+    return [
+      [previous, -1],
+      [optionId, 1],
+    ];
+  }
+
+  /**
+   * Navigates to the home page
+   */
+  onSubmit(): void {
+    this.router.navigate(['']);
   }
 }

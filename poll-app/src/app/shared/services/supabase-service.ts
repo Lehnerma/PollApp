@@ -136,4 +136,22 @@ export class SupabaseService {
 
     return data as SurveyWithQuestionsInterface;
   }
+
+  /**
+   * Changes the vote count for an option.
+   * @param optionId - The ID of the option to update.
+   * @param delta - The amount to add to the current vote count.
+   */
+  async changeVote(optionId: string, delta: number): Promise<void> {
+    const { data, error: selectError } = await this.supabase.from('options').select('votes').eq('id', optionId).single();
+
+    if (selectError) throw selectError;
+
+    const { error: updateError } = await this.supabase
+      .from('options')
+      .update({ votes: (data.votes ?? 0) + delta })
+      .eq('id', optionId);
+
+    if (updateError) throw updateError;
+  }
 }

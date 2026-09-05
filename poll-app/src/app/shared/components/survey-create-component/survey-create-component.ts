@@ -118,6 +118,16 @@ export class SurveyCreateComponent {
   }
 
   /**
+   * Toggles the multiple options control of the given question.
+   *
+   * @param question The question form group.
+   */
+  toggleMultipleOptions(question: FormGroup<QuestionForm>): void {
+    const control = question.controls.multiple_options;
+    control.setValue(!control.value);
+  }
+
+  /**
    * Removes an answer option from the current question if more than two options exist.
    *
    * @param question The question form group.

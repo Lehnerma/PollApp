@@ -98,7 +98,12 @@
               <div class="options__header">
                 <legend class="form__label">Answers</legend>
                 <!-- todo check styling -->
-                 <app-checkbox-component label="Allow multiple answers." id="multiple_answers_{{index}}"></app-checkbox-component>
+                <app-checkbox-component
+                  (changed)="toggleMultipleOptions(question)"
+                  [checked]="question.controls.multiple_options.value"
+                  id="multiple_answers_{{ index }}"
+                  label="Allow multiple answers."
+                ></app-checkbox-component>
               </div>
 
               <!-- ! Options -->

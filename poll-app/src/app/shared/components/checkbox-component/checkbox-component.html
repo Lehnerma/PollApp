@@ -1,5 +1,13 @@
 <div class="checkbox__container">
-  <input class="checkbox" formControlName="multiple_options" id="{{ id() }}" name="multiple answers" type="checkbox" />
+  <input
+    class="checkbox"
+    id="{{ id() }}"
+    [name]="name()"
+    [type]="type()"
+    [value]="value()"
+    [checked]="checked()"
+    (change)="changed.emit(value())"
+  />
   <label class="form__label checkbox__label" for="{{ id() }}">
     <span class="checkbox__checkmark">
       <svg

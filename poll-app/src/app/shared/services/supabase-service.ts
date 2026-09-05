@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, RealtimeChannel } from '@supabase/supabase-js';
 import { SurveyInterface } from '../interfaces/survey-interface';
 import { environment } from '../../../environments/environment';
 import { SurveyModel } from '../models/survey-model';
@@ -132,8 +132,6 @@ export class SupabaseService {
       .eq('id', surveyId)
       .single();
     if (error) throw error;
-    console.log(data);
-
     return data as SurveyWithQuestionsInterface;
   }
 
@@ -153,5 +151,14 @@ export class SupabaseService {
       .eq('id', optionId);
 
     if (updateError) throw updateError;
+  }
+
+  subscribeToOptions(): void {
+    const channels = this.supabase
+      .channel('options')
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'options' }, (payload) => {
+        console.log('Change received!', payload);
+      })
+      .subscribe();
   }
 }

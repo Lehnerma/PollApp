@@ -61,7 +61,7 @@
   gap: 48px;
   padding: 40px clamp(4px, 2vw, 54px);
   border-radius: 5px 100px 5px 5px;
-  width: 100dvw;
+  //width: 100dvw;
   max-width: $lg-dp-width;
 
   &__main {
@@ -113,7 +113,7 @@
     }
   }
 
-  &__multiply{
+  &__multiply {
     font-family: $f-txt;
     font-size: rem(14);
     font-weight: 400;

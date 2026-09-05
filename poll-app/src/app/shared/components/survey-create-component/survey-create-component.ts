@@ -11,7 +11,8 @@ import { QuestionFormValue } from '../../interfaces/question-form-value';
 import { Status } from '../status/status';
 import { ToastMsg } from '../toast-msg/toast-msg';
 import { RouterLink } from '@angular/router';
-import { CheckboxComponent } from "../checkbox-component/checkbox-component";
+import { CheckboxComponent } from '../checkbox-component/checkbox-component';
+import { getLetterFromIndex } from '../../utils/opt-label.util';
 
 @Component({
   selector: 'survey-create-component',
@@ -40,6 +41,7 @@ export class SurveyCreateComponent {
   today = new Date().toISOString().split('T')[0];
   supabase = inject(SupabaseService);
   toastVisible = signal(false);
+  protected readonly getLetterFromIndex = getLetterFromIndex;
   surveyForm = new FormGroup({
     details: this.createDetailsForm(),
     questions: this.fb.array([this.createQuestionForm()]),
@@ -168,16 +170,6 @@ export class SurveyCreateComponent {
    */
   resetDescription(): void {
     this.details.controls.description.reset();
-  }
-
-  /**
-   * Returns the uppercase letter for the given option index.
-   *
-   * @param index The zero-based option index.
-   * @returns The corresponding uppercase letter A, B ...
-   */
-  getLetterFromIndex(index: number): string {
-    return String.fromCharCode(65 + index);
   }
 
   /**

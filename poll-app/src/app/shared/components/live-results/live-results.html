@@ -1,1 +1,24 @@
-<p>live-results works!</p>
+@if (surveyResource.isLoading()) {
+  <p>Loading survey…</p>
+  <!-- todo add a spinner for slow loading -->
+} @else if (surveyResource.error()) {
+  <p>Survey could not be loaded.</p>
+  <!-- todo add a route to the home page -->
+} @else if (surveyResource.value(); as survey) {
+  <h1 class="live__title">Survey results <span class="live__title--uper">LIVE</span></h1>
+  <ol>
+    <!-- ! question -->
+    @for (question of survey.questions; track question.id; let index = $index) {
+      <li class="question">
+        <h3 class="question__name" id="q-{{ question.id }}">{{ index + 1 }}. {{ question.question_name }}</h3>
+        <ul>
+          @for (opt of question.options; track opt.id; let i = $index) {
+            <li class="option">
+              <app-progressbar [optionName]="opt.option_name" [prefixLetter]="getLetterFromIndex(i)"></app-progressbar>
+            </li>
+          }
+        </ul>
+      </li>
+    }
+  </ol>
+}

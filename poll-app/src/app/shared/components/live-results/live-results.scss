@@ -1,0 +1,13 @@
+@use '../../../../styles/abstracts' as *;
+
+.live {
+  &__title {
+    font-family: $f-title;
+    font-size: rem(32);
+    font-weight: 400;
+
+    &--uper {
+      color: $live-orange;
+    }
+  }
+}

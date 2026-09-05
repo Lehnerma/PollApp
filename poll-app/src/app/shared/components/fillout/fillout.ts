@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { CheckboxComponent } from '../checkbox-component/checkbox-component';
 import { SupabaseService } from '../../services/supabase-service';
 import { QuestionInterface } from '../../interfaces/question-interface';
+import { getLetterFromIndex } from '../../utils/opt-label.util';
 @Component({
   selector: 'fill-out',
   imports: [Status, RouterLink, DatePipe, CheckboxComponent],
@@ -16,7 +17,7 @@ export class FillOut {
   private route = inject(ActivatedRoute);
   currentId = this.route.snapshot.paramMap.get('id') ?? ''; // id of the survey
   supabase = inject(SupabaseService);
-
+  protected readonly getLetterFromIndex = getLetterFromIndex;
   answer = signal<Map<string, Set<string>>>(new Map());
 
   /**
@@ -26,16 +27,6 @@ export class FillOut {
     params: () => ({ id: this.currentId }),
     loader: ({ params }) => this.supabase.getSurveyWithQuestions(params.id),
   });
-
-  /**
-   * Returns the uppercase letter for the given option index.
-   *
-   * @param index The zero-based option index.
-   * @returns The corresponding uppercase letter A, B ...
-   */
-  getLetterFromIndex(index: number): string {
-    return String.fromCharCode(65 + index);
-  }
 
   /**
    * Checks whether an option has already been selected for a specific question.

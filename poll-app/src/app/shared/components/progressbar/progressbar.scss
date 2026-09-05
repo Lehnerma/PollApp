@@ -1,0 +1,47 @@
+@use '../../../../styles/abstracts' as *;
+
+$progress-percent-color: rgba(215, 148, 81, 1);
+$progress-track-height: 12px;
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 350px;
+
+  &__prefix {
+    flex: 0 0 auto;
+    min-width: rem(14);
+    font-family: $f-txt;
+    font-size: rem(14);
+    font-weight: 400;
+    color: $primary-black;
+  }
+
+  &__track {
+    flex: 1 1 auto;
+    height: $progress-track-height;
+    border-radius: 100px;
+    background-color: $secondary-purple;
+    overflow: hidden;
+  }
+
+  &__fill {
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+    background-color: $secondary-orange;
+    @include animation(width);
+  }
+
+  &__percent {
+    flex: 0 0 auto;
+    min-width: rem(38);
+    text-align: right;
+    font-family: $f-txt;
+    font-size: rem(14);
+    font-weight: 700;
+    color: $progress-percent-color;
+  }
+}

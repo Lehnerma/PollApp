@@ -3,9 +3,9 @@
   <!-- todo add a spinner for slow loading -->
 } @else if (surveyResource.error()) {
   <p>Survey could not be loaded.</p>
-  <!-- todo add a backlink to the home page -->
+  <!-- todo add a route to the home page -->
 } @else if (surveyResource.value(); as survey) {
-  <form class="form">
+  <form class="form" (ngSubmit)="onSubmit()">
     <header class="header">
       <app-status class="header__status" status="Published"></app-status>
       <button class="btn btn__secondary header__btn" routerLink="">
@@ -52,9 +52,10 @@
                     [type]="question.multiple_options ? 'checkbox' : 'radio'"
                     [name]="'question-' + question.id"
                     [value]="opt.id.toString()"
+                    [prefix]="getLetterFromIndex(i)"
                     [label]="opt.option_name"
                     [id]="'option-' + opt.id"
-                    [checked]="isSelected(question.id, opt.id)"
+                    [checked]="isSelected(question.id.toString(), opt.id.toString())"
                     (changed)="select(question, $event)"
                   ></app-checkbox-component>
                 }
@@ -66,7 +67,7 @@
     </main>
 
     <!-- todo change to submit only for styling and testing -->
-    <button class="btn btn__primary btn--content" type="button">
+    <button class="btn btn__primary btn--content" type="submit" routerLink="">
       Complete
       <svg class="btn__primary--icon" width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path

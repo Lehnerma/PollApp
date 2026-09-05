@@ -85,7 +85,7 @@ export class SupabaseService {
     const survey_data = survey.getCleanSurveyJson();
     const { error } = await this.supabase
       .from('surveys')
-      .insert([survey_data]) // die daten die gepusht werden soll.
+      .insert([survey_data]) // data we will push to supabase
       .select();
     if (error) throw error;
     return survey_data.id;
@@ -98,10 +98,7 @@ export class SupabaseService {
    */
   async addQuestion(question: QuestionModel, id: string | number): Promise<string | number> {
     const question_data = question.getCleanQuestionJson(id);
-    const { error } = await this.supabase
-      .from('questions')
-      .insert([question_data]) // diese daten werden gepusht
-      .select();
+    const { error } = await this.supabase.from('questions').insert([question_data]).select();
     if (error) throw error;
     return question_data.id;
   }
@@ -109,14 +106,11 @@ export class SupabaseService {
   /**
    * pushes the options with the id of the question to connect them
    * @param option - is the model with the values we need
-   * @param questionId - is the connection to the question in the superbase
+   * @param questionId - is the connection to the question in the supabase
    */
   async addOptions(option: OptionModel, questionId: string | number): Promise<void> {
     const options_data = option.getCleanQuestionJson(questionId);
-    const { error } = await this.supabase
-      .from('options')
-      .insert([options_data]) // diese daten werden gepusht
-      .select();
+    const { error } = await this.supabase.from('options').insert([options_data]).select();
     if (error) throw error;
   }
 
@@ -136,10 +130,28 @@ export class SupabaseService {
     )`,
       )
       .eq('id', surveyId)
-      .single(); // wirft bei 0 treffen einen fehler und unser guard resource() zeigt dann die fehler meldung an.
+      .single();
     if (error) throw error;
     console.log(data);
 
     return data as SurveyWithQuestionsInterface;
+  }
+
+  /**
+   * Changes the vote count for an option.
+   * @param optionId - The ID of the option to update.
+   * @param delta - The amount to add to the current vote count.
+   */
+  async changeVote(optionId: string, delta: number): Promise<void> {
+    const { data, error: selectError } = await this.supabase.from('options').select('votes').eq('id', optionId).single();
+
+    if (selectError) throw selectError;
+
+    const { error: updateError } = await this.supabase
+      .from('options')
+      .update({ votes: (data.votes ?? 0) + delta })
+      .eq('id', optionId);
+
+    if (updateError) throw updateError;
   }
 }

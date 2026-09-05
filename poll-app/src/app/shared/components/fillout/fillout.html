@@ -35,16 +35,29 @@
       <article class="question">
         <ol class="question__list">
           <!-- ! Questions -->
-          @for (question of survey.questions; track $index; let index = $index) {
+          @for (question of survey.questions; track question.id; let index = $index) {
             <li class="question__item">
               <div class="question__item--container">
-                <h3 class="question__name">{{ index + 1 }}. {{ question.question_name }}</h3>
-                <p class="question__multiply" [class.d-none]="!question.multiple_options">More than one answer are possible</p>
+                <h3 class="question__name" id="q-{{ question.id }}">{{ index + 1 }}. {{ question.question_name }}</h3>
+                @if (question.multiple_options) {
+                  <p class="question__multiply">More than one answer are possible</p>
+                }
               </div>
-              <!-- ! Options -->
 
-              <fieldset class="form__fieldset">
-                @for (opt of question.options; track $index; let i = $index) {}
+              <fieldset class="form__fieldset" [attr.aria-labelledby]="'q-' + question.id">
+                <!-- ! Options -->
+                @for (opt of question.options; track opt.id; let i = $index) {
+                  <app-checkbox-component
+                    class="checkbox"
+                    [type]="question.multiple_options ? 'checkbox' : 'radio'"
+                    [name]="'question-' + question.id"
+                    [value]="opt.id.toString()"
+                    [label]="opt.option_name"
+                    [id]="'option-' + opt.id"
+                    [checked]="isSelected(question.id, opt.id)"
+                    (changed)="select(question, $event)"
+                  ></app-checkbox-component>
+                }
               </fieldset>
             </li>
           }

@@ -1,12 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, resource } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Status } from '../status/status';
-import { SurveyInterface } from '../../interfaces/survey-interface';
-import { SurveyModel } from '../../models/survey-model';
 import { DatePipe } from '@angular/common';
-import { QuestionModel } from '../../models/question-model';
 import { CheckboxComponent } from '../checkbox-component/checkbox-component';
-
+import { SupabaseService } from '../../services/supabase-service';
 @Component({
   selector: 'fill-out',
   imports: [Status, RouterLink, DatePipe, CheckboxComponent],
@@ -16,22 +13,14 @@ import { CheckboxComponent } from '../checkbox-component/checkbox-component';
 export class FillOut {
   router = inject(Router);
   private route = inject(ActivatedRoute);
-  //currentId = Number(this.route.snapshot.paramMap.get('id'));
-  
-  survey: SurveyInterface = new SurveyModel();
-  questions = [new QuestionModel(), new QuestionModel];
+  currentId = this.route.snapshot.paramMap.get('id') ?? ''; // id of the survey
+  supabase = inject(SupabaseService);
 
   /**
-   * Only for testing und styling
+   * Loads the survey from the supabase.
    */
-  constructor() {
-    this.survey.survey_name = 'Lass uns einen umfrage starten';
-    this.survey.description = 'Das soll eine beschreibung sein um die Form besser zu stylen';
-    
-    this.questions[0].question_name = 'Lass uns die erste Frage stellen?'
-    this.questions[0].multiple_options = true;
-
-    this.questions[1].question_name = 'Lass uns die zweite Frage stellen?'
-    this.questions[1].multiple_options = false;
-  }
+  surveyResource = resource({
+    params: () => ({ id: this.currentId }),
+    loader: ({ params }) => this.supabase.getSurveyWithQuestions(params.id),
+  });
 }

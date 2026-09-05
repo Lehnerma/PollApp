@@ -112,6 +112,12 @@
       gap: 4px;
     }
   }
+
+  &__multiply{
+    font-family: $f-txt;
+    font-size: rem(14);
+    font-weight: 400;
+  }
 }
 
 .checkbox {
@@ -119,5 +125,4 @@
   --label-color-hover: #{$secondary-purple};
   --container-bg-hover: #{$fillout-option-hover};
   --border-color: #{$primary-purple};
-
 }

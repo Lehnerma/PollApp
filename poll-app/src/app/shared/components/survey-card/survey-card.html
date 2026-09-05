@@ -1,6 +1,6 @@
 <ul [class]="listLayout()" class="card__container">
   @for (item of surveyList(); track item.id) {
-    <li class="card">
+    <li class="card" [routerLink]="['fillout', item.id]">
       <button class="card__btn">
         <h4 class="card__category">{{ item.category }}</h4>
         <h3 class="card__title">{{ item.survey_name }}</h3>

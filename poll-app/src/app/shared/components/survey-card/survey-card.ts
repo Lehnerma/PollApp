@@ -1,9 +1,10 @@
 import { Component, input } from '@angular/core';
 import { SurveyInterface } from '../../interfaces/survey-interface';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-survey-card',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './survey-card.html',
   styleUrl: './survey-card.scss',
 })

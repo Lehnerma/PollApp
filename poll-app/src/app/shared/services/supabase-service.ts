@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { SurveyModel } from '../models/survey-model';
 import { QuestionModel } from '../models/question-model';
 import { OptionModel } from '../models/options-model';
+import { SurveyWithQuestionsInterface } from '../interfaces/survey-with-questions-interface';
 
 /**
  * Service for loading and preparing survey data from Supabase.
@@ -16,7 +17,6 @@ export class SupabaseService {
   surveyList = signal<SurveyInterface[]>([]); //* survey list realtime
   surveyCategoryList = signal<string[]>([]); //* category list realtime
   nextEndingSurveys = signal<SurveyInterface[]>([]);
-
   /**
    * Initializes the service and loads all surveys from the backend.
    */
@@ -118,5 +118,28 @@ export class SupabaseService {
       .insert([options_data]) // diese daten werden gepusht
       .select();
     if (error) throw error;
+  }
+
+  /**
+   * Loads a single survey including its questions and their options.
+   * @param surveyId - id of the survey to load
+   * @returns The complete survey, or null if no survey matches the id
+   */
+  async getSurveyWithQuestions(surveyId: string | number): Promise<SurveyWithQuestionsInterface> {
+    const { data, error } = await this.supabase
+      .from('surveys')
+      .select(
+        `*,
+    questions(
+    *,
+    options(*)
+    )`,
+      )
+      .eq('id', surveyId)
+      .single(); // wirft bei 0 treffen einen fehler und unser guard resource() zeigt dann die fehler meldung an.
+    if (error) throw error;
+    console.log(data);
+
+    return data as SurveyWithQuestionsInterface;
   }
 }

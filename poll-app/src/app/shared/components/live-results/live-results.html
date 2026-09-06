@@ -14,7 +14,11 @@
         <ul>
           @for (opt of question.options; track opt.id; let i = $index) {
             <li class="option">
-              <app-progressbar [optionName]="opt.option_name" [prefixLetter]="getLetterFromIndex(i)"></app-progressbar>
+              <app-progressbar
+                [optionName]="opt.option_name"
+                [prefixLetter]="getLetterFromIndex(i)"
+                [percent]="opt.votes * 10"
+              ></app-progressbar>
             </li>
           }
         </ul>

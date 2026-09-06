@@ -94,10 +94,10 @@ export class SupabaseService {
   /**
    * pushes the question to supabase
    * @param question - is the model with default values
-   * @param id - is the connection to the survey
+   * @param surveyId - is the connection to the survey
    */
-  async addQuestion(question: QuestionModel, id: string | number): Promise<string | number> {
-    const question_data = question.getCleanQuestionJson(id);
+  async addQuestion(question: QuestionModel, surveyId: string | number): Promise<string | number> {
+    const question_data = question.getCleanQuestionJson(surveyId);
     const { error } = await this.supabase.from('questions').insert([question_data]).select();
     if (error) throw error;
     return question_data.id;
@@ -106,10 +106,11 @@ export class SupabaseService {
   /**
    * pushes the options with the id of the question to connect them
    * @param option - is the model with the values we need
+   * @param surveyId - is the connection to the survey in the supabase
    * @param questionId - is the connection to the question in the supabase
    */
-  async addOptions(option: OptionModel, questionId: string | number): Promise<void> {
-    const options_data = option.getCleanQuestionJson(questionId);
+  async addOptions(option: OptionModel, surveyId: string | number, questionId: string | number): Promise<void> {
+    const options_data = option.getCleanOptionJson(surveyId, questionId);
     const { error } = await this.supabase.from('options').insert([options_data]).select();
     if (error) throw error;
   }

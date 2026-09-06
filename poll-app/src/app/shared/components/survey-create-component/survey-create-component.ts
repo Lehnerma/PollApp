@@ -26,15 +26,12 @@ export class SurveyCreateComponent {
     'Zelda',
     'Super Mario',
     'Nintendo',
-    'Speedrunning',
-    'Retro Gaming',
     'One Piece',
     'Detective Conan',
     'Anime',
     'Manga',
     'Frontend Development',
     'JavaScript',
-    'Angular',
     'CSS',
     'CSS Battle',
   ];
@@ -191,9 +188,7 @@ export class SurveyCreateComponent {
   private async pushQuestionsWithOptions(question: QuestionFormValue, surveyId: string | number): Promise<void> {
     const savedQuestion = await this.supabase.addQuestion(new QuestionModel(question), surveyId);
     await Promise.all(
-      question.options.map((option) => {
-        this.supabase.addOptions(new OptionModel(option), savedQuestion);
-      }),
+      question.options.map((option) => this.supabase.addOptions(new OptionModel(option), surveyId, savedQuestion)),
     );
   }
 

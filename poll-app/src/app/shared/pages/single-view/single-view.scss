@@ -1,0 +1,11 @@
+@use '../../../../styles/abstracts' as *;
+
+.grid {
+  display: grid;
+
+  gap: 1rem;
+
+  @include respond-to(lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

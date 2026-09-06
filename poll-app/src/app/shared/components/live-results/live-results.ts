@@ -5,6 +5,7 @@ import { Progressbar } from '../progressbar/progressbar';
 import { getLetterFromIndex } from '../../utils/opt-label.util';
 import { QuestionResultInterface } from '../../interfaces/question-result-interface';
 import { QuestionWithOptionsInterface } from '../../interfaces/question-with-options-interface';
+import { OptionInterface } from '../../interfaces/option-interface';
 
 @Component({
   selector: 'app-live-results',
@@ -22,6 +23,10 @@ export class LiveResults {
 
   constructor() {
     this.optionSubscribe = this.supabase.subscribeToOptions(this.currentId); // subscription to get updates to the options for the surveyId
+  }
+
+  ngOnDestroy() {
+    this.supabase.removeChannel(this.optionSubscribe);
   }
 
   /**
@@ -54,5 +59,22 @@ export class LiveResults {
         percent: totalVotes ? Math.round((option.votes / totalVotes) * 100) : 0, // die option werden mit dem percent erweitert und es wird gerundent.
       })),
     };
+  }
+
+  private applyOptionUpdate(changed: OptionInterface): void {
+    this.surveyResource.update(
+      (survey) =>
+        survey && {
+          ...survey,
+          questions: survey.questions.map((q) => ({
+            ...q,
+            options: q.options.map((o) => (o.id === changed.id ? changed : o)),
+          })),
+        },
+    );
+  }
+
+  logger() {
+    console.log(this.surveyResource);
   }
 }

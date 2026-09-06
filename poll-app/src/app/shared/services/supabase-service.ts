@@ -6,6 +6,7 @@ import { SurveyModel } from '../models/survey-model';
 import { QuestionModel } from '../models/question-model';
 import { OptionModel } from '../models/options-model';
 import { SurveyWithQuestionsInterface } from '../interfaces/survey-with-questions-interface';
+import { OptionInterface } from '../interfaces/option-interface';
 
 /**
  * Service for loading and preparing survey data from Supabase.
@@ -159,7 +160,7 @@ export class SupabaseService {
    * @param surveyId - is the uuid for the right survey.
    * @returns RealtimeChannel for the subscription
    */
-  subscribeToOptions(surveyId: string): RealtimeChannel {
+  subscribeToOptions(surveyId: string, onUpdate: (option: OptionInterface) => void): RealtimeChannel {
     return this.supabase
       .channel(`options:${surveyId}`)
       .on(
@@ -167,6 +168,7 @@ export class SupabaseService {
         { event: 'UPDATE', schema: 'public', table: 'options', filter: `survey_id=eq.${surveyId}` },
         (payload) => {
           const cur = new OptionModel(payload.new);
+          onUpdate(cur);
           console.log('Change received!', cur);
         },
       )

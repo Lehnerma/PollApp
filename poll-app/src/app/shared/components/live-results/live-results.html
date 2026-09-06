@@ -1,14 +1,14 @@
-@if (surveyResource.isLoading()) {
+@if (results.surveyResource.isLoading()) {
   <p>Loading survey…</p>
   <!-- todo add a spinner for slow loading -->
-} @else if (surveyResource.error()) {
+} @else if (results.surveyResource.error()) {
   <p>Survey could not be loaded.</p>
   <!-- todo add a route to the home page -->
-} @else if (surveyResource.value()) {
+} @else if (results.surveyResource.value()) {
   <h1 class="live__title">Survey results <span class="live__title--uper">LIVE</span></h1>
   <ol>
     <!-- ! question -->
-    @for (question of resultView(); track question.id; let index = $index) {
+    @for (question of results.resultView(); track question.id; let index = $index) {
       <li class="question">
         <h3 class="question__name" id="q-{{ question.id }}">{{ index + 1 }}. {{ question.question_name }}</h3>
         <ul>
@@ -26,4 +26,3 @@
     }
   </ol>
 }
-<button (click)="logger()">test</button>

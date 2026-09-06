@@ -158,6 +158,7 @@ export class SupabaseService {
   /**
    * Subscribs for the options for updates - with the surveyId
    * @param surveyId - is the uuid for the right survey.
+   * @param onUpdate - callback that receives every changed option.
    * @returns RealtimeChannel for the subscription
    */
   subscribeToOptions(surveyId: string, onUpdate: (option: OptionInterface) => void): RealtimeChannel {
@@ -173,5 +174,13 @@ export class SupabaseService {
         },
       )
       .subscribe();
+  }
+
+  /**
+   * Removes a realtime channel so the subscription is closed.
+   * @param channel - the channel returned by a subscribe method.
+   */
+  async removeChannel(channel: RealtimeChannel): Promise<void> {
+    await this.supabase.removeChannel(channel);
   }
 }

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, resource } from '@angular/core';
 import { FillOut } from '../../components/fillout/fillout';
 import { LiveResults } from '../../components/live-results/live-results';
+import { ActivatedRoute } from '@angular/router';
+import { SupabaseService } from '../../services/supabase-service';
 
 @Component({
   selector: 'app-single-view',
@@ -8,4 +10,13 @@ import { LiveResults } from '../../components/live-results/live-results';
   templateUrl: './single-view.html',
   styleUrl: './single-view.scss',
 })
-export class SingleView {}
+export class SingleView {
+  private route = inject(ActivatedRoute);
+  private supabase = inject(SupabaseService);
+  currentId = this.route.snapshot.paramMap.get('id') ?? '';
+
+  surveyResource = resource({
+    params: () => ({ id: this.currentId }),
+    loader: ({ params }) => this.supabase.getSurveyWithQuestions(params.id),
+  });
+}

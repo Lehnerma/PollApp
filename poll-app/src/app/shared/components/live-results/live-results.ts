@@ -18,6 +18,11 @@ export class LiveResults {
   currentId = this.route.snapshot.paramMap.get('id') ?? '';
   supabase = inject(SupabaseService);
   protected readonly getLetterFromIndex = getLetterFromIndex;
+  optionSubscribe;
+
+  constructor() {
+    this.optionSubscribe = this.supabase.subscribeToOptions(this.currentId); // subscription to get updates to the options for the surveyId
+  }
 
   /**
    * Loads the survey from the supabase.
@@ -42,11 +47,11 @@ export class LiveResults {
   private toQuestionResult(question: QuestionWithOptionsInterface): QuestionResultInterface {
     const totalVotes = question.options.reduce((sum, option) => sum + option.votes, 0);
     return {
-      ...question,
-      totalVotes,
+      ...question, // enthallt alle bestandteile der question
+      totalVotes, // wird zu der question hinzugefugt und zahlt alle stimmen.
       options: question.options.map((option) => ({
-        ...option,
-        percent: totalVotes ? Math.round((option.votes / totalVotes) * 100) : 0,
+        ...option, // die option
+        percent: totalVotes ? Math.round((option.votes / totalVotes) * 100) : 0, // die option werden mit dem percent erweitert und es wird gerundent.
       })),
     };
   }

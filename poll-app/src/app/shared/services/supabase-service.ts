@@ -154,12 +154,22 @@ export class SupabaseService {
     if (updateError) throw updateError;
   }
 
-  subscribeToOptions(): void {
-    const channels = this.supabase
-      .channel('options')
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'options' }, (payload) => {
-        console.log('Change received!', payload);
-      })
+  /**
+   * Subscribs for the options for updates - with the surveyId
+   * @param surveyId - is the uuid for the right survey.
+   * @returns RealtimeChannel for the subscription
+   */
+  subscribeToOptions(surveyId: string): RealtimeChannel {
+    return this.supabase
+      .channel(`options:${surveyId}`)
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'options', filter: `survey_id=eq.${surveyId}` },
+        (payload) => {
+          const cur = new OptionModel(payload.new);
+          console.log('Change received!', cur);
+        },
+      )
       .subscribe();
   }
 }

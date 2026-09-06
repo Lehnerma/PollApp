@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Progressbar } from '../progressbar/progressbar';
 import { getLetterFromIndex } from '../../utils/opt-label.util';
 import { SurveyResultsService } from '../../services/survey-results-service';
 
 @Component({
   selector: 'app-live-results',
-  imports: [Progressbar],
+  imports: [Progressbar, RouterLink],
   templateUrl: './live-results.html',
   styleUrl: './live-results.scss',
   providers: [SurveyResultsService], // eigene Instanz pro Ansicht: Resource und Channel leben nur solange die View lebt

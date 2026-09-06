@@ -120,6 +120,14 @@
   }
 }
 
+.optioin {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
 .checkbox {
   --label-color: #{$primary-purple};
   --label-color-hover: #{$secondary-purple};

@@ -1,11 +1,31 @@
 @use '../../../../styles/abstracts' as *;
 
-.grid {
+.view {
   display: grid;
-  max-width: $lg-dp-width;
+  // width: min(calc(100% - 32px), $lg-dp-width);
+  padding: 0 16px;
+  margin: 0 auto;
+}
 
-  @include respond-to(lg) {
-    grid-template-columns: 1fr minmax(20vw, 350px);
+.header__container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.btn__primary {
+  align-self: center;
+  display: none;
+  visibility: hidden;
+  @include respond-to(md) {
+    display: block;
+    visibility: visible;
+  }
+}
+.main-content {
+  display: grid;
+
+  @include respond-to(md) {
+    grid-template-columns: 2fr 1fr;
     column-gap: 42px;
   }
 }

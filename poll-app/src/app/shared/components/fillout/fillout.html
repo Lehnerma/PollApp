@@ -44,7 +44,7 @@
                 }
               </div>
 
-              <fieldset class="form__fieldset" [attr.aria-labelledby]="'q-' + question.id">
+              <fieldset class="form__fieldset option__list" [attr.aria-labelledby]="'q-' + question.id">
                 <!-- ! Options -->
                 @for (opt of question.options; track opt.id; let i = $index) {
                   <app-checkbox-component

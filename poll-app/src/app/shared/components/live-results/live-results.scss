@@ -11,3 +11,27 @@
     }
   }
 }
+
+.questions {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  &__name {
+    font-family: $f-txt;
+    font-size: rem(18);
+    font-weight: 700;
+    color: $primary-purple;
+  }
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

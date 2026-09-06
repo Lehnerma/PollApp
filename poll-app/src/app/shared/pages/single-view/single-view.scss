@@ -2,10 +2,10 @@
 
 .grid {
   display: grid;
-
-  gap: 1rem;
+  max-width: $lg-dp-width;
 
   @include respond-to(lg) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr minmax(20vw, 350px);
+    column-gap: 42px;
   }
 }

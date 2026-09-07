@@ -94,7 +94,6 @@
   &__list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-    // column-gap: clamp(30px, 15vw, 100px);
     row-gap: 40px;
   }
 

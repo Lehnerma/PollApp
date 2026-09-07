@@ -52,7 +52,6 @@ export class DropdownComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-
   /**
    * We set the new value(categorie) and close the dropdown
    * @param item - the categorie whitch is chosen in the dropdown
@@ -61,7 +60,6 @@ export class DropdownComponent implements ControlValueAccessor {
     this.value.set(item);
     this.onChange(item);
     this.isOpen.set(false);
-    // todo this.onTouched() das bruachen wir wenn wir mit touched arbeiten und es validieren für anzeige und sonstiges
   }
 
   private onChange: (value: string | null) => void = () => {};

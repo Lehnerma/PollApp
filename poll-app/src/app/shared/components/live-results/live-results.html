@@ -1,0 +1,29 @@
+@if (results.surveyResource.isLoading()) {
+  <p>Loading survey…</p>
+  <!-- todo add a spinner for slow loading -->
+} @else if (results.surveyResource.error()) {
+  <p>Survey could not be loaded.</p>
+  <!-- todo add a route to the home page -->
+} @else if (results.surveyResource.value()) {
+  <h1 class="live__title">Survey results <span class="live__title--uper">LIVE</span></h1>
+  <ol class="questions">
+    <!-- ! questions -->
+    @for (question of results.resultView(); track question.id; let index = $index) {
+      <li class="questions__item">
+        <h3 class="questions__name" id="q-{{ question.id }}">{{ index + 1 }}. {{ question.question_name }}</h3>
+        <ul class="options">
+          <!-- !options -->
+          @for (opt of question.options; track opt.id; let i = $index) {
+            <li class="options__item">
+              <app-progressbar
+                [optionName]="opt.option_name"
+                [prefixLetter]="getLetterFromIndex(i)"
+                [percent]="opt.percent"
+              ></app-progressbar>
+            </li>
+          }
+        </ul>
+      </li>
+    }
+  </ol>
+}

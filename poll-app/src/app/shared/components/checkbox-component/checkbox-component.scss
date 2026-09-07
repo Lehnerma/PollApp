@@ -38,7 +38,7 @@
     border-color: var(--border-color, white);
     border-radius: 3px;
     position: absolute;
-    left: 2px;
+    left: 8px;
     top: 50%;
     transform: translateY(-50%);
     @include flex-center;

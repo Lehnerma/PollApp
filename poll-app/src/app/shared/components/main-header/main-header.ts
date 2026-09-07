@@ -10,6 +10,5 @@ import { ActivatedRoute } from '@angular/router';
 export class MainHeader {
   private route = inject(ActivatedRoute);
   private path = this.route.snapshot.routeConfig?.path;
-
   currentLogo = this.path === '' ? '../assets/img/logo-full-orange.png' : '../assets/img/logo-full-purple.png';
 }

@@ -93,8 +93,7 @@
 .question {
   &__list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
-    column-gap: clamp(30px, 15vw, 100px);
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
     row-gap: 40px;
   }
 

@@ -93,11 +93,10 @@ export class SurveyService {
   subscribeToSurveys(): RealtimeChannel {
     return this.supabase
       .channel(`surveys`)
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'surveys' }, (payload) => {
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'surveys' }, () => {
         this.setCategories();
         this.setNextEndingSurveys();
         this.getAllSurveys();
-        console.log('Change received survey subscribtion!', payload);
       })
       .subscribe();
   }

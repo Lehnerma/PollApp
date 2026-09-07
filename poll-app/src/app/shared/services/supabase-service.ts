@@ -94,7 +94,6 @@ export class SupabaseService {
         (payload) => {
           const cur = new OptionModel(payload.new);
           onUpdate(cur);
-          console.log('Change received!', cur);
         },
       )
       .subscribe();

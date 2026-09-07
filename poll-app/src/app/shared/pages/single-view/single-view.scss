@@ -2,9 +2,10 @@
 
 .view {
   display: grid;
-  padding: 0 16px;
-  margin: 0 auto;
+  padding: 16px;
+  margin: 47px auto;
   max-width: $lg-dp-width;
+  gap: 40px;
 }
 
 .header__container {
@@ -16,6 +17,7 @@
   align-self: center;
   display: none;
   visibility: hidden;
+
   @include respond-to(md) {
     display: block;
     visibility: visible;

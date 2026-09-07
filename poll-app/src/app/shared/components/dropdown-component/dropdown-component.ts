@@ -52,10 +52,6 @@ export class DropdownComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  // todo if needed setDisabledState:
-  // setDisabledState(isDisabled: boolean):void{
-  // maybe set a disabled signal? only if needed}
-
   /**
    * We set the new value(categorie) and close the dropdown
    * @param item - the categorie whitch is chosen in the dropdown
@@ -64,7 +60,6 @@ export class DropdownComponent implements ControlValueAccessor {
     this.value.set(item);
     this.onChange(item);
     this.isOpen.set(false);
-    // todo this.onTouched() das bruachen wir wenn mir mir touched arbeiten und es validieren für anzeige und sonstiges
   }
 
   private onChange: (value: string | null) => void = () => {};

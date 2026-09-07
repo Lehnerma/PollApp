@@ -1,0 +1,42 @@
+@use '../../../../styles/abstracts' as *;
+
+.live {
+  &__title {
+    font-family: $f-title;
+    font-size: rem(32);
+    font-weight: 400;
+
+    &--uper {
+      color: $live-orange;
+    }
+  }
+
+  &__btn {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+}
+
+.questions {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  &__name {
+    font-family: $f-txt;
+    font-size: rem(18);
+    font-weight: 700;
+    color: $primary-purple;
+  }
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

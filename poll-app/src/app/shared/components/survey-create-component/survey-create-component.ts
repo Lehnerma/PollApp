@@ -11,10 +11,12 @@ import { QuestionFormValue } from '../../interfaces/question-form-value';
 import { Status } from '../status/status';
 import { ToastMsg } from '../toast-msg/toast-msg';
 import { RouterLink } from '@angular/router';
+import { CheckboxComponent } from '../checkbox-component/checkbox-component';
+import { getLetterFromIndex } from '../../utils/opt-label.util';
 
 @Component({
   selector: 'survey-create-component',
-  imports: [ReactiveFormsModule, DropdownComponent, Status, ToastMsg, RouterLink],
+  imports: [ReactiveFormsModule, DropdownComponent, Status, ToastMsg, RouterLink, CheckboxComponent],
   templateUrl: './survey-create-component.html',
   styleUrl: './survey-create-component.scss',
 })
@@ -24,21 +26,19 @@ export class SurveyCreateComponent {
     'Zelda',
     'Super Mario',
     'Nintendo',
-    'Speedrunning',
-    'Retro Gaming',
     'One Piece',
     'Detective Conan',
     'Anime',
     'Manga',
     'Frontend Development',
     'JavaScript',
-    'Angular',
     'CSS',
     'CSS Battle',
   ];
   today = new Date().toISOString().split('T')[0];
   supabase = inject(SupabaseService);
   toastVisible = signal(false);
+  protected readonly getLetterFromIndex = getLetterFromIndex;
   surveyForm = new FormGroup({
     details: this.createDetailsForm(),
     questions: this.fb.array([this.createQuestionForm()]),
@@ -117,6 +117,16 @@ export class SurveyCreateComponent {
   }
 
   /**
+   * Toggles the multiple options control of the given question.
+   *
+   * @param question The question form group.
+   */
+  toggleMultipleOptions(question: FormGroup<QuestionForm>): void {
+    const control = question.controls.multiple_options;
+    control.setValue(!control.value);
+  }
+
+  /**
    * Removes an answer option from the current question if more than two options exist.
    *
    * @param question The question form group.
@@ -160,16 +170,6 @@ export class SurveyCreateComponent {
   }
 
   /**
-   * Returns the uppercase letter for the given option index.
-   *
-   * @param index The zero-based option index.
-   * @returns The corresponding uppercase letter A, B ...
-   */
-  getLetterFromIndex(index: number): string {
-    return String.fromCharCode(65 + index);
-  }
-
-  /**
    * Creates the form data for the tables in supabase
    */
   async onSubmit(): Promise<void> {
@@ -188,9 +188,7 @@ export class SurveyCreateComponent {
   private async pushQuestionsWithOptions(question: QuestionFormValue, surveyId: string | number): Promise<void> {
     const savedQuestion = await this.supabase.addQuestion(new QuestionModel(question), surveyId);
     await Promise.all(
-      question.options.map((option) => {
-        this.supabase.addOptions(new OptionModel(option), savedQuestion);
-      }),
+      question.options.map((option) => this.supabase.addOptions(new OptionModel(option), surveyId, savedQuestion)),
     );
   }
 

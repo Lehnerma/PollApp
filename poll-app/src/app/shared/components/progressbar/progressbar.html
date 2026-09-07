@@ -1,0 +1,11 @@
+<article class="progress">
+  <span class="progress__prefix"
+    >{{ prefixLetter() }}
+    <span class="visually-hidden">{{ optionName() }}</span>
+  </span>
+
+  <div class="progress__track" aria-hidden="true">
+    <div class="progress__fill" [style.width.%]="percent()"></div>
+  </div>
+  <span class="progress__percent">{{ percent() }}%</span>
+</article>

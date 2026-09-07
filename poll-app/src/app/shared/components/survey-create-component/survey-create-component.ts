@@ -3,7 +3,6 @@ import { FormBuilder, ReactiveFormsModule, Validators, FormGroup, FormArray } fr
 import { DropdownComponent } from '../dropdown-component/dropdown-component';
 import { OptionForm, QuestionForm } from '../../interfaces/question-form';
 import { DetailsForm } from '../../interfaces/details-form';
-import { SupabaseService } from '../../services/supabase-service';
 import { SurveyModel } from '../../models/survey-model';
 import { QuestionModel } from '../../models/question-model';
 import { OptionModel } from '../../models/options-model';
@@ -13,6 +12,8 @@ import { ToastMsg } from '../toast-msg/toast-msg';
 import { RouterLink } from '@angular/router';
 import { CheckboxComponent } from '../checkbox-component/checkbox-component';
 import { getLetterFromIndex } from '../../utils/opt-label.util';
+import { SurveyService } from '../../services/survey-service';
+import { SupabaseService } from '../../services/supabase-service';
 
 @Component({
   selector: 'survey-create-component',
@@ -36,6 +37,7 @@ export class SurveyCreateComponent {
     'CSS Battle',
   ];
   today = new Date().toISOString().split('T')[0];
+  surveService = inject(SurveyService);
   supabase = inject(SupabaseService);
   toastVisible = signal(false);
   protected readonly getLetterFromIndex = getLetterFromIndex;
@@ -174,7 +176,7 @@ export class SurveyCreateComponent {
    */
   async onSubmit(): Promise<void> {
     const survey = new SurveyModel(this.surveyForm.controls.details.value);
-    await this.supabase.addSurvey(survey);
+    await this.surveService.addSurvey(survey);
     const questions_data = this.surveyForm.controls.questions.getRawValue();
     await this.pushQuestion(questions_data, survey.id);
     this.toastVisible.set(true);

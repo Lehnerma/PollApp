@@ -3,11 +3,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Status } from '../status/status';
 import { DatePipe } from '@angular/common';
 import { CheckboxComponent } from '../checkbox-component/checkbox-component';
-import { SupabaseService } from '../../services/supabase-service';
 import { QuestionInterface } from '../../interfaces/question-interface';
 import { getLetterFromIndex } from '../../utils/opt-label.util';
 import { ensureQuestionMark } from '../../utils/question-mark-util';
 import { FormsModule } from '@angular/forms';
+import { SurveyService } from '../../services/survey-service';
+import { SupabaseService } from '../../services/supabase-service';
 
 @Component({
   selector: 'fill-out',
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 export class FillOut {
   router = inject(Router);
   supabase = inject(SupabaseService);
+  surveyService = inject(SurveyService);
   answer = signal<Map<string, Set<string>>>(new Map());
   /**
    * Loads the survey from the supabase.

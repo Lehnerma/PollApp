@@ -1,0 +1,103 @@
+import { inject, Injectable, signal } from '@angular/core';
+import { SupabaseService } from './supabase-service';
+import { SurveyInterface } from '../interfaces/survey-interface';
+import { SurveyModel } from '../models/survey-model';
+import { RealtimeChannel } from '@supabase/supabase-js';
+
+@Injectable({ providedIn: 'root' })
+export class SurveyService {
+  supabaseService = inject(SupabaseService); // der komplette service wird injiziert
+  supabase = this.supabaseService.supabase; // der client wird zugewiesen.
+  surveyList = signal<SurveyInterface[]>([]); //* survey list realtime
+  surveyCategoryList = signal<string[]>([]); //* category list realtime
+  nextEndingSurveys = signal<SurveyInterface[]>([]);
+  surveyChannel: RealtimeChannel;
+
+  /**
+   * Initializes the service and loads all surveys from the backend.
+   */
+  constructor() {
+    this.getAllSurveys();
+    this.surveyChannel = this.subscribeToSurveys();
+  }
+
+  /**
+   * Loads all surveys from the Supabase table and updates the related signals.
+   */
+  async getAllSurveys(): Promise<void> {
+    const response = await this.supabase
+      .from('surveys') //
+      .select('*');
+    this.surveyList.set((response.data ?? []) as SurveyInterface[]);
+    this.setCategories();
+    this.setNextEndingSurveys();
+  }
+
+  /**
+   * Updates the category list with unique categories from the current survey data.
+   */
+  setCategories(): void {
+    this.surveyCategoryList.set([...new Set(this.surveyList().map((item) => item.category))]);
+  }
+
+  /**
+   * Determines the next upcoming surveys and stores the first three in the signal.
+   */
+  setNextEndingSurveys(): void {
+    const allSurveys = this.surveyList();
+    const filtered = this.filterUpcomingSurveys(allSurveys);
+    const sorted = this.sortByDaySurveys(filtered);
+    this.nextEndingSurveys.set(sorted.splice(0, 3));
+  }
+
+  /**
+   * Filters out surveys whose expiration date is already in the past.
+   * @param surveys - Survey list from Supabase.
+   * @returns A list of surveys that are still upcoming or currently valid.
+   */
+  filterUpcomingSurveys(surveys: SurveyInterface[]): SurveyInterface[] {
+    const now = Date.now();
+    return surveys.filter((survey) => {
+      const date = new Date(survey.expires_at).getTime();
+      return date >= now;
+    });
+  }
+
+  /**
+   * Sorts the survey list by the nearest expiration date first.
+   * @param survey - Survey array to sort.
+   * @returns A sorted survey array ordered from earliest to latest expiration date.
+   */
+  sortByDaySurveys(survey: SurveyInterface[]): SurveyInterface[] {
+    return survey.sort((first, second) => new Date(first.expires_at).getTime() - new Date(second.expires_at).getTime());
+  }
+
+  /**
+   * Pushes the survey to supabase
+   * @param survey
+   */
+  async addSurvey(survey: SurveyModel): Promise<string | number> {
+    const survey_data = survey.getCleanSurveyJson();
+    const { error } = await this.supabase
+      .from('surveys')
+      .insert([survey_data]) // data we will push to supabase
+      .select();
+    if (error) throw error;
+    return survey_data.id;
+  }
+
+  /**
+   * Subscribes to realtime changes in the surveys table.
+   * @returns The realtime channel used for the subscription.
+   */
+  subscribeToSurveys(): RealtimeChannel {
+    return this.supabase
+      .channel(`surveys`)
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'surveys' }, () => {
+        this.setCategories();
+        this.setNextEndingSurveys();
+        this.getAllSurveys();
+      })
+      .subscribe();
+  }
+}

@@ -3,7 +3,6 @@ import { SupabaseService } from '../../services/supabase-service';
 import { DropdownComponent } from '../dropdown-component/dropdown-component';
 import { SurveyCard } from '../survey-card/survey-card';
 import { SurveyService } from '../../services/survey-service';
-import { SurveyInterface } from '../../interfaces/survey-interface';
 
 @Component({
   selector: 'app-surveys-list',

@@ -2,9 +2,9 @@
 
 .view {
   display: grid;
-  // width: min(calc(100% - 32px), $lg-dp-width);
   padding: 0 16px;
   margin: 0 auto;
+  max-width: $lg-dp-width;
 }
 
 .header__container {
@@ -21,11 +21,12 @@
     visibility: visible;
   }
 }
+
 .main-content {
   display: grid;
 
   @include respond-to(md) {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2fr clamp(250px, 10vw, 350px);
     column-gap: 42px;
   }
 }

@@ -6,20 +6,19 @@ import { CheckboxComponent } from '../checkbox-component/checkbox-component';
 import { SupabaseService } from '../../services/supabase-service';
 import { QuestionInterface } from '../../interfaces/question-interface';
 import { getLetterFromIndex } from '../../utils/opt-label.util';
+import { ensureQuestionMark } from '../../utils/question-mark-util';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'fill-out',
-  imports: [Status, RouterLink, DatePipe, CheckboxComponent],
+  imports: [Status, RouterLink, DatePipe, CheckboxComponent, FormsModule],
   templateUrl: './fillout.html',
   styleUrl: './fillout.scss',
 })
 export class FillOut {
   router = inject(Router);
-  private route = inject(ActivatedRoute);
-  currentId = this.route.snapshot.paramMap.get('id') ?? ''; // id of the survey
   supabase = inject(SupabaseService);
-  protected readonly getLetterFromIndex = getLetterFromIndex;
   answer = signal<Map<string, Set<string>>>(new Map());
-
   /**
    * Loads the survey from the supabase.
    */
@@ -27,6 +26,10 @@ export class FillOut {
     params: () => ({ id: this.currentId }),
     loader: ({ params }) => this.supabase.getSurveyWithQuestions(params.id),
   });
+  protected readonly getLetterFromIndex = getLetterFromIndex;
+  protected readonly ensureQuestionMark = ensureQuestionMark;
+  private route = inject(ActivatedRoute);
+  currentId = this.route.snapshot.paramMap.get('id') ?? ''; // id of the survey
 
   /**
    * Checks whether an option has already been selected for a specific question.

@@ -44,6 +44,7 @@
       display: none;
       visibility: hidden;
     }
+
     &:hover {
       background-color: $secondary-orange;
     }
@@ -75,6 +76,7 @@
     flex-direction: column;
     gap: 24px;
   }
+
   &__title {
     font-family: $f-title;
     font-size: rem(48);
@@ -120,7 +122,7 @@
   }
 }
 
-.optioin {
+.option {
   &__list {
     display: flex;
     flex-direction: column;

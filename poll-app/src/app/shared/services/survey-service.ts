@@ -21,10 +21,6 @@ export class SurveyService {
     this.surveyChannel = this.subscribeToSurveys();
   }
 
-  ngOnDestroy(): void {
-    this.supabase.removeChannel(this.surveyChannel);
-  }
-
   /**
    * Loads all surveys from the Supabase table and updates the related signals.
    */
@@ -90,13 +86,18 @@ export class SurveyService {
     return survey_data.id;
   }
 
+  /**
+   * Subscribes to realtime changes in the surveys table.
+   * @returns The realtime channel used for the subscription.
+   */
   subscribeToSurveys(): RealtimeChannel {
     return this.supabase
       .channel(`surveys`)
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'surveys' }, (payload) => {
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'surveys' }, (payload) => {
         this.setCategories();
         this.setNextEndingSurveys();
-        console.log('Change received survey subscribtion!', payload.new);
+        this.getAllSurveys();
+        console.log('Change received survey subscribtion!', payload);
       })
       .subscribe();
   }

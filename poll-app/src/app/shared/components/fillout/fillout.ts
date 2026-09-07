@@ -8,6 +8,7 @@ import { getLetterFromIndex } from '../../utils/opt-label.util';
 import { ensureQuestionMark } from '../../utils/question-mark-util';
 import { FormsModule } from '@angular/forms';
 import { SurveyService } from '../../services/survey-service';
+import { SupabaseService } from '../../services/supabase-service';
 
 @Component({
   selector: 'fill-out',
@@ -17,7 +18,8 @@ import { SurveyService } from '../../services/survey-service';
 })
 export class FillOut {
   router = inject(Router);
-  supabase = inject(SurveyService);
+  supabase = inject(SupabaseService);
+  surveyService = inject(SurveyService);
   answer = signal<Map<string, Set<string>>>(new Map());
   /**
    * Loads the survey from the supabase.

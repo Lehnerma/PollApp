@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
 import { CheckboxComponent } from '../checkbox-component/checkbox-component';
 import { getLetterFromIndex } from '../../utils/opt-label.util';
 import { SurveyService } from '../../services/survey-service';
+import { SupabaseService } from '../../services/supabase-service';
 
 @Component({
   selector: 'survey-create-component',
@@ -36,7 +37,8 @@ export class SurveyCreateComponent {
     'CSS Battle',
   ];
   today = new Date().toISOString().split('T')[0];
-  supabase = inject(SurveyService);
+  surveService = inject(SurveyService);
+  supabase = inject(SupabaseService);
   toastVisible = signal(false);
   protected readonly getLetterFromIndex = getLetterFromIndex;
   surveyForm = new FormGroup({
@@ -174,7 +176,7 @@ export class SurveyCreateComponent {
    */
   async onSubmit(): Promise<void> {
     const survey = new SurveyModel(this.surveyForm.controls.details.value);
-    await this.supabase.addSurvey(survey);
+    await this.surveService.addSurvey(survey);
     const questions_data = this.surveyForm.controls.questions.getRawValue();
     await this.pushQuestion(questions_data, survey.id);
     this.toastVisible.set(true);

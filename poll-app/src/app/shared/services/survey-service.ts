@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { SupabaseService } from './supabase-service';
 import { SurveyInterface } from '../interfaces/survey-interface';
 import { SurveyModel } from '../models/survey-model';
@@ -8,10 +8,14 @@ import { RealtimeChannel } from '@supabase/supabase-js';
 export class SurveyService {
   supabaseService = inject(SupabaseService); // der komplette service wird injiziert
   supabase = this.supabaseService.supabase; // der client wird zugewiesen.
-  surveyList = signal<SurveyInterface[]>([]); //* survey list realtime
-  surveyCategoryList = signal<string[]>([]); //* category list realtime
+  surveyList = signal<SurveyInterface[]>([]);
+  surveyCategoryList = signal<string[]>([]);
   nextEndingSurveys = signal<SurveyInterface[]>([]);
+
   surveyChannel: RealtimeChannel;
+
+  pastSurveyList = computed(() => this.filterPastSurveys(this.surveyList()));
+  activSurveyList = computed(() => this.filterUpcomingSurveys(this.surveyList()));
 
   /**
    * Initializes the service and loads all surveys from the backend.
@@ -64,6 +68,19 @@ export class SurveyService {
   }
 
   /**
+   * Filters out surveys whose expiration date is in the future.
+   * @param surveys - Survey list from Supabase.
+   * @returns A list of surveys that have already expired.
+   */
+  filterPastSurveys(surveys: SurveyInterface[]): SurveyInterface[] {
+    const now = Date.now();
+    return surveys.filter((survey) => {
+      const date = new Date(survey.expires_at).getTime();
+      return date < now;
+    });
+  }
+
+  /**
    * Sorts the survey list by the nearest expiration date first.
    * @param survey - Survey array to sort.
    * @returns A sorted survey array ordered from earliest to latest expiration date.
@@ -94,8 +111,6 @@ export class SurveyService {
     return this.supabase
       .channel(`surveys`)
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'surveys' }, () => {
-        this.setCategories();
-        this.setNextEndingSurveys();
         this.getAllSurveys();
       })
       .subscribe();

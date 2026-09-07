@@ -2,14 +2,18 @@
   <nav class="survay-list__nav nav">
     <ul class="nav__ul">
       <li class="nav__li nav__li--activ">
-        <button class="btn btn__filter active">Active survey</button>
+        <button class="btn btn__filter" [class.active]="displayList() === activSurveys()" (click)="switchSurveyList('active')">
+          Active survey
+        </button>
       </li>
       <li class="nav__li nav__li--past">
-        <button class="btn btn__filter">Past survey</button>
+        <button class="btn btn__filter" [class.active]="displayList() === pastSurveys()" (click)="switchSurveyList('past')">
+          Past survey
+        </button>
       </li>
     </ul>
     <app-dropdown-component class="nav__dropdown" [categories]="categories()"></app-dropdown-component>
   </nav>
   <!--todo distanc from 24px -->
-  <app-survey-card [surveyList]="list()" [listLayout]="'column'"></app-survey-card>
+  <app-survey-card [surveyList]="displayList()" [listLayout]="'column'"></app-survey-card>
 </article>

@@ -11,6 +11,6 @@ import { Router } from '@angular/router';
 })
 export class ExpireList {
   supabaseService = inject(SupabaseService);
-  router = inject(Router)
+  router = inject(Router);
   nextEndingList = this.supabaseService.nextEndingSurveys;
 }

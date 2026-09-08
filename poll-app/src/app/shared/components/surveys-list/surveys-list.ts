@@ -3,6 +3,7 @@ import { SupabaseService } from '../../services/supabase-service';
 import { DropdownComponent } from '../dropdown-component/dropdown-component';
 import { SurveyCard } from '../survey-card/survey-card';
 import { SurveyService } from '../../services/survey-service';
+import { SurveyInterface } from '../../interfaces/survey-interface';
 
 @Component({
   selector: 'app-surveys-list',
@@ -15,10 +16,12 @@ export class SurveysList {
   surveyService = inject(SurveyService);
 
   categories = this.surveyService.surveyCategoryList;
-  activSurveys = this.surveyService.activSurveyList;
+  selectedCategory = signal<string | null>(null);
+  activeSurveys = this.surveyService.activeSurveyList;
   pastSurveys = this.surveyService.pastSurveyList;
 
-  displayList = computed(() => (this.selectedTab() === 'active' ? this.activSurveys() : this.pastSurveys()));
+  displayList = computed(() => this.sortSurveys());
+
   selectedTab = signal<'active' | 'past'>('active');
 
   /**
@@ -27,5 +30,14 @@ export class SurveysList {
    */
   switchSurveyList(tab: 'active' | 'past'): void {
     this.selectedTab.set(tab);
+  }
+
+  /**
+   * Returns the surveys for the selected tab and category.
+   */
+  sortSurveys(): SurveyInterface[] {
+    const base = this.selectedTab() === 'active' ? this.activeSurveys() : this.pastSurveys();
+    const cat = this.selectedCategory();
+    return !cat || cat === 'All Surveys' ? base : base.filter((s) => s.category === cat);
   }
 }

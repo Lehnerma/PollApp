@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'main-header',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './main-header.html',
   styleUrl: './main-header.scss',
 })

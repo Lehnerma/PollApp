@@ -1,7 +1,7 @@
 @use '../styles/abstracts' as *;
 
 .create-survey-dialog {
-  max-width: min(100dvw, $max-dp-width);
+  max-width: min(100dvw, $lg-dp-width);
   max-height: 100dvh;
   border: none;
   overflow-y: auto;
@@ -9,5 +9,18 @@
 
   &::backdrop {
     background-color: $primary-white;
+  }
+}
+
+.dialog {
+  &__container {
+    margin-top: 48px;
+  }
+  &__header {
+    padding: 48px 0 54px 0;
+    @include respond-to(md) {
+      display: none;
+      padding: 0;
+    }
   }
 }

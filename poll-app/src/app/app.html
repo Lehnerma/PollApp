@@ -2,6 +2,9 @@
 
 <dialog #createSurveyDialog (cancel)="closeCreateSurveyDialog()" (close)="closeCreateSurveyDialog()" class="create-survey-dialog">
   @if (isCreateSurveyOpen()) {
-    <survey-create-component (closed)="closeCreateSurveyDialog()" />
+    <div class="dialog__container">
+      <main-header class="dialog__header"></main-header>
+      <survey-create-component (closed)="closeCreateSurveyDialog()" />
+    </div>
   }
 </dialog>

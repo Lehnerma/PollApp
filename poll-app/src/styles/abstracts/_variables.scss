@@ -15,6 +15,7 @@ $grey-bg-light: rgba(250, 245, 254, 0.2);
 $main-btn-bg: $primary-orange;
 $main-btn-bg-hover: $secondary-orange;
 $main-btn-font: $primary-black;
+$main-btn-notready: rgba($primary-orange, 0.1);
 
 $secondary-btn-bg: rgba($secondary-orange, 0.3);
 $secondary-btn-bg-hover: rgba($secondary-orange, 0.6);
@@ -31,6 +32,11 @@ $survey-purple: rgba(142, 112, 153, 0.16);
 $create-survey-orange: rgba(238, 146, 54);
 $fillout-option-hover: rgba($primary-orange, 0.4);
 $live-orange: rgba(255, 183, 112);
+
+$error-red: rgba(196, 74, 74, 1); // Rahmen auf hellen Flächen (Inputs)
+$error-red-text: rgba(240, 138, 128, 1); // Text auf dunklem Hintergrund
+$error-red-bg: rgba(196, 74, 74, 0.08);
+$required-marker: $create-survey-orange;
 
 // Typografie
 $f-txt:

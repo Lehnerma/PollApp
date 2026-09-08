@@ -1,8 +1,8 @@
 @if (results.surveyResource.isLoading()) {
-  <p>Loading survey…</p>
+  <p>Loading live Results…</p>
   <!-- todo add a spinner for slow loading -->
 } @else if (results.surveyResource.error()) {
-  <p>Survey could not be loaded.</p>
+  <p>Results could not be loaded. Please try again later or reload! thx</p>
   <!-- todo add a route to the home page -->
 } @else if (results.surveyResource.value()) {
   <h1 class="live__title">Survey results <span class="live__title--uper">LIVE</span></h1>

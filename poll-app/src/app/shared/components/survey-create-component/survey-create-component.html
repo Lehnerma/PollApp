@@ -16,7 +16,7 @@
     <section class="form__details" formGroupName="details">
       <fieldset class="form__fieldset detail__main">
         <div class="form__fieldset--heading detail__name">
-          <label class="form__label" for="detail_name">Survey name</label>
+          <label class="form__label required" for="detail_name">Survey name</label>
           <button (click)="resetForm()" aria-label="Remove survey name" class="btn btn__bin" type="button">
             <svg aria-hidden="true" class="btn__bin--icon" fill="none" viewBox="0 0 18 20" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -24,7 +24,17 @@
               />
             </svg>
           </button>
-          <input class="form__input" formControlName="survey_name" id="detail_name" type="text" />
+          <input
+            [attr.aria-invalid]="isInvalid(details.controls.survey_name)"
+            [class.is-invalid]="isInvalid(details.controls.survey_name)"
+            class="form__input"
+            formControlName="survey_name"
+            id="detail_name"
+            type="text"
+          />
+          @if (isInvalid(details.controls.survey_name)) {
+            <p class="error-message">Please enter a survey name.</p>
+          }
         </div>
 
         <app-dropdown-component
@@ -78,7 +88,7 @@
         <li [formGroupName]="index" class="question-list__item">
           <article class="question-form">
             <div class="form__fieldset--main question">
-              <label class="form__label" for="question">{{ index + 1 }}. Question</label>
+              <label class="form__label required" for="question_{{ index }}">{{ index + 1 }}. Question</label>
               <button
                 (click)="deleteQuestion(index)"
                 [attr.aria-label]="'Remove question ' + (index + 1)"
@@ -91,12 +101,22 @@
                   />
                 </svg>
               </button>
-              <input class="form__input" formControlName="question_name" id="question_{{ index }}" type="text" />
+              <input
+                [attr.aria-invalid]="isInvalid(question.controls.question_name)"
+                [class.is-invalid]="isInvalid(question.controls.question_name)"
+                class="form__input"
+                formControlName="question_name"
+                id="question_{{ index }}"
+                type="text"
+              />
+              @if (isInvalid(question.controls.question_name)) {
+                <p class="error-message">Please enter a question.</p>
+              }
             </div>
 
             <fieldset class="form__fieldset options">
               <div class="options__header">
-                <legend class="form__label">Answers</legend>
+                <legend class="form__label required">Answers</legend>
                 <!-- todo check styling -->
                 <app-checkbox-component
                   (changed)="toggleMultipleOptions(question)"
@@ -132,12 +152,17 @@
                       </svg>
                     </button>
                     <input
+                      [attr.aria-invalid]="isInvalid(opt.controls.option_name)"
+                      [class.is-invalid]="isInvalid(opt.controls.option_name)"
                       class="form__input"
                       formControlName="option_name"
                       id="option-{{ getLetterFromIndex(optionIndex) }}"
                       name="option-{{ getLetterFromIndex(optionIndex) }}"
                       type="text"
                     />
+                    @if (isInvalid(opt.controls.option_name)) {
+                      <p class="error-message">Please enter an option.</p>
+                    }
                   </li>
                 }
               </ul>
@@ -180,7 +205,7 @@
   </article>
 
   <div class="publish-wrapper">
-    <button class="btn btn__primary" type="submit">
+    <button class="btn btn__primary" [class.btn__primary--notready]="!surveyForm.valid" type="submit">
       Publish
       <svg aria-hidden="true" class="btn__primary--icon" fill="none" viewBox="0 0 18 16" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -188,6 +213,7 @@
         />
       </svg>
     </button>
+
     <toast-msg [(visible)]="toastVisible"></toast-msg>
   </div>
 </form>

@@ -24,6 +24,10 @@
       height: 16px;
       fill: $primary-black;
     }
+
+    &--notready {
+      background-color: $main-btn-notready;
+    }
   }
 
   &__secondary {
@@ -101,6 +105,10 @@
         transition:
           width $animation-time ease-in-out,
           width $animation-time ease-in-out;
+      }
+
+      &--notready {
+        background-color: $main-btn-notready;
       }
 
       &:hover {

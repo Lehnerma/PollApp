@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
@@ -10,5 +10,6 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 export class MainHeader {
   private route = inject(ActivatedRoute);
   private path = this.route.snapshot.routeConfig?.path;
+  logoClick = output<void>();
   currentLogo = this.path === '' ? '../assets/img/logo-full-orange.png' : '../assets/img/logo-full-purple.png';
 }

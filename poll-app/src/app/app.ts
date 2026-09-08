@@ -1,10 +1,11 @@
 import { Component, ElementRef, effect, signal, viewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SurveyCreateComponent } from './shared/components/survey-create-component/survey-create-component';
+import { MainHeader } from './shared/components/main-header/main-header';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SurveyCreateComponent],
+  imports: [RouterOutlet, SurveyCreateComponent, MainHeader],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

@@ -14,14 +14,16 @@
 
 .dialog {
   &__container {
-    margin-top: 48px;
-    @include respond-to(lg) {
+    margin-top: clamp(16px, 5vw, 48px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 5vw, 54px);
+    @include respond-to(md) {
       margin-top: 0;
     }
   }
   &__header {
-    padding: 48px 0 54px 0;
-    @include respond-to(lg) {
+    @include respond-to(md) {
       display: none;
       padding: 0;
     }

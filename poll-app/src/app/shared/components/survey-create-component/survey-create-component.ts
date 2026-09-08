@@ -76,8 +76,8 @@ export class SurveyCreateComponent {
    */
   createDetailsForm(): FormGroup<DetailsForm> {
     return this.fb.nonNullable.group({
-      survey_name: ['', [Validators.required, Validators.minLength(5)]],
-      category: ['', Validators.required],
+      survey_name: ['', [Validators.required, Validators.minLength(3)]],
+      category: [''],
       expires_at: [''],
       description: ['', Validators.maxLength(300)],
     });
@@ -88,7 +88,7 @@ export class SurveyCreateComponent {
    */
   createQuestionForm(): FormGroup<QuestionForm> {
     return this.fb.nonNullable.group({
-      question_name: ['', [Validators.required, Validators.minLength(5)]],
+      question_name: ['', [Validators.required, Validators.minLength(3)]],
       multiple_options: [false],
       options: this.fb.array([this.createOptionForm(), this.createOptionForm()]),
     });

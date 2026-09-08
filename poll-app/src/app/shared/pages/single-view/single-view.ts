@@ -4,6 +4,7 @@ import { LiveResults } from '../../components/live-results/live-results';
 import { ActivatedRoute } from '@angular/router';
 import { SupabaseService } from '../../services/supabase-service';
 import { MainHeader } from '../../components/main-header/main-header';
+import { App } from '../../../app';
 
 @Component({
   selector: 'app-single-view',
@@ -14,6 +15,7 @@ import { MainHeader } from '../../components/main-header/main-header';
 export class SingleView {
   private route = inject(ActivatedRoute);
   private supabase = inject(SupabaseService);
+  app = inject(App);
   currentId = this.route.snapshot.paramMap.get('id') ?? '';
 
   surveyResource = resource({

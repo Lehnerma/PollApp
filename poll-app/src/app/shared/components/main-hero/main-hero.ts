@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { App } from '../../../app';
 
 @Component({
   selector: 'app-main-hero',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './main-hero.html',
   styleUrl: './main-hero.scss',
 })
 export class MainHero {
-  router = inject(Router);
+  app = inject(App);
 }

@@ -12,7 +12,7 @@
     feedback into action.
   </p>
 
-  <button class="btn btn__primary hero__btn" routerLink="/create-new-survey">
+  <button (click)="app.openCreateSurveyDialog()" class="btn btn__primary hero__btn" type="button">
     New survey
     <svg class="btn__primary--icon icon__add" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <mask height="24" id="mask0_29_791" maskUnits="userSpaceOnUse" style="mask-type: alpha" width="24" x="0" y="0">

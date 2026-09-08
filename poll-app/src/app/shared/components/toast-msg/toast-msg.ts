@@ -1,7 +1,6 @@
 import { Component, DestroyRef, effect, inject, model } from '@angular/core';
-import { Router } from '@angular/router';
 
-const AUTO_CLOSE_DELAY_MS = 3000;
+export const AUTO_CLOSE_DELAY_MS = 2000;
 
 /**
  * Toast notification shown on survey publish, with auto-close and slide-in animation.
@@ -14,7 +13,6 @@ const AUTO_CLOSE_DELAY_MS = 3000;
 })
 export class ToastMsg {
   visible = model<boolean>(false);
-  private router = inject(Router);
   private destroyRef = inject(DestroyRef);
   private autoCloseTimeout?: ReturnType<typeof setTimeout>;
 
@@ -33,13 +31,12 @@ export class ToastMsg {
   }
 
   /**
-   * Starts the auto-close timer that hides the toast and navigates back to the home page.
+   * Starts the auto-close timer that hides the toast after the delay.
    */
   private startAutoClose(): void {
     this.clearAutoClose();
     this.autoCloseTimeout = setTimeout(() => {
       this.visible.set(false);
-      this.router.navigate(['/']);
     }, AUTO_CLOSE_DELAY_MS);
   }
 

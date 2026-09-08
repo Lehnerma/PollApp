@@ -1,0 +1,13 @@
+@use '../styles/abstracts' as *;
+
+.create-survey-dialog {
+  max-width: min(100dvw, $max-dp-width);
+  max-height: 100dvh;
+  border: none;
+  overflow-y: auto;
+  margin: auto auto;
+
+  &::backdrop {
+    background-color: $primary-white;
+  }
+}

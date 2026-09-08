@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators, FormGroup, FormArray } from '@angular/forms';
 import { DropdownComponent } from '../dropdown-component/dropdown-component';
 import { OptionForm, QuestionForm } from '../../interfaces/question-form';
@@ -8,8 +8,7 @@ import { QuestionModel } from '../../models/question-model';
 import { OptionModel } from '../../models/options-model';
 import { QuestionFormValue } from '../../interfaces/question-form-value';
 import { Status } from '../status/status';
-import { ToastMsg } from '../toast-msg/toast-msg';
-import { RouterLink } from '@angular/router';
+import { AUTO_CLOSE_DELAY_MS, ToastMsg } from '../toast-msg/toast-msg';
 import { CheckboxComponent } from '../checkbox-component/checkbox-component';
 import { getLetterFromIndex } from '../../utils/opt-label.util';
 import { SurveyService } from '../../services/survey-service';
@@ -17,11 +16,12 @@ import { SupabaseService } from '../../services/supabase-service';
 
 @Component({
   selector: 'survey-create-component',
-  imports: [ReactiveFormsModule, DropdownComponent, Status, ToastMsg, RouterLink, CheckboxComponent],
+  imports: [ReactiveFormsModule, DropdownComponent, Status, ToastMsg, CheckboxComponent],
   templateUrl: './survey-create-component.html',
   styleUrl: './survey-create-component.scss',
 })
 export class SurveyCreateComponent {
+  closed = output<void>();
   fb = inject(FormBuilder);
   categories = [
     'Zelda',
@@ -180,6 +180,7 @@ export class SurveyCreateComponent {
     const questions_data = this.surveyForm.controls.questions.getRawValue();
     await this.pushQuestion(questions_data, survey.id);
     this.toastVisible.set(true);
+    setTimeout(() => this.closed.emit(), AUTO_CLOSE_DELAY_MS);
   }
 
   /**

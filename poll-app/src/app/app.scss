@@ -15,10 +15,13 @@
 .dialog {
   &__container {
     margin-top: 48px;
+    @include respond-to(lg) {
+      margin-top: 0;
+    }
   }
   &__header {
     padding: 48px 0 54px 0;
-    @include respond-to(md) {
+    @include respond-to(lg) {
       display: none;
       padding: 0;
     }

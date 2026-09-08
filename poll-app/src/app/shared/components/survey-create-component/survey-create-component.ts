@@ -11,6 +11,7 @@ import { Status } from '../status/status';
 import { AUTO_CLOSE_DELAY_MS, ToastMsg } from '../toast-msg/toast-msg';
 import { CheckboxComponent } from '../checkbox-component/checkbox-component';
 import { getLetterFromIndex } from '../../utils/opt-label.util';
+import { isInvalid } from '../../utils/form-validation.util';
 import { SurveyService } from '../../services/survey-service';
 import { SupabaseService } from '../../services/supabase-service';
 
@@ -41,6 +42,7 @@ export class SurveyCreateComponent {
   supabase = inject(SupabaseService);
   toastVisible = signal(false);
   protected readonly getLetterFromIndex = getLetterFromIndex;
+  protected readonly isInvalid = isInvalid;
   surveyForm = new FormGroup({
     details: this.createDetailsForm(),
     questions: this.fb.array([this.createQuestionForm()]),
@@ -74,7 +76,7 @@ export class SurveyCreateComponent {
    */
   createDetailsForm(): FormGroup<DetailsForm> {
     return this.fb.nonNullable.group({
-      survey_name: ['', Validators.required],
+      survey_name: ['', [Validators.required, Validators.minLength(5)]],
       category: ['', Validators.required],
       expires_at: [''],
       description: ['', Validators.maxLength(300)],
@@ -86,7 +88,7 @@ export class SurveyCreateComponent {
    */
   createQuestionForm(): FormGroup<QuestionForm> {
     return this.fb.nonNullable.group({
-      question_name: ['', Validators.required],
+      question_name: ['', [Validators.required, Validators.minLength(5)]],
       multiple_options: [false],
       options: this.fb.array([this.createOptionForm(), this.createOptionForm()]),
     });
@@ -97,7 +99,7 @@ export class SurveyCreateComponent {
    */
   createOptionForm(): FormGroup<OptionForm> {
     return this.fb.nonNullable.group({
-      option_name: ['', Validators.required],
+      option_name: ['', [Validators.required, Validators.minLength(2)]],
     });
   }
 
@@ -175,6 +177,10 @@ export class SurveyCreateComponent {
    * Creates the form data for the tables in supabase
    */
   async onSubmit(): Promise<void> {
+    if (!this.surveyForm.valid) {
+      this.surveyForm.markAllAsTouched();
+      return;
+    }
     const survey = new SurveyModel(this.surveyForm.controls.details.value);
     await this.surveService.addSurvey(survey);
     const questions_data = this.surveyForm.controls.questions.getRawValue();

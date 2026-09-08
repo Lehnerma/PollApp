@@ -5,7 +5,7 @@
   max-height: 100dvh;
   border: none;
   overflow-y: auto;
-  margin: auto auto;
+  margin: auto;
 
   &::backdrop {
     background-color: $primary-white;

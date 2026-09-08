@@ -41,12 +41,12 @@ export class SurveyCreateComponent {
   surveService = inject(SurveyService);
   supabase = inject(SupabaseService);
   toastVisible = signal(false);
-  protected readonly getLetterFromIndex = getLetterFromIndex;
-  protected readonly isInvalid = isInvalid;
   surveyForm = new FormGroup({
     details: this.createDetailsForm(),
     questions: this.fb.array([this.createQuestionForm()]),
   });
+  protected readonly getLetterFromIndex = getLetterFromIndex;
+  protected readonly isInvalid = isInvalid;
 
   /**
    * Returns the question form groups of the survey form.

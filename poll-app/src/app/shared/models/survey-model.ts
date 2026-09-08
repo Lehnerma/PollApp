@@ -15,7 +15,7 @@ export class SurveyModel implements SurveyInterface {
     this.id = data.id ?? crypto.randomUUID();
     this.created_at = data.created_at ?? new Date().toISOString();
     this.survey_name = data.survey_name ?? '';
-    this.category = data.category ?? ''; //todo check the default value
+    this.category = data.category ? data.category : 'No Category';
     this.description = data.description ?? '';
     this.expires_at = data.expires_at ? data.expires_at : this.getDefaultExpiryDate();
   }

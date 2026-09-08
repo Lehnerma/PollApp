@@ -4,7 +4,8 @@
   position: relative;
   font-family: $f-txt;
   width: fit-content;
-  max-width: 200px;
+  display: flex;
+  flex-direction: column;
 
   &__btn {
     color: white;
@@ -64,6 +65,15 @@
         border-radius: 6px;
       }
     }
+  }
+
+  &__value {
+    padding-left: 10px;
+    font-family: $f-txt;
+    font-size: rem(14);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: $secondary-orange;
   }
 }
 

@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, input, signal, forwardRef } from '@angular/core';
+import { Component, input, signal, forwardRef, computed, model } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -16,10 +16,14 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class DropdownComponent implements ControlValueAccessor {
+  private static nextId = 0;
   categories = input<string[]>([]);
-  title = input<string>('Sort by categories');
+  title = input<string>('');
+  showAllOption = input(false);
+  value = model<string | null>(null);
   isOpen = signal<boolean>(false);
-  value = signal<string | null>(null);
+  displayCategories = computed(() => (this.showAllOption() ? ['All Surveys', ...this.categories()] : this.categories()));
+  listboxId = `dropdown-listbox-${DropdownComponent.nextId++}`;
 
   /**
    * Toggles the dropdown menu

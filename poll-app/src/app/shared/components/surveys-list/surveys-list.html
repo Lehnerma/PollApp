@@ -2,7 +2,7 @@
   <nav class="survay-list__nav nav">
     <ul class="nav__ul">
       <li class="nav__li nav__li--activ">
-        <button class="btn btn__filter" [class.active]="displayList() === activSurveys()" (click)="switchSurveyList('active')">
+        <button class="btn btn__filter" [class.active]="displayList() === activeSurveys()" (click)="switchSurveyList('active')">
           Active survey
         </button>
       </li>
@@ -12,8 +12,13 @@
         </button>
       </li>
     </ul>
-    <app-dropdown-component class="nav__dropdown" [categories]="categories()"></app-dropdown-component>
+    <app-dropdown-component
+      class="nav__dropdown"
+      [categories]="categories()"
+      [showAllOption]="true"
+      [(value)]="selectedCategory"
+      [title]="'Sort by categories'"
+    ></app-dropdown-component>
   </nav>
-  <!--todo distanc from 24px -->
   <app-survey-card [surveyList]="displayList()" [listLayout]="'column'"></app-survey-card>
 </article>

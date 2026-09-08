@@ -15,7 +15,7 @@ export class SurveyService {
   surveyChannel: RealtimeChannel;
 
   pastSurveyList = computed(() => this.filterPastSurveys(this.surveyList()));
-  activSurveyList = computed(() => this.filterUpcomingSurveys(this.surveyList()));
+  activeSurveyList = computed(() => this.filterUpcomingSurveys(this.surveyList()));
 
   /**
    * Initializes the service and loads all surveys from the backend.

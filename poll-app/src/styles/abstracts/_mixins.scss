@@ -1,6 +1,5 @@
 @use 'variables' as *;
 
-// Media-Query Mixin für Breakpoints
 @mixin respond-to($breakpoint) {
   @if $breakpoint == sm {
     @media (min-width: $breakpoint-sm) {
@@ -23,7 +22,6 @@
   }
 }
 
-// Flexbox-Zentrierung
 @mixin flex-center($direction: row) {
   display: flex;
   flex-direction: $direction;
@@ -31,7 +29,6 @@
   justify-content: center;
 }
 
-// Animation
 @mixin animation($target: all, $flow: ease-in-out) {
   transition: $target $animation-time $flow;
 }

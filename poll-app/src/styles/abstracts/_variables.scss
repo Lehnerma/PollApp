@@ -1,7 +1,6 @@
-// Farben
 $primary-black: rgba(34, 18, 39);
-$primary-white: rgba(254, 253, 255); //*scondary-btn-font
-$primary-purple: rgba(53, 39, 58); //*filter-btn-font
+$primary-white: rgba(254, 253, 255);
+$primary-purple: rgba(53, 39, 58);
 $primary-orange: rgba(255, 207, 161);
 
 $secondary-orange: rgba(255, 183, 112);
@@ -33,12 +32,11 @@ $create-survey-orange: rgba(238, 146, 54);
 $fillout-option-hover: rgba($primary-orange, 0.4);
 $live-orange: rgba(255, 183, 112);
 
-$error-red: rgba(196, 74, 74, 1); // Rahmen auf hellen Flächen (Inputs)
-$error-red-text: rgba(240, 138, 128, 1); // Text auf dunklem Hintergrund
+$error-red: rgba(196, 74, 74, 1);
+$error-red-text: rgba(240, 138, 128, 1);
 $error-red-bg: rgba(196, 74, 74, 0.08);
 $required-marker: $create-survey-orange;
 
-// Typografie
 $f-txt:
   'Mulish',
   system-ui,
@@ -57,19 +55,15 @@ $f-txt-btn:
   -apple-system,
   sans-serif;
 
-// Breakpoints
 $breakpoint-sm: 500px;
 $breakpoint-md: 800px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
-
 $max-dp-width: 1220px;
 $lg-dp-width: 1042px;
 
-// Z-Index
 $z-index-dropdown: 1000;
 $z-index-modal: 1050;
 $z-index-toast: 1100;
 
-//animation time
 $animation-time: 250ms;

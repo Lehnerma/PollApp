@@ -9,7 +9,7 @@ import { SurveyResultsService } from '../../services/survey-results-service';
   imports: [Progressbar],
   templateUrl: './live-results.html',
   styleUrl: './live-results.scss',
-  providers: [SurveyResultsService], // eigene Instanz pro Ansicht: Resource und Channel leben nur solange die View lebt
+  providers: [SurveyResultsService],
 })
 export class LiveResults {
   router = inject(Router);

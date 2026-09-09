@@ -14,8 +14,6 @@ import { OptionInterface } from '../interfaces/option-interface';
 export class SupabaseService {
   supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 
-  //ngOnDestroy():Promise<void> {} //todo add the subscription do unsubscribe
-
   /**
    * pushes the question to supabase
    * @param question - is the model with default values

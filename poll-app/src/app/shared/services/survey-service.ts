@@ -6,8 +6,8 @@ import { RealtimeChannel } from '@supabase/supabase-js';
 
 @Injectable({ providedIn: 'root' })
 export class SurveyService {
-  supabaseService = inject(SupabaseService); // der komplette service wird injiziert
-  supabase = this.supabaseService.supabase; // der client wird zugewiesen.
+  supabaseService = inject(SupabaseService);
+  supabase = this.supabaseService.supabase;
   surveyList = signal<SurveyInterface[]>([]);
   surveyCategoryList = signal<string[]>([]);
   nextEndingSurveys = signal<SurveyInterface[]>([]);
@@ -29,9 +29,7 @@ export class SurveyService {
    * Loads all surveys from the Supabase table and updates the related signals.
    */
   async getAllSurveys(): Promise<void> {
-    const response = await this.supabase
-      .from('surveys') //
-      .select('*');
+    const response = await this.supabase.from('surveys').select('*');
     this.surveyList.set((response.data ?? []) as SurveyInterface[]);
     this.setCategories();
     this.setNextEndingSurveys();
@@ -87,10 +85,7 @@ export class SurveyService {
    */
   async addSurvey(survey: SurveyModel): Promise<string | number> {
     const survey_data = survey.getCleanSurveyJson();
-    const { error } = await this.supabase
-      .from('surveys')
-      .insert([survey_data]) // data we will push to supabase
-      .select();
+    const { error } = await this.supabase.from('surveys').insert([survey_data]).select();
     if (error) throw error;
     return survey_data.id;
   }

@@ -1,4 +1,3 @@
-import { ActivatedRoute } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { FillOut } from '../../components/fillout/fillout';
 import { LiveResults } from '../../components/live-results/live-results';

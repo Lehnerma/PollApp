@@ -14,7 +14,5 @@ import { SurveyResultsService } from '../../services/survey-results-service';
   providers: [SurveyResultsService],
 })
 export class SingleView {
-  private route = inject(ActivatedRoute);
   app = inject(App);
-  currentId = this.route.snapshot.paramMap.get('id') ?? '';
 }

@@ -1,13 +1,13 @@
-@if (surveyResource.isLoading()) {
+@if (results.surveyResource.isLoading()) {
   <p>Loading survey…</p>
   <!-- todo add a spinner for slow loading -->
-} @else if (surveyResource.error()) {
+} @else if (results.surveyResource.error()) {
   <p>Survey could not be loaded.</p>
   <!-- todo add a route to the home page -->
-} @else if (surveyResource.value(); as survey) {
+} @else if (results.surveyResource.value(); as survey) {
   <form (ngSubmit)="onSubmit()" class="form">
     <header class="header">
-      <app-status class="header__status" status="published"></app-status>
+      <app-status class="header__status" [status]="isPast() ? 'expired' : 'published'"></app-status>
       <button class="btn btn__secondary header__btn" routerLink="">
         <svg
           class="btn__secondary--icon"
@@ -27,10 +27,10 @@
         <p class="header__info">Category: {{ survey.category }}</p>
       </div>
     </header>
-    <main class="form__main">
+    <section class="form__main">
       <article class="form__headings">
         <h1 class="form__title">{{ survey.survey_name }}</h1>
-        <h2 class="form__description">{{ survey.description }}</h2>
+        <p class="form__description">{{ survey.description }}</p>
       </article>
       <article class="question">
         <ol class="question__list">
@@ -66,7 +66,7 @@
           }
         </ol>
       </article>
-    </main>
+    </section>
     <button class="btn btn__primary btn--content" routerLink="" type="submit">
       Complete
       <svg class="btn__primary--icon" fill="none" height="16" viewBox="0 0 18 16" width="18" xmlns="http://www.w3.org/2000/svg">

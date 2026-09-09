@@ -5,7 +5,7 @@
   <p>Results could not be loaded. Please try again later or reload! thx</p>
   <!-- todo add a route to the home page -->
 } @else if (results.surveyResource.value()) {
-  <h1 class="live__title">Survey results <span class="live__title--uper">LIVE</span></h1>
+  <h2 class="live__title">Survey results <span class="live__title--uper">LIVE</span></h2>
   <ol class="questions">
     <!-- ! questions -->
     @for (question of results.resultView(); track question.id; let index = $index) {

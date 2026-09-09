@@ -66,14 +66,11 @@ export class SupabaseService {
    */
   async changeVote(optionId: string, delta: number): Promise<void> {
     const { data, error: selectError } = await this.supabase.from('options').select('votes').eq('id', optionId).single();
-
     if (selectError) throw selectError;
-
     const { error: updateError } = await this.supabase
       .from('options')
       .update({ votes: (data.votes ?? 0) + delta })
       .eq('id', optionId);
-
     if (updateError) throw updateError;
   }
 

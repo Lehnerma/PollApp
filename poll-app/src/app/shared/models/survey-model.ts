@@ -1,5 +1,5 @@
 import { SurveyInterface } from '../interfaces/survey-interface';
-
+const DEFAULT_EXPIRY_MONTHS = 6;
 export class SurveyModel implements SurveyInterface {
   id: number | string;
   created_at: string;
@@ -39,7 +39,7 @@ export class SurveyModel implements SurveyInterface {
    */
   getDefaultExpiryDate(): string {
     const today = new Date();
-    today.setMonth(today.getMonth() + 6);
+    today.setMonth(today.getMonth() + DEFAULT_EXPIRY_MONTHS);
     return today.toISOString();
   }
 }

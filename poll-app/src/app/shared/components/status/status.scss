@@ -1,6 +1,13 @@
 @use '../../../../styles/abstracts' as *;
 
 .status {
+  &__txt {
+    font-family: $f-txt;
+    color: $primary-black;
+    font-size: rem(16);
+    font-weight: 600;
+  }
+
   &__label {
     padding: 3px 12px 3px 8px;
     width: fit-content;
@@ -11,12 +18,8 @@
     &--published {
       background-color: $secondary-orange;
     }
-  }
-
-  &__txt {
-    font-family: $f-txt;
-    color: $primary-black;
-    font-size: rem(16);
-    font-weight: 600;
+    &--expired {
+      background-color: $create-survey-orange;
+    }
   }
 }

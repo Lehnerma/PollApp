@@ -1,5 +1,5 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
 import { SupabaseService } from './supabase-service';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { SurveyInterface } from '../interfaces/survey-interface';
 import { SurveyModel } from '../models/survey-model';
 import { RealtimeChannel } from '@supabase/supabase-js';
@@ -11,6 +11,7 @@ export class SurveyService {
   surveyList = signal<SurveyInterface[]>([]);
   surveyCategoryList = signal<string[]>([]);
   nextEndingSurveys = signal<SurveyInterface[]>([]);
+  endingSoonSurveysCount = 3;
 
   surveyChannel: RealtimeChannel;
 
@@ -49,7 +50,7 @@ export class SurveyService {
     const allSurveys = this.surveyList();
     const filtered = this.filterUpcomingSurveys(allSurveys);
     const sorted = this.sortByDaySurveys(filtered);
-    this.nextEndingSurveys.set(sorted.splice(0, 3));
+    this.nextEndingSurveys.set(sorted.splice(0, this.endingSoonSurveysCount));
   }
 
   /**

@@ -5,9 +5,9 @@ import { MainHero } from '../../components/main-hero/main-hero';
 import { ExpireList } from '../../components/expire-list/expire-list';
 
 @Component({
-  selector: 'app-home.component',
+  selector: 'app-home',
   imports: [MainHeader, MainHero, ExpireList, SurveysList],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  templateUrl: './home.html',
+  styleUrl: './home.scss',
 })
 export class HomeComponent {}

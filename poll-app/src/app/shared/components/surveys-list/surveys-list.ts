@@ -1,5 +1,4 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { SupabaseService } from '../../services/supabase-service';
 import { DropdownComponent } from '../dropdown-component/dropdown-component';
 import { SurveyCard } from '../survey-card/survey-card';
 import { SurveyService } from '../../services/survey-service';
@@ -12,15 +11,12 @@ import { SurveyInterface } from '../../interfaces/survey-interface';
   styleUrl: './surveys-list.scss',
 })
 export class SurveysList {
-  supabase = inject(SupabaseService);
   surveyService = inject(SurveyService);
-
   categories = this.surveyService.surveyCategoryList;
   selectedCategory = signal<string | null>(null);
   activeSurveys = this.surveyService.activeSurveyList;
   pastSurveys = this.surveyService.pastSurveyList;
-
-  displayList = computed(() => this.sortSurveys());
+  displayList = computed(() => this.filterSurveys());
 
   selectedTab = signal<'active' | 'past'>('active');
 
@@ -35,7 +31,7 @@ export class SurveysList {
   /**
    * Returns the surveys for the selected tab and category.
    */
-  sortSurveys(): SurveyInterface[] {
+  filterSurveys(): SurveyInterface[] {
     const base = this.selectedTab() === 'active' ? this.activeSurveys() : this.pastSurveys();
     const cat = this.selectedCategory();
     return !cat || cat === 'All Surveys' ? base : base.filter((s) => s.category === cat);

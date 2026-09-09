@@ -1,0 +1,155 @@
+@use '../../../../styles/abstracts' as *;
+
+.logo {
+  &__container {
+    position: relative;
+    width: clamp(270px, 45vw, 410px);
+  }
+
+  &__main {
+    width: 100%;
+    display: block;
+    aspect-ratio: 1/1;
+    z-index: 20;
+  }
+
+  &__icon {
+    position: absolute;
+    width: 18%;
+
+    &--bubble {
+      width: 30%;
+      top: 21%;
+      left: 14%;
+    }
+
+    &--check {
+      bottom: 12%;
+      right: 17%;
+      z-index: 1;
+    }
+
+    &--question {
+      top: 0%;
+      right: 8%;
+      transform: rotate(15deg);
+      width: 15%;
+    }
+
+    &--star {
+      bottom: 1%;
+      left: 15%;
+    }
+  }
+}
+
+.logo__container:hover {
+  .check {
+    animation: check 7s ease-in-out infinite;
+  }
+
+  .star {
+    animation: star 2.5s linear infinite;
+  }
+
+  .bubble {
+    animation: bubble 3s linear infinite;
+  }
+
+  .question {
+    animation: question 4s linear infinite;
+  }
+}
+
+@keyframes question {
+  0% {
+    top: 0%;
+    right: 8%;
+    transform: perspective(500px) rotateY(0deg) rotate(15deg);
+  }
+  50% {
+    top: 0%;
+    right: 8%;
+    transform: perspective(500px) rotateY(180deg) rotate(15deg) scale(0.9);
+  }
+  100% {
+    top: 0%;
+    right: 8%;
+    transform: perspective(500px) rotateY(360deg) rotate(15deg);
+  }
+}
+
+@keyframes check {
+  0% {
+    right: 20%;
+  }
+  25% {
+    right: 2%;
+  }
+  50% {
+    right: 17%;
+    z-index: 2;
+  }
+  75% {
+    right: 2%;
+  }
+  100% {
+    right: 20%;
+  }
+}
+
+@keyframes star {
+  0% {
+    bottom: 1%;
+    left: 15%;
+    transform: rotate(0deg);
+  }
+  20% {
+    bottom: 10%;
+    left: 15%;
+    transform: rotate(72deg);
+  }
+  40% {
+    bottom: 18%;
+    left: 15%;
+    transform: rotate(144deg);
+  }
+  50% {
+    bottom: 20%;
+    left: 16%;
+    transform: rotate(170deg);
+  }
+  60% {
+    bottom: 18%;
+    left: 15%;
+    transform: rotate(144deg);
+  }
+  80% {
+    bottom: 10%;
+    left: 15%;
+    transform: rotate(72deg);
+  }
+  100% {
+    bottom: 1%;
+    left: 15%;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes bubble {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-5deg) scale(0.9);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}

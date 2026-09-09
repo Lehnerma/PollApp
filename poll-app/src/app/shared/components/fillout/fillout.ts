@@ -1,4 +1,4 @@
-import { Component, inject, resource, signal } from '@angular/core';
+import { Component, computed, inject, resource, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Status } from '../status/status';
 import { DatePipe } from '@angular/common';
@@ -21,6 +21,11 @@ export class FillOut {
   supabase = inject(SupabaseService);
   surveyService = inject(SurveyService);
   answer = signal<Map<string, Set<string>>>(new Map());
+  isPast = computed(() => {
+    const survey = this.surveyResource.value();
+    return survey ? this.surveyService.isPastSurvey(survey) : false;
+  });
+
   /**
    * Loads the survey from the supabase.
    */

@@ -15,4 +15,5 @@ export class CheckboxComponent {
   id = input<string>(''); // aktuell untypisiert -> unknown
   checked = input(false); // State liegt beim Parent
   changed = output<string>();
+  disabled = input(false); // optional, um das Kontrollkästchen zu deaktivieren
 }

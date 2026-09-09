@@ -77,7 +77,7 @@ export class SurveyService {
    * @returns A sorted survey array ordered from earliest to latest expiration date.
    */
   sortByDaySurveys(survey: SurveyInterface[]): SurveyInterface[] {
-    return survey.sort((first, second) => new Date(first.expires_at).getTime() - new Date(second.expires_at).getTime());
+    return [...survey].sort((first, second) => new Date(first.expires_at).getTime() - new Date(second.expires_at).getTime());
   }
 
   /**

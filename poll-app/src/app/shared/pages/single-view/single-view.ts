@@ -1,7 +1,7 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { FillOut } from '../../components/fillout/fillout';
 import { LiveResults } from '../../components/live-results/live-results';
-import { ActivatedRoute } from '@angular/router';
 import { MainHeader } from '../../components/main-header/main-header';
 import { App } from '../../../app';
 import { SurveyResultsService } from '../../services/survey-results-service';

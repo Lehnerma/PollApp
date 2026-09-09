@@ -37,7 +37,6 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  height: 100px;
   &__ul {
     display: flex;
     gap: clamp(16px, 5vw, 24px);

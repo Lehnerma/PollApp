@@ -1,0 +1,6 @@
+@use '../abstracts' as *;
+
+:root {
+  scrollbar-width: thin;
+  scrollbar-color: $primary-orange $primary-purple;
+}

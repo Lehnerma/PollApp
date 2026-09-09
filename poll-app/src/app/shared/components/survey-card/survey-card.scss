@@ -4,6 +4,8 @@
   &__container {
     display: grid;
     gap: 16px;
+    max-height: 480px;
+    overflow-y: auto;
   }
 
   background-color: var(--card-bg, $light-purple);

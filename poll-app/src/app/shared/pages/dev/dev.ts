@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { FillOut } from '../../components/fillout/fillout';
+import { PhoneLogo } from '../../components/phone-logo/phone-logo';
 
 @Component({
   selector: 'app-dev',
-  imports: [FillOut],
+  imports: [PhoneLogo],
   templateUrl: './dev.html',
   styleUrl: './dev.scss',
 })

@@ -23,10 +23,6 @@
     justify-self: center;
     grid-area: img;
   }
-  &__img {
-    width: clamp(270px, 45vw, 410px);
-    aspect-ratio: 1/1;
-  }
 
   .btn__primary {
     grid-area: btn;

@@ -11,5 +11,5 @@ export class MainHeader {
   private route = inject(ActivatedRoute);
   private path = this.route.snapshot.routeConfig?.path;
   logoClick = output<void>();
-  currentLogo = this.path === '' ? '../assets/img/logo-full-orange.png' : '../assets/img/logo-full-purple.png';
+  currentLogo = this.path === '' ? 'assets/img/logo-full-orange.png' : 'assets/img/logo-full-purple.png';
 }

@@ -8,12 +8,12 @@ import { Component, input, output } from '@angular/core';
 })
 export class CheckboxComponent {
   type = input<'checkbox' | 'radio'>('checkbox');
-  name = input<string>(''); // Gruppenname – bei Radios pro Frage gleich
-  value = input<string>(''); // option.id
+  name = input<string>('');
+  value = input<string>('');
   label = input<string>();
-  prefix = input<string>(''); // optionales Präfix, z.B. der Aufzählungsbuchstabe
-  id = input<string>(''); // aktuell untypisiert -> unknown
-  checked = input(false); // State liegt beim Parent
+  prefix = input<string>('');
+  id = input<string>('');
+  checked = input(false);
   changed = output<string>();
-  disabled = input(false); // optional, um das Kontrollkästchen zu deaktivieren
+  disabled = input(false);
 }

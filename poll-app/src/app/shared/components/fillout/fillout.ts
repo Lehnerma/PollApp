@@ -1,14 +1,15 @@
-import { Component, computed, inject, resource, signal } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Status } from '../status/status';
+import { Component, computed, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { Status } from '../status/status';
 import { CheckboxComponent } from '../checkbox-component/checkbox-component';
 import { QuestionInterface } from '../../interfaces/question-interface';
 import { getLetterFromIndex } from '../../utils/opt-label.util';
 import { ensureQuestionMark } from '../../utils/question-mark-util';
-import { FormsModule } from '@angular/forms';
 import { SurveyService } from '../../services/survey-service';
 import { SupabaseService } from '../../services/supabase-service';
+import { SurveyResultsService } from '../../services/survey-results-service';
 
 @Component({
   selector: 'fill-out',
@@ -20,23 +21,14 @@ export class FillOut {
   router = inject(Router);
   supabase = inject(SupabaseService);
   surveyService = inject(SurveyService);
-  answer = signal<Map<string, Set<string>>>(new Map());
-  isPast = computed(() => {
-    const survey = this.surveyResource.value();
-    return survey ? this.surveyService.isPastSurvey(survey) : false;
-  });
-
-  /**
-   * Loads the survey from the supabase.
-   */
-  surveyResource = resource({
-    params: () => ({ id: this.currentId }),
-    loader: ({ params }) => this.supabase.getSurveyWithQuestions(params.id),
-  });
+  protected results = inject(SurveyResultsService);
   protected readonly getLetterFromIndex = getLetterFromIndex;
   protected readonly ensureQuestionMark = ensureQuestionMark;
-  private route = inject(ActivatedRoute);
-  currentId = this.route.snapshot.paramMap.get('id') ?? ''; // id of the survey
+  answer = signal<Map<string, Set<string>>>(new Map());
+  isPast = computed(() => {
+    const survey = this.results.surveyResource.value();
+    return survey ? this.surveyService.isPastSurvey(survey) : false;
+  });
 
   /**
    * Checks whether an option has already been selected for a specific question.
@@ -56,10 +48,10 @@ export class FillOut {
    * @param optionId The ID of the option that should be selected or deselected.
    */
   select(question: QuestionInterface, optionId: string): void {
-    const next = new Map(this.answer()); // copy the map
-    const current = next.get(String(question.id)) ?? new Set<string>(); // get the existing set or create a new one
+    const next = new Map(this.answer());
+    const current = next.get(String(question.id)) ?? new Set<string>();
     const deltas = this.voteDeltas(question, optionId, current);
-    next.set(String(question.id), this.nextSelection(question, optionId, current)); // set the new set
+    next.set(String(question.id), this.nextSelection(question, optionId, current));
     this.answer.set(next);
     deltas.forEach(([id, delta]) => this.supabase.changeVote(id, delta));
   }
@@ -73,7 +65,7 @@ export class FillOut {
    * @returns The new set with the updated selection.
    */
   nextSelection(question: QuestionInterface, optionId: string, next: Set<string>): Set<string> {
-    if (!question.multiple_options) return new Set([optionId]); // replace or ->
+    if (!question.multiple_options) return new Set([optionId]);
     if (next.has(optionId)) next.delete(optionId);
     else next.add(optionId);
     return next;
@@ -89,8 +81,8 @@ export class FillOut {
    * @returns Pairs of option ID and vote delta, e.g. [['abc', -1], ['def', 1]].
    */
   voteDeltas(question: QuestionInterface, optionId: string, current: Set<string>): [string, number][] {
-    if (question.multiple_options) return [[optionId, current.has(optionId) ? -1 : 1]]; // toggle
-    const previous = [...current][0]; // single choice holds one option at most
+    if (question.multiple_options) return [[optionId, current.has(optionId) ? -1 : 1]];
+    const previous = [...current][0];
     if (!previous) return [[optionId, 1]];
     if (previous === optionId) return [];
     return [

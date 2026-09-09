@@ -1,13 +1,13 @@
-<article class="survay-list">
-  <nav class="survay-list__nav nav">
+<section class="survey-list">
+  <nav class="survey-list__nav nav">
     <ul class="nav__ul">
-      <li class="nav__li nav__li--activ">
-        <button class="btn btn__filter" [class.active]="displayList() === activeSurveys()" (click)="switchSurveyList('active')">
+      <li class="nav__li nav__li--active">
+        <button class="btn btn__filter" [class.active]="selectedTab() === 'active'" (click)="switchSurveyList('active')">
           Active survey
         </button>
       </li>
       <li class="nav__li nav__li--past">
-        <button class="btn btn__filter" [class.active]="displayList() === pastSurveys()" (click)="switchSurveyList('past')">
+        <button class="btn btn__filter" [class.active]="selectedTab() === 'past'" (click)="switchSurveyList('past')">
           Past survey
         </button>
       </li>
@@ -21,4 +21,4 @@
     ></app-dropdown-component>
   </nav>
   <app-survey-card [surveyList]="displayList()" [listLayout]="'column'"></app-survey-card>
-</article>
+</section>

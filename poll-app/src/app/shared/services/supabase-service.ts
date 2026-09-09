@@ -14,8 +14,6 @@ import { OptionInterface } from '../interfaces/option-interface';
 export class SupabaseService {
   supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 
-  //ngOnDestroy():Promise<void> {} //todo add the subscription do unsubscribe
-
   /**
    * pushes the question to supabase
    * @param question - is the model with default values
@@ -68,14 +66,11 @@ export class SupabaseService {
    */
   async changeVote(optionId: string, delta: number): Promise<void> {
     const { data, error: selectError } = await this.supabase.from('options').select('votes').eq('id', optionId).single();
-
     if (selectError) throw selectError;
-
     const { error: updateError } = await this.supabase
       .from('options')
       .update({ votes: (data.votes ?? 0) + delta })
       .eq('id', optionId);
-
     if (updateError) throw updateError;
   }
 

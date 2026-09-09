@@ -1,6 +1,6 @@
+import { RouterLink } from '@angular/router';
 import { Component, input } from '@angular/core';
 import { SurveyInterface } from '../../interfaces/survey-interface';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-survey-card',
@@ -11,6 +11,7 @@ import { RouterLink } from '@angular/router';
 export class SurveyCard {
   surveyList = input<SurveyInterface[]>([]);
   listLayout = input('row');
+  MILLISECONDS_IN_A_DAY = 1000 * 60 * 60 * 24;
 
   /**
    * Returns the remaining time until the survey expires, expressed in days.
@@ -21,7 +22,7 @@ export class SurveyCard {
   getExpireDay(expireDate: string | number): string {
     const date = new Date(expireDate);
     if (isNaN(date.getTime())) return 'n/a';
-    const days = Math.ceil((date.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+    const days = Math.ceil((date.getTime() - Date.now()) / this.MILLISECONDS_IN_A_DAY);
     return days === 1 ? days + ' Day' : days + ' Days';
   }
 

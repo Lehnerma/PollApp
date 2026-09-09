@@ -54,11 +54,11 @@ export class SurveyResultsService implements OnDestroy {
   private toQuestionResult(question: QuestionWithOptionsInterface): QuestionResultInterface {
     const totalVotes = question.options.reduce((sum, option) => sum + option.votes, 0);
     return {
-      ...question, // enthallt alle bestandteile der question
-      totalVotes, // wird zu der question hinzugefugt und zahlt alle stimmen.
+      ...question,
+      totalVotes,
       options: question.options.map((option) => ({
-        ...option, // die option
-        percent: totalVotes ? Math.round((option.votes / totalVotes) * 100) : 0, // die option werden mit dem percent erweitert und es wird gerundent.
+        ...option,
+        percent: totalVotes ? Math.round((option.votes / totalVotes) * 100) : 0,
       })),
     };
   }

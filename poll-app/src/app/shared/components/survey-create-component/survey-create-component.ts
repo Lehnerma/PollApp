@@ -15,6 +15,9 @@ import { isInvalid } from '../../utils/form-validation.util';
 import { SurveyService } from '../../services/survey-service';
 import { SupabaseService } from '../../services/supabase-service';
 
+const MAX_OPTIONS = 6;
+const MAX_QUESTIONS = 6;
+const MIN_OPTIONS = 2;
 @Component({
   selector: 'survey-create-component',
   imports: [ReactiveFormsModule, DropdownComponent, Status, ToastMsg, CheckboxComponent],
@@ -109,14 +112,14 @@ export class SurveyCreateComponent {
    */
   addOption(question: FormGroup<QuestionForm>): void {
     const curOpt = this.getOptions(question);
-    if (curOpt.length < 6) curOpt.push(this.createOptionForm());
+    if (curOpt.length < MAX_OPTIONS) curOpt.push(this.createOptionForm());
   }
 
   /**
    * Adds a new question to the survey form.
    */
   addQuestion(): void {
-    if (this.questions.length >= 6) return;
+    if (this.questions.length >= MAX_QUESTIONS) return;
     this.surveyForm.controls.questions.push(this.createQuestionForm());
   }
 
@@ -138,7 +141,7 @@ export class SurveyCreateComponent {
    */
   deleteOption(question: FormGroup<QuestionForm>, index: number): void {
     const curOpt = this.getOptions(question);
-    if (curOpt.length <= 2) return;
+    if (curOpt.length <= MIN_OPTIONS) return;
     curOpt.removeAt(index);
   }
 

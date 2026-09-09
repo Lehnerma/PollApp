@@ -60,11 +60,7 @@ export class SurveyService {
    * @returns A list of surveys that are still upcoming or currently valid.
    */
   filterUpcomingSurveys(surveys: SurveyInterface[]): SurveyInterface[] {
-    const now = Date.now();
-    return surveys.filter((survey) => {
-      const date = new Date(survey.expires_at).getTime();
-      return date >= now;
-    });
+    return surveys.filter((survey) => !this.isPastSurvey(survey));
   }
 
   /**
@@ -73,11 +69,7 @@ export class SurveyService {
    * @returns A list of surveys that have already expired.
    */
   filterPastSurveys(surveys: SurveyInterface[]): SurveyInterface[] {
-    const now = Date.now();
-    return surveys.filter((survey) => {
-      const date = new Date(survey.expires_at).getTime();
-      return date < now;
-    });
+    return surveys.filter((survey) => this.isPastSurvey(survey));
   }
 
   /**
@@ -114,5 +106,16 @@ export class SurveyService {
         this.getAllSurveys();
       })
       .subscribe();
+  }
+
+  /**
+   * Checks if the survey has already expired.
+   * @param survey - The survey to check.
+   * @returns True if the survey has expired, false otherwise.
+   */
+  isPastSurvey(survey: SurveyInterface): boolean {
+    const now = Date.now();
+    const date = new Date(survey.expires_at).getTime();
+    return date < now;
   }
 }

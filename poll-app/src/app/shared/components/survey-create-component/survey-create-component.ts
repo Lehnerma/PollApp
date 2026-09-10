@@ -53,6 +53,7 @@ export class SurveyCreateComponent {
 
   /**
    * Returns the question form groups of the survey form.
+   * @returns {FormGroup<QuestionForm>[]} The question form groups of the survey form.
    */
   get questions(): FormGroup<QuestionForm>[] {
     return this.surveyForm.controls.questions.controls;
@@ -60,6 +61,7 @@ export class SurveyCreateComponent {
 
   /**
    * Returns the details form groups of the survey form.
+   * @returns {FormGroup<DetailsForm>} The details form group of the survey form.
    */
   get details(): FormGroup<DetailsForm> {
     return this.surveyForm.controls.details;
@@ -67,6 +69,7 @@ export class SurveyCreateComponent {
 
   /**
    * Returns the current character count of the survey description.
+   * @returns {number} The current character count of the survey description.
    */
   get charCount(): number {
     return this.details.controls.description.value.length ?? 0;
@@ -75,14 +78,16 @@ export class SurveyCreateComponent {
   /**
    * Returns the option form groups of the given question form group.
    *
-   * @param question The question form group.
+   * @param {FormGroup<QuestionForm>} question - The question form group.
+   * @returns {FormArray<FormGroup<OptionForm>>} The option form groups of the given question.
    */
   getOptions(question: FormGroup<QuestionForm>): FormArray<FormGroup<OptionForm>> {
     return question.controls.options;
   }
 
   /**
-   * Creates the form group for the details of the survey
+   * Creates the form group for the details of the survey.
+   * @returns {FormGroup<DetailsForm>} The newly created details form group.
    */
   createDetailsForm(): FormGroup<DetailsForm> {
     return this.fb.nonNullable.group({
@@ -94,7 +99,8 @@ export class SurveyCreateComponent {
   }
 
   /**
-   * Creates the form group for a question
+   * Creates the form group for a question.
+   * @returns {FormGroup<QuestionForm>} The newly created question form group.
    */
   createQuestionForm(): FormGroup<QuestionForm> {
     return this.fb.nonNullable.group({
@@ -106,6 +112,7 @@ export class SurveyCreateComponent {
 
   /**
    * Creates the form group for a question option.
+   * @returns {FormGroup<OptionForm>} The newly created option form group.
    */
   createOptionForm(): FormGroup<OptionForm> {
     return this.fb.nonNullable.group({
@@ -114,8 +121,9 @@ export class SurveyCreateComponent {
   }
 
   /**
-   * add a new option to the question limit of 6
-   * @param question The Question form group
+   * Adds a new option to the question, limited to 6.
+   * @param {FormGroup<QuestionForm>} question - The question form group.
+   * @returns {void}
    */
   addOption(question: FormGroup<QuestionForm>): void {
     const curOpt = this.getOptions(question);
@@ -124,6 +132,7 @@ export class SurveyCreateComponent {
 
   /**
    * Adds a new question to the survey form.
+   * @returns {void}
    */
   addQuestion(): void {
     if (this.questions.length >= MAX_QUESTIONS) return;
@@ -133,7 +142,8 @@ export class SurveyCreateComponent {
   /**
    * Toggles the multiple options control of the given question.
    *
-   * @param question The question form group.
+   * @param {FormGroup<QuestionForm>} question - The question form group.
+   * @returns {void}
    */
   toggleMultipleOptions(question: FormGroup<QuestionForm>): void {
     const control = question.controls.multiple_options;
@@ -143,8 +153,9 @@ export class SurveyCreateComponent {
   /**
    * Removes an answer option from the current question if more than two options exist.
    *
-   * @param question The question form group.
-   * @param index The index of the option to remove.
+   * @param {FormGroup<QuestionForm>} question - The question form group.
+   * @param {number} index - The index of the option to remove.
+   * @returns {void}
    */
   deleteOption(question: FormGroup<QuestionForm>, index: number): void {
     const curOpt = this.getOptions(question);
@@ -155,7 +166,8 @@ export class SurveyCreateComponent {
   /**
    * Removes a question from the survey form, or resets it if it's the last question.
    *
-   * @param index The index of the question to remove.
+   * @param {number} index - The index of the question to remove.
+   * @returns {void}
    */
   deleteQuestion(index: number): void {
     if (this.questions.length === 1) {
@@ -167,6 +179,7 @@ export class SurveyCreateComponent {
 
   /**
    * Resets the hole form.
+   * @returns {void}
    */
   resetForm(): void {
     this.surveyForm.reset();
@@ -178,13 +191,15 @@ export class SurveyCreateComponent {
 
   /**
    * Resets the survey description field.
+   * @returns {void}
    */
   resetDescription(): void {
     this.details.controls.description.reset();
   }
 
   /**
-   * Creates the form data for the tables in supabase
+   * Creates the form data for the tables in supabase.
+   * @returns {Promise<void>} Resolves once the survey, questions and options have been persisted.
    */
   async onSubmit(): Promise<void> {
     if (!this.surveyForm.valid) {
@@ -200,9 +215,10 @@ export class SurveyCreateComponent {
   }
 
   /**
-   * pushes the options to the supabase
-   * @param question - is the question with the options array in it
-   * @param surveyId - connection to the survey
+   * Pushes the options to the supabase.
+   * @param {QuestionFormValue} question - Is the question with the options array in it.
+   * @param {string | number} surveyId - Connection to the survey.
+   * @returns {Promise<void>} Resolves once the question and its options have been persisted.
    */
   private async pushQuestionsWithOptions(question: QuestionFormValue, surveyId: string | number): Promise<void> {
     const savedQuestion = await this.supabase.addQuestion(new QuestionModel(question), surveyId);
@@ -212,9 +228,10 @@ export class SurveyCreateComponent {
   }
 
   /**
-   * pushes the question to supabase
-   * @param questions is the modul question with right values
-   * @param surveyId is the connection to the survey
+   * Pushes the question to supabase.
+   * @param {QuestionFormValue[]} questions - Is the module question with right values.
+   * @param {string | number} surveyId - Is the connection to the survey.
+   * @returns {Promise<void>} Resolves once all questions have been persisted.
    */
   private async pushQuestion(questions: QuestionFormValue[], surveyId: string | number): Promise<void> {
     await Promise.all(questions.map((question) => this.pushQuestionsWithOptions(question, surveyId)));

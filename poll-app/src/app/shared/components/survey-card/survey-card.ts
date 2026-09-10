@@ -16,8 +16,8 @@ export class SurveyCard {
   /**
    * Returns the remaining time until the survey expires, expressed in days.
    *
-   * @param expireDate - A date-compatible value representing the expiration date.
-   * @returns The number of remaining days as a formatted string, or `'n/a'` if the date is invalid.
+   * @param {string | number} expireDate - A date-compatible value representing the expiration date.
+   * @returns {string} The number of remaining days as a formatted string, or `'n/a'` if the date is invalid.
    */
   getExpireDay(expireDate: string | number): string {
     const date = new Date(expireDate);
@@ -27,8 +27,8 @@ export class SurveyCard {
   }
 
   /**
-   * Wir bekommen die classe zuruck die wir benotigen fur die verschiedneen grid layouts in unserer app fur die surveys
-   * @returns the right stylin class for the grid layout for the surveylists
+   * We get back the class we need for the various grid layouts in our app for the surveys.
+   * @returns {string} The right styling class for the grid layout for the survey lists.
    */
   getGridLayout(): string {
     return this.listLayout() === 'row' ? 'up-next-row' : 'list-grid';

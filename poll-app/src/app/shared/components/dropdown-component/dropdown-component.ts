@@ -30,39 +30,44 @@ export class DropdownComponent implements ControlValueAccessor {
   listboxId = `dropdown-listbox-${DropdownComponent.nextId++}`;
 
   /**
-   * Toggles the dropdown menu
+   * Toggles the dropdown menu.
+   * @returns {void}
    */
   toggleDropdown(): void {
     this.isOpen.update((currentValue) => !currentValue);
   }
 
   /**
-   * Writes the new value for the form/element
-   * @param value String value we set.
+   * Writes the new value for the form/element.
+   * @param {string | null} value - String value we set.
+   * @returns {void}
    */
   writeValue(value: string | null): void {
     this.value.set(value);
   }
 
   /**
-   * Register a callback
-   * @param fn callback function
+   * Register a callback.
+   * @param {(value: string | null) => void} fn - Callback function.
+   * @returns {void}
    */
   registerOnChange(fn: (value: string | null) => void): void {
     this.onChange = fn;
   }
 
   /**
-   * Register a callback to be invoked when the form control is touched
-   * @param fn callback function
+   * Register a callback to be invoked when the form control is touched.
+   * @param {() => void} fn - Callback function.
+   * @returns {void}
    */
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
   /**
-   * We set the new value(categorie) and close the dropdown
-   * @param item - the categorie whitch is chosen in the dropdown
+   * We set the new value (category) and close the dropdown.
+   * @param {string} item - The category which is chosen in the dropdown.
+   * @returns {void}
    */
   selectOption(item: string): void {
     this.value.set(item);

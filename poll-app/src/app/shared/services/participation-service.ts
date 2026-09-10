@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class ParticipationService {
   /**
-   * Marks that the survey is filled out for this browser
-   * @param surveyId - the ID of the survey
+   * Marks that the survey is filled out for this browser.
+   * @param {string} surveyId - The ID of the survey.
+   * @returns {void}
    */
   markParticipated(surveyId: string): void {
     if (!surveyId) return;
@@ -12,9 +13,9 @@ export class ParticipationService {
   }
 
   /**
-   * Checks if the survey has filled out from this browser
-   * @param surveyId - the ID of the survey
-   * @returns boolean - of the survey has filled out or not
+   * Checks if the survey has filled out from this browser.
+   * @param {string} surveyId - The ID of the survey.
+   * @returns {boolean} Whether the survey has been filled out or not.
    */
   hasParticipated(surveyId: string): boolean {
     if (!surveyId) return false;
@@ -22,9 +23,9 @@ export class ParticipationService {
   }
 
   /**
-   * Create the local storage key for the survey
-   * @param surveyId - the unique id of the survey
-   * @return
+   * Create the local storage key for the survey.
+   * @param {string} surveyId - The unique id of the survey.
+   * @returns {string} The local storage key for the survey.
    */
   private key(surveyId: string): string {
     return `survey:${surveyId}`;

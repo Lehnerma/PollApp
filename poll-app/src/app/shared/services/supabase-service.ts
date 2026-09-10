@@ -14,9 +14,10 @@ export class SupabaseService {
   supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 
   /**
-   * pushes the question to supabase
-   * @param question - is the model with default values
-   * @param surveyId - is the connection to the survey
+   * Pushes the question to supabase.
+   * @param {QuestionModel} question - Is the model with default values.
+   * @param {string | number} surveyId - Is the connection to the survey.
+   * @returns {Promise<string | number>} The id of the newly inserted question.
    */
   async addQuestion(question: QuestionModel, surveyId: string | number): Promise<string | number> {
     const question_data = question.getCleanQuestionJson(surveyId);
@@ -26,10 +27,11 @@ export class SupabaseService {
   }
 
   /**
-   * pushes the options with the id of the question to connect them
-   * @param option - is the model with the values we need
-   * @param surveyId - is the connection to the survey in the supabase
-   * @param questionId - is the connection to the question in the supabase
+   * Pushes the options with the id of the question to connect them.
+   * @param {OptionModel} option - Is the model with the values we need.
+   * @param {string | number} surveyId - Is the connection to the survey in the supabase.
+   * @param {string | number} questionId - Is the connection to the question in the supabase.
+   * @returns {Promise<void>} Resolves once the options have been inserted.
    */
   async addOptions(option: OptionModel, surveyId: string | number, questionId: string | number): Promise<void> {
     const options_data = option.getCleanOptionJson(surveyId, questionId);
@@ -39,8 +41,8 @@ export class SupabaseService {
 
   /**
    * Loads a single survey including its questions and their options.
-   * @param surveyId - id of the survey to load
-   * @returns The complete survey, or null if no survey matches the id
+   * @param {string | number} surveyId - Id of the survey to load.
+   * @returns {Promise<SurveyWithQuestionsInterface>} The complete survey, or null if no survey matches the id.
    */
   async getSurveyWithQuestions(surveyId: string | number): Promise<SurveyWithQuestionsInterface> {
     const { data, error } = await this.supabase
@@ -60,8 +62,9 @@ export class SupabaseService {
 
   /**
    * Changes the vote count for an option.
-   * @param optionId - The ID of the option to update.
-   * @param delta - The amount to add to the current vote count.
+   * @param {string} optionId - The ID of the option to update.
+   * @param {number} delta - The amount to add to the current vote count.
+   * @returns {Promise<void>} Resolves once the vote count has been updated.
    */
   async changeVote(optionId: string, delta: number): Promise<void> {
     const { data, error: selectError } = await this.supabase.from('options').select('votes').eq('id', optionId).single();

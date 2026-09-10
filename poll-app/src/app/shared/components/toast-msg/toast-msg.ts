@@ -32,6 +32,7 @@ export class ToastMsg {
 
   /**
    * Starts the auto-close timer that hides the toast after the delay.
+   * @returns {void}
    */
   private startAutoClose(): void {
     this.clearAutoClose();
@@ -42,6 +43,7 @@ export class ToastMsg {
 
   /**
    * Clears a pending auto-close timer, if any.
+   * @returns {void}
    */
   private clearAutoClose(): void {
     clearTimeout(this.autoCloseTimeout);
@@ -49,6 +51,7 @@ export class ToastMsg {
 
   /**
    * Closes the toast manually, e.g. via the close button.
+   * @returns {void}
    */
   close(): void {
     this.visible.set(false);

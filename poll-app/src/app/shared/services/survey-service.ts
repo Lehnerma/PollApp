@@ -28,6 +28,7 @@ export class SurveyService {
 
   /**
    * Loads all surveys from the Supabase table and updates the related signals.
+   * @returns {Promise<void>} Resolves once the survey signals have been updated.
    */
   async getAllSurveys(): Promise<void> {
     const response = await this.supabase.from('surveys').select('*');
@@ -38,6 +39,7 @@ export class SurveyService {
 
   /**
    * Updates the category list with unique categories from the current survey data.
+   * @returns {void}
    */
   setCategories(): void {
     this.surveyCategoryList.set([...new Set(this.surveyList().map((item) => item.category))]);
@@ -45,6 +47,7 @@ export class SurveyService {
 
   /**
    * Determines the next upcoming surveys and stores the first three in the signal.
+   * @returns {void}
    */
   setNextEndingSurveys(): void {
     const allSurveys = this.surveyList();
@@ -55,8 +58,8 @@ export class SurveyService {
 
   /**
    * Filters out surveys whose expiration date is already in the past.
-   * @param surveys - Survey list from Supabase.
-   * @returns A list of surveys that are still upcoming or currently valid.
+   * @param {SurveyInterface[]} surveys - Survey list from Supabase.
+   * @returns {SurveyInterface[]} A list of surveys that are still upcoming or currently valid.
    */
   filterUpcomingSurveys(surveys: SurveyInterface[]): SurveyInterface[] {
     return surveys.filter((survey) => !this.isPastSurvey(survey));
@@ -64,8 +67,8 @@ export class SurveyService {
 
   /**
    * Filters out surveys whose expiration date is in the future.
-   * @param surveys - Survey list from Supabase.
-   * @returns A list of surveys that have already expired.
+   * @param {SurveyInterface[]} surveys - Survey list from Supabase.
+   * @returns {SurveyInterface[]} A list of surveys that have already expired.
    */
   filterPastSurveys(surveys: SurveyInterface[]): SurveyInterface[] {
     return surveys.filter((survey) => this.isPastSurvey(survey));
@@ -73,16 +76,17 @@ export class SurveyService {
 
   /**
    * Sorts the survey list by the nearest expiration date first.
-   * @param survey - Survey array to sort.
-   * @returns A sorted survey array ordered from earliest to latest expiration date.
+   * @param {SurveyInterface[]} survey - Survey array to sort.
+   * @returns {SurveyInterface[]} A sorted survey array ordered from earliest to latest expiration date.
    */
   sortByDaySurveys(survey: SurveyInterface[]): SurveyInterface[] {
     return [...survey].sort((first, second) => new Date(first.expires_at).getTime() - new Date(second.expires_at).getTime());
   }
 
   /**
-   * Pushes the survey to supabase
-   * @param survey
+   * Pushes the survey to supabase.
+   * @param {SurveyModel} survey - The survey model to persist.
+   * @returns {Promise<string | number>} The id of the newly inserted survey.
    */
   async addSurvey(survey: SurveyModel): Promise<string | number> {
     const survey_data = survey.getCleanSurveyJson();
@@ -93,7 +97,7 @@ export class SurveyService {
 
   /**
    * Subscribes to realtime changes in the surveys table.
-   * @returns The realtime channel used for the subscription.
+   * @returns {RealtimeChannel} The realtime channel used for the subscription.
    */
   subscribeToSurveys(): RealtimeChannel {
     return this.supabase
@@ -106,8 +110,8 @@ export class SurveyService {
 
   /**
    * Checks if the survey has already expired.
-   * @param survey - The survey to check.
-   * @returns True if the survey has expired, false otherwise.
+   * @param {SurveyInterface} survey - The survey to check.
+   * @returns {boolean} True if the survey has expired, false otherwise.
    */
   isPastSurvey(survey: SurveyInterface): boolean {
     const now = Date.now();

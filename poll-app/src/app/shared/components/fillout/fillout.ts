@@ -40,9 +40,9 @@ export class FillOut {
   /**
    * Checks whether an option has already been selected for a specific question.
    *
-   * @param questionId The ID of the question.
-   * @param optionId The ID of the option.
-   * @returns true if the option is selected, otherwise false.
+   * @param {string} questionId - The ID of the question.
+   * @param {string} optionId - The ID of the option.
+   * @returns {boolean} true if the option is selected, otherwise false.
    */
   isSelected(questionId: string, optionId: string): boolean {
     return this.answer().get(String(questionId))?.has(String(optionId)) ?? false;
@@ -51,8 +51,9 @@ export class FillOut {
   /**
    * Updates the selection of a question with a new option.
    *
-   * @param question The question whose selection should be changed.
-   * @param optionId The ID of the option that should be selected or deselected.
+   * @param {QuestionInterface} question - The question whose selection should be changed.
+   * @param {string} optionId - The ID of the option that should be selected or deselected.
+   * @returns {void}
    */
   select(question: QuestionInterface, optionId: string): void {
     const next = new Map(this.answer());
@@ -64,10 +65,10 @@ export class FillOut {
   /**
    * Calculates the new selection for a question based on the current selection.
    *
-   * @param question The question for which the selection is calculated.
-   * @param optionId The ID of the option to be adjusted.
-   * @param next The current set of already selected options.
-   * @returns The new set with the updated selection.
+   * @param {QuestionInterface} question - The question for which the selection is calculated.
+   * @param {string} optionId - The ID of the option to be adjusted.
+   * @param {Set<string>} next - The current set of already selected options.
+   * @returns {Set<string>} The new set with the updated selection.
    */
   nextSelection(question: QuestionInterface, optionId: string, next: Set<string>): Set<string> {
     if (!question.multiple_options) return new Set([optionId]);
@@ -77,7 +78,8 @@ export class FillOut {
   }
 
   /**
-   * Navigates to the home page
+   * Navigates to the home page.
+   * @returns {Promise<void>} Resolves once the vote has been submitted and navigation was triggered.
    */
   async onSubmit(): Promise<void> {
     if (!this.allAnswered() || this.isSubmitted()) return;
@@ -96,9 +98,9 @@ export class FillOut {
   }
 
   /**
-   * Collects the IDs of all selected options
+   * Collects the IDs of all selected options.
    *
-   * @returns A list of selected options id
+   * @returns {string[]} A list of selected options id.
    */
   collectSelectedOptionIds(): string[] {
     return [...this.answer().values()].flatMap((option) => [...option]);
@@ -106,7 +108,7 @@ export class FillOut {
   /**
    * Checks whether every question of the loaded survey has at least one selected option.
    *
-   * @returns true if all questions are answered, otherwise false.
+   * @returns {boolean} true if all questions are answered, otherwise false.
    */
   checkEveryQuestionAnswered(): boolean {
     const survey = this.results.surveyResource.value();

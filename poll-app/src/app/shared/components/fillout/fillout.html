@@ -71,6 +71,13 @@
       </section>
     </section>
     <section class="form__footer">
+      @if (isPast()) {
+        <p class="form__hint form__hint--expired">The survey has expired. You can create a new one!</p>
+      } @else if (allreadyFilled()) {
+        <p class="form__hint form__hint--participation">You have already filled out the Survey.</p>
+      } @else if (!allAnswered()) {
+        <p class="form__hint form__hint--error">Pls fill out all questions!</p>
+      }
       <button
         [attr.aria-disabled]="!allAnswered()"
         [disabled]="!allAnswered() || isSubmitted()"
@@ -92,13 +99,6 @@
           />
         </svg>
       </button>
-      @if (isPast()) {
-        <p class="form__hint--expired">The survey has expired. You can create a new one!</p>
-      } @else if (allreadyFilled()) {
-        <p class="form__hint--participation">You have already filled out the Survey.</p>
-      } @else if (!allAnswered()) {
-        <p class="form__hint--error">Pls fill out all questions!</p>
-      }
     </section>
   </form>
 }

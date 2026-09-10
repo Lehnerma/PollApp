@@ -6,9 +6,11 @@
   border: none;
   overflow-y: auto;
   margin: auto;
+  background-color: transparent;
 
   &::backdrop {
     background-color: $primary-white;
+    opacity: 0.4;
   }
 }
 

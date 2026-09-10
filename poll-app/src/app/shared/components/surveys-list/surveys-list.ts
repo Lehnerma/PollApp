@@ -22,7 +22,8 @@ export class SurveysList {
 
   /**
    * Switch the list of display.
-   * @param list the list of items that will shown.
+   * @param {'active' | 'past'} tab - The tab that will be shown.
+   * @returns {void}
    */
   switchSurveyList(tab: 'active' | 'past'): void {
     this.selectedTab.set(tab);
@@ -30,6 +31,7 @@ export class SurveysList {
 
   /**
    * Returns the surveys for the selected tab and category.
+   * @returns {SurveyInterface[]} The filtered list of surveys.
    */
   filterSurveys(): SurveyInterface[] {
     const base = this.selectedTab() === 'active' ? this.activeSurveys() : this.pastSurveys();

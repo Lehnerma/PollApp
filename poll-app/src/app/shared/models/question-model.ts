@@ -8,8 +8,8 @@ export class QuestionModel implements QuestionInterface {
   multiple_options: boolean;
 
   /**
-   * Creates a new question and checks if no value is null or any
-   * @param data
+   * Creates a new question and fills in nullish fallbacks for any missing value.
+   * @param {Partial<QuestionInterface>} data - Partial question data to initialize the model from.
    */
   constructor(data: Partial<QuestionInterface> = {}) {
     this.id = data.id ?? crypto.randomUUID();
@@ -20,8 +20,9 @@ export class QuestionModel implements QuestionInterface {
   }
 
   /**
-   *Creates the JSON for the question
-   * @param surveyId is the connection to the survey
+   * Creates the JSON for the question.
+   * @param {string | number} surveyId - The connection to the survey.
+   * @returns {QuestionInterface} The plain question object ready for persistence.
    */
   getCleanQuestionJson(surveyId: string | number): QuestionInterface {
     return {

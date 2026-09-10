@@ -30,6 +30,7 @@ export class App {
 
   /**
    * Opens the create-survey dialog.
+   * @returns {void}
    */
   openCreateSurveyDialog(): void {
     this.isCreateSurveyOpen.set(true);
@@ -37,6 +38,7 @@ export class App {
 
   /**
    * Closes the create-survey dialog.
+   * @returns {void}
    */
   closeCreateSurveyDialog(): void {
     this.isCreateSurveyOpen.set(false);

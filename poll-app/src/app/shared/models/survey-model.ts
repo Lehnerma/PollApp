@@ -9,7 +9,8 @@ export class SurveyModel implements SurveyInterface {
   expires_at: string | number;
 
   /**
-   * Baut ein Grundgerüst mit nullish Fallbacks für unser Survey Interface.    * @param data
+   * Builds a basic skeleton with nullish fallbacks for our survey interface.
+   * @param {Partial<SurveyInterface>} data - Partial survey data to initialize the model from.
    */
   constructor(data: Partial<SurveyInterface> = {}) {
     this.id = data.id ?? crypto.randomUUID();
@@ -21,7 +22,9 @@ export class SurveyModel implements SurveyInterface {
   }
 
   /**
-   * Eine Funktion, die uns ein sauberes JSON-Objekt zurückgibt, mit dem wir dann unsere Values von CreateSurvey befüllen können    */
+   * A function that returns a clean JSON object which we then use to populate our CreateSurvey values.
+   * @returns {SurveyInterface} The plain survey object ready for persistence.
+   */
   getCleanSurveyJson(): SurveyInterface {
     return {
       id: this.id,
@@ -35,7 +38,7 @@ export class SurveyModel implements SurveyInterface {
 
   /**
    * It creats a default expire date in 6 month!
-   * @returns return da date in 6 months
+   * @returns {string} return da date in 6 months
    */
   getDefaultExpiryDate(): string {
     const today = new Date();

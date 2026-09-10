@@ -26,6 +26,7 @@
 
 .main-content {
   display: grid;
+  row-gap: 32px;
 
   @include respond-to(md) {
     grid-template-columns: 2fr clamp(250px, 10vw, 350px);

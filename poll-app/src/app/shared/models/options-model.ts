@@ -9,8 +9,8 @@ export class OptionModel implements OptionInterface {
   votes: number;
 
   /**
-   * Creates a new question and checks if no value is null or any
-   * @param data
+   * Creates a new option and fills in nullish fallbacks for any missing value.
+   * @param {Partial<OptionInterface>} data - Partial option data to initialize the model from.
    */
   constructor(data: Partial<OptionInterface> = {}) {
     this.id = data.id ?? crypto.randomUUID();
@@ -22,9 +22,10 @@ export class OptionModel implements OptionInterface {
   }
 
   /**
-   * Creates the JSON for the option
-   * @param surveyId is the connection to the survey
-   * @param questionId is the connection to the question
+   * Creates the JSON for the option.
+   * @param {string | number} surveyId - The connection to the survey.
+   * @param {string | number} questionId - The connection to the question.
+   * @returns {OptionInterface} The plain option object ready for persistence.
    */
   getCleanOptionJson(surveyId: string | number, questionId: string | number): OptionInterface {
     return {

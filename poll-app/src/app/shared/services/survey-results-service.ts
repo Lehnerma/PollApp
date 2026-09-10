@@ -42,8 +42,8 @@ export class SurveyResultsService {
   /**
    * Enriches a question with total votes and percentage values per option.
    * The not yet submitted selection is counted optimistically, so the results react to every click.
-   * @param question - Question with options from Supabase.
-   * @returns Question with totalVotes and percent for each option.
+   * @param {QuestionWithOptionsInterface} question - Question with options from Supabase.
+   * @returns {QuestionResultInterface} Question with totalVotes and percent for each option.
    */
   private toQuestionResult(question: QuestionWithOptionsInterface): QuestionResultInterface {
     const options = question.options.map((option) => ({ ...option, votes: option.votes + this.pendingVoteFor(option.id) }));
@@ -60,8 +60,8 @@ export class SurveyResultsService {
 
   /**
    * Returns the optimistic vote of an option taken from the current selection.
-   * @param optionId - id of the option to check.
-   * @returns 1 while the option is selected and not submitted yet, otherwise 0.
+   * @param {string | number} optionId - Id of the option to check.
+   * @returns {number} 1 while the option is selected and not submitted yet, otherwise 0.
    */
   private pendingVoteFor(optionId: string | number): number {
     if (this.votesSubmitted()) return 0;

@@ -6,11 +6,17 @@
   border: none;
   overflow-y: auto;
   margin: auto;
-  background-color: transparent;
+  background-color: $primary-white;
+  @include respond-to(md) {
+    background-color: transparent;
+  }
 
   &::backdrop {
     background-color: $primary-white;
-    opacity: 0.4;
+    opacity: 1;
+    @include respond-to(md) {
+      opacity: 0.4;
+    }
   }
 }
 

@@ -6,15 +6,17 @@
   bottom: 0;
   z-index: $z-index-toast;
   background-color: $light-orange;
-  max-width: 352px;
+  max-width: 400px;
+  width: 100%;
   font-family: $f-title;
   font-size: rem(24);
   display: flex;
   justify-content: space-between;
-  padding: 26px;
+  padding: 32px;
   border-radius: 5px 50px 5px 5px;
   visibility: hidden;
   transform: translateX(calc(100% + 26px));
+
   transition:
     transform 350ms ease-out,
     visibility 0s linear 350ms;
@@ -23,6 +25,11 @@
     visibility: visible;
     transform: translateX(0);
     transition-delay: 0s;
+  }
+
+  &__txt {
+    font-family: $f-title;
+    font-size: rem(24);
   }
 
   &__btn {

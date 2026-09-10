@@ -3,14 +3,15 @@
     (click)="toggleDropdown()"
     [attr.aria-controls]="listboxId"
     [attr.aria-expanded]="isOpen()"
+    [attr.aria-invalid]="invalid()"
     aria-haspopup="listbox"
     class="btn dropdown__btn"
     type="button"
   >
-    {{ (title() ? title() : value()) | titlecase }}
+    <span [class.required]="required()">{{ (title() ? title() : value()) | titlecase }}</span>
     <svg
-      aria-hidden="true"
       [class.is-open]="isOpen()"
+      aria-hidden="true"
       class="dropdown__icon"
       fill="none"
       viewBox="0 0 15 8"
@@ -21,7 +22,9 @@
       />
     </svg>
   </button>
-  <p class="dropdown__value">{{ value() === 'All Surveys' ? '' : value() }}</p>
+  <p [class.dropdown__value--error]="invalid()" class="dropdown__value">
+    {{ invalid() ? errorText() : displayValue() }}
+  </p>
   <ul [attr.id]="listboxId" [class.is-open]="isOpen()" class="dropdown__menu" role="listbox">
     @for (item of displayCategories(); track $index) {
       <li class="dropdown__option" role="presentation">

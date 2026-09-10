@@ -20,9 +20,13 @@ export class DropdownComponent implements ControlValueAccessor {
   categories = input<string[]>([]);
   title = input<string>('');
   showAllOption = input(false);
+  required = input(false);
+  invalid = input(false);
+  errorText = input<string>('');
   value = model<string | null>(null);
   isOpen = signal<boolean>(false);
   displayCategories = computed(() => (this.showAllOption() ? ['All Surveys', ...this.categories()] : this.categories()));
+  displayValue = computed(() => (this.value() === 'All Surveys' ? '' : (this.value() ?? '')));
   listboxId = `dropdown-listbox-${DropdownComponent.nextId++}`;
 
   /**

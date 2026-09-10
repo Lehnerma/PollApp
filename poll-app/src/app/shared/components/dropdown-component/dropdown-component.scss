@@ -3,7 +3,6 @@
 .dropdown {
   position: relative;
   font-family: $f-txt;
-  width: fit-content;
   display: flex;
   flex-direction: column;
 
@@ -41,7 +40,7 @@
 
   &__menu {
     position: absolute;
-    top: 100%;
+    top: 50%;
     left: 0;
     display: flex;
     flex-direction: column;
@@ -56,9 +55,10 @@
     &--btn {
       font-size: rem(16);
       letter-spacing: 0.02em;
+      text-align: start;
       padding: 4px;
-      width: fit-content;
       cursor: pointer;
+      width: 100%;
 
       &:hover {
         background-color: $expire-card-bg-hover;
@@ -74,6 +74,7 @@
     font-weight: 400;
     letter-spacing: 0.02em;
     color: $secondary-orange;
+    min-height: rem(32);
   }
 }
 
@@ -85,9 +86,8 @@
   opacity: 0;
   transform: translateY(-10px);
   visibility: hidden;
-  transition:
-    opacity 300ms ease-in-out,
-    transform 350ms ease-in-out;
+  transition: opacity 300ms ease-in-out,
+  transform 350ms ease-in-out;
 }
 
 .dropdown__menu.is-open {
@@ -95,4 +95,8 @@
   transform: translateY(0);
   visibility: visible;
   pointer-events: auto;
+}
+
+.dropdown__value--error {
+  color: $error-red-text;
 }

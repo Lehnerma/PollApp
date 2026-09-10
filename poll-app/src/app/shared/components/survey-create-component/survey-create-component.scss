@@ -66,6 +66,7 @@
   &__details {
     display: grid;
     grid-template-columns: 1fr;
+    gap: 16px;
     grid-template-areas:
       'detail-main'
       'detail-description';
@@ -87,10 +88,6 @@
       min-height: 100px;
       resize: none;
     }
-  }
-
-  &__dropdown {
-    margin-bottom: 31px;
   }
 }
 
@@ -162,6 +159,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
   }
 }
 

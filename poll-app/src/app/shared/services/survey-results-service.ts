@@ -1,36 +1,18 @@
-import { computed, inject, Injectable, OnDestroy, resource } from '@angular/core';
+import { computed, inject, Injectable, resource, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RealtimeChannel } from '@supabase/supabase-js';
 import { SupabaseService } from './supabase-service';
-import { OptionInterface } from '../interfaces/option-interface';
 import { QuestionResultInterface } from '../interfaces/question-result-interface';
 import { QuestionWithOptionsInterface } from '../interfaces/question-with-options-interface';
 
 /**
- * Haelt den Live-Zustand einer einzelnen Ergebnis-Ansicht.
- * Wird pro Component bereitgestellt, damit Resource und Realtime-Channel am Lebenszyklus der View haengen.
+ * Keeps the live state of a single results view.
+ * Provided per component so the resource and realtime channel follow the view lifecycle.
  */
 @Injectable()
-export class SurveyResultsService implements OnDestroy {
+export class SurveyResultsService {
   private route = inject(ActivatedRoute);
-  private supabase = inject(SupabaseService);
   currentId = this.route.snapshot.paramMap.get('id') ?? '';
-  optionChannel: RealtimeChannel;
-
-  /**
-   * Oeffnet die Realtime-Subscription fuer die Optionen der aktuellen Survey.
-   */
-  constructor() {
-    this.optionChannel = this.supabase.subscribeToOptions(this.currentId, (option) => this.applyOptionUpdate(option));
-  }
-
-  /**
-   * Schliesst die Subscription, sobald die Ansicht zerstoert wird.
-   */
-  ngOnDestroy(): void {
-    this.supabase.removeChannel(this.optionChannel);
-  }
-
+  private supabase = inject(SupabaseService);
   /**
    * Loads the survey from the supabase.
    */
@@ -38,25 +20,38 @@ export class SurveyResultsService implements OnDestroy {
     params: () => ({ id: this.currentId }),
     loader: ({ params }) => this.supabase.getSurveyWithQuestions(params.id),
   });
-
   /**
-   * Bereitet die Fragen der Survey mit Prozentwerten für die Anzeige auf.
+   * Holds the current selection per question as long as it is not submitted yet.
+   */
+  answer = signal<Map<string, Set<string>>>(new Map());
+  /**
+   * Marks whether the current selection was already written to the database.
+   */
+  votesSubmitted = signal(false);
+  /**
+   * Flattens the current selection into a set of option ids.
+   */
+  private pendingVotes = computed(() => new Set([...this.answer().values()].flatMap((options) => [...options])));
+  /**
+   * Prepares the survey questions with percentage values for display.
    */
   resultView = computed<QuestionResultInterface[]>(
     () => this.surveyResource.value()?.questions.map((question) => this.toQuestionResult(question)) ?? [],
   );
 
   /**
-   * Reichert eine Frage um die Gesamtstimmen und Prozentwerte je Option an.
-   * @param question - Frage samt Optionen aus Supabase.
-   * @returns Frage mit totalVotes und percent pro Option.
+   * Enriches a question with total votes and percentage values per option.
+   * The not yet submitted selection is counted optimistically, so the results react to every click.
+   * @param question - Question with options from Supabase.
+   * @returns Question with totalVotes and percent for each option.
    */
   private toQuestionResult(question: QuestionWithOptionsInterface): QuestionResultInterface {
-    const totalVotes = question.options.reduce((sum, option) => sum + option.votes, 0);
+    const options = question.options.map((option) => ({ ...option, votes: option.votes + this.pendingVoteFor(option.id) }));
+    const totalVotes = options.reduce((sum, option) => sum + option.votes, 0);
     return {
       ...question,
       totalVotes,
-      options: question.options.map((option) => ({
+      options: options.map((option) => ({
         ...option,
         percent: totalVotes ? Math.round((option.votes / totalVotes) * 100) : 0,
       })),
@@ -64,19 +59,12 @@ export class SurveyResultsService implements OnDestroy {
   }
 
   /**
-   * Patcht eine geaenderte Option im geladenen Survey-Wert, ohne neu zu laden.
-   * @param changed - die per Realtime gemeldete Option.
+   * Returns the optimistic vote of an option taken from the current selection.
+   * @param optionId - id of the option to check.
+   * @returns 1 while the option is selected and not submitted yet, otherwise 0.
    */
-  private applyOptionUpdate(changed: OptionInterface): void {
-    this.surveyResource.update(
-      (survey) =>
-        survey && {
-          ...survey,
-          questions: survey.questions.map((question) => ({
-            ...question,
-            options: question.options.map((option) => (option.id === changed.id ? changed : option)),
-          })),
-        },
-    );
+  private pendingVoteFor(optionId: string | number): number {
+    if (this.votesSubmitted()) return 0;
+    return this.pendingVotes().has(String(optionId)) ? 1 : 0;
   }
 }

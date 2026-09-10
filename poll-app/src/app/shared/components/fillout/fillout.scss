@@ -78,6 +78,16 @@
     gap: 24px;
   }
 
+  &__hint {
+    font-family: $f-txt;
+    font-size: rem(14);
+    color: $primary-black;
+
+    &--error {
+      color: $error-red;
+    }
+  }
+
   &__title {
     font-family: $f-title;
     font-size: rem(48);
@@ -88,6 +98,12 @@
     font-family: $f-txt;
     font-size: rem(16);
     font-weight: 500;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
   }
 }
 

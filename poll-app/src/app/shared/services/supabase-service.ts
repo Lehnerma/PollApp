@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { createClient, RealtimeChannel } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 import { QuestionModel } from '../models/question-model';
 import { OptionModel } from '../models/options-model';
 import { SurveyWithQuestionsInterface } from '../interfaces/survey-with-questions-interface';
-import { OptionInterface } from '../interfaces/option-interface';
 
 /**
  * Service for loading and preparing survey data from Supabase.
@@ -72,33 +71,5 @@ export class SupabaseService {
       .update({ votes: (data.votes ?? 0) + delta })
       .eq('id', optionId);
     if (updateError) throw updateError;
-  }
-
-  /**
-   * Subscribs for the options for updates - with the surveyId
-   * @param surveyId - is the uuid for the right survey.
-   * @param onUpdate - callback that receives every changed option.
-   * @returns RealtimeChannel for the subscription
-   */
-  subscribeToOptions(surveyId: string, onUpdate: (option: OptionInterface) => void): RealtimeChannel {
-    return this.supabase
-      .channel(`options:${surveyId}`)
-      .on(
-        'postgres_changes',
-        { event: 'UPDATE', schema: 'public', table: 'options', filter: `survey_id=eq.${surveyId}` },
-        (payload) => {
-          const cur = new OptionModel(payload.new);
-          onUpdate(cur);
-        },
-      )
-      .subscribe();
-  }
-
-  /**
-   * Removes a realtime channel so the subscription is closed.
-   * @param channel - the channel returned by a subscribe method.
-   */
-  async removeChannel(channel: RealtimeChannel): Promise<void> {
-    await this.supabase.removeChannel(channel);
   }
 }

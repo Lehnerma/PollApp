@@ -24,7 +24,12 @@
     <section class="form__details" formGroupName="details">
       <fieldset class="form__fieldset detail__main">
         <div class="form__fieldset--heading detail__name">
-          <label class="form__label required" for="detail_name">Survey name</label>
+          <label class="form__label form__label--row" for="detail_name">
+            <span class="required">Survey name</span>
+            @if (isInvalid(details.controls.survey_name)) {
+              <span class="form__label--error">Required.</span>
+            }
+          </label>
           <button (click)="resetForm()" aria-label="Remove survey name" class="btn btn__bin" type="button">
             <svg aria-hidden="true" class="btn__bin--icon" fill="none" viewBox="0 0 18 20" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -40,13 +45,13 @@
             id="detail_name"
             type="text"
           />
-          @if (isInvalid(details.controls.survey_name)) {
-            <p class="error-message">Please enter a survey name.</p>
-          }
         </div>
 
         <app-dropdown-component
           [categories]="categories"
+          [errorText]="'Required.'"
+          [invalid]="isInvalid(details.controls.category)"
+          [required]="true"
           [title]="'Choose category'"
           class="form__dropdown detail__category"
           formControlName="category"
@@ -73,7 +78,9 @@
       </fieldset>
 
       <fieldset class="form__fieldset--heading detail__description">
-        <label class="form__label" for="survey_description">Describing Text (optional)</label>
+        <label class="form__label form__label--row" for="survey_description">
+          <span>Describing Text (optional)</span>
+        </label>
         <button (click)="resetDescription()" aria-label="Remove description" class="btn btn__bin" type="button">
           <svg aria-hidden="true" class="btn__bin--icon" fill="none" viewBox="0 0 18 20" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -82,11 +89,17 @@
           </svg>
         </button>
         <textarea
+          [attr.aria-invalid]="isInvalid(details.controls.description)"
+          [class.is-invalid]="isInvalid(details.controls.description)"
           class="form__input form__input--desc"
           formControlName="description"
           id="survey_description"
           name="description"
         ></textarea>
+
+        <span [class.form__label--error]="isInvalid(details.controls.description)" class="form__label--count"
+          >{{ charCount }}/50</span
+        >
       </fieldset>
     </section>
 
@@ -96,7 +109,12 @@
         <li [formGroupName]="index" class="question-list__item">
           <section class="question-form">
             <div class="form__fieldset--main question">
-              <label class="form__label required" for="question_{{ index }}">{{ index + 1 }}. Question</label>
+              <label class="form__label form__label--row" for="question_{{ index }}">
+                <span class="required">{{ index + 1 }}. Question</span>
+                @if (isInvalid(question.controls.question_name)) {
+                  <span class="form__label--error">Required.</span>
+                }
+              </label>
               <button
                 (click)="deleteQuestion(index)"
                 [attr.aria-label]="'Remove question ' + (index + 1)"
@@ -117,15 +135,11 @@
                 id="question_{{ index }}"
                 type="text"
               />
-              @if (isInvalid(question.controls.question_name)) {
-                <p class="error-message">Please enter a question.</p>
-              }
             </div>
 
             <fieldset class="form__fieldset options">
               <div class="options__header">
                 <legend class="form__label required">Answers</legend>
-                <!-- todo check styling -->
                 <app-checkbox-component
                   (changed)="toggleMultipleOptions(question)"
                   [checked]="question.controls.multiple_options.value"
@@ -138,7 +152,7 @@
               <ul class="form__options" formArrayName="options">
                 @for (opt of getOptions(question).controls; track opt; let optionIndex = $index) {
                   <li [formGroupName]="optionIndex" class="option">
-                    <label class="form__label option__label" for="option-{{ getLetterFromIndex(optionIndex) }}"
+                    <label class="form__label option__label" for="option-{{ index }}-{{ getLetterFromIndex(optionIndex) }}"
                       >{{ getLetterFromIndex(optionIndex) }}.
                     </label>
                     <button
@@ -160,17 +174,21 @@
                       </svg>
                     </button>
                     <input
+                      [attr.aria-describedby]="'option-' + index + '-' + getLetterFromIndex(optionIndex) + '-error'"
                       [attr.aria-invalid]="isInvalid(opt.controls.option_name)"
+                      [attr.placeholder]="isInvalid(opt.controls.option_name) ? 'Please enter an option.' : null"
                       [class.is-invalid]="isInvalid(opt.controls.option_name)"
                       class="form__input"
                       formControlName="option_name"
-                      id="option-{{ getLetterFromIndex(optionIndex) }}"
-                      name="option-{{ getLetterFromIndex(optionIndex) }}"
+                      id="option-{{ index }}-{{ getLetterFromIndex(optionIndex) }}"
+                      name="option-{{ index }}-{{ getLetterFromIndex(optionIndex) }}"
                       type="text"
                     />
-                    @if (isInvalid(opt.controls.option_name)) {
-                      <p class="error-message">Please enter an option.</p>
-                    }
+                    <span class="visually-hidden" id="option-{{ index }}-{{ getLetterFromIndex(optionIndex) }}-error">
+                      @if (isInvalid(opt.controls.option_name)) {
+                        Please enter an option.
+                      }
+                    </span>
                   </li>
                 }
               </ul>
@@ -213,7 +231,7 @@
   </section>
 
   <div class="publish-wrapper">
-    <button class="btn btn__primary" [class.btn__primary--notready]="!surveyForm.valid" type="submit">
+    <button [class.btn__primary--notready]="!surveyForm.valid" class="btn btn__primary" type="submit">
       Publish
       <svg aria-hidden="true" class="btn__primary--icon" fill="none" viewBox="0 0 18 16" xmlns="http://www.w3.org/2000/svg">
         <path

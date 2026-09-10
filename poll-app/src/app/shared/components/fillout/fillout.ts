@@ -10,6 +10,8 @@ import { ensureQuestionMark } from '../../utils/question-mark-util';
 import { SurveyService } from '../../services/survey-service';
 import { SupabaseService } from '../../services/supabase-service';
 import { SurveyResultsService } from '../../services/survey-results-service';
+import { ParticipationService } from '../../services/participation-service';
+import { isInvalid } from '../../utils/form-validation.util';
 
 @Component({
   selector: 'fill-out',
@@ -21,14 +23,19 @@ export class FillOut {
   router = inject(Router);
   supabase = inject(SupabaseService);
   surveyService = inject(SurveyService);
+  participationService = inject(ParticipationService);
+  isSubmitted = signal(false);
+  allAnswered = computed(() => this.checkEveryQuestionAnswered());
   protected results = inject(SurveyResultsService);
-  protected readonly getLetterFromIndex = getLetterFromIndex;
-  protected readonly ensureQuestionMark = ensureQuestionMark;
-  answer = signal<Map<string, Set<string>>>(new Map());
+  answer = this.results.answer;
+  allreadyFilled = signal(this.participationService.hasParticipated(this.results.currentId));
   isPast = computed(() => {
     const survey = this.results.surveyResource.value();
     return survey ? this.surveyService.isPastSurvey(survey) : false;
   });
+  protected readonly getLetterFromIndex = getLetterFromIndex;
+  protected readonly ensureQuestionMark = ensureQuestionMark;
+  protected readonly isInvalid = isInvalid;
 
   /**
    * Checks whether an option has already been selected for a specific question.
@@ -50,10 +57,8 @@ export class FillOut {
   select(question: QuestionInterface, optionId: string): void {
     const next = new Map(this.answer());
     const current = next.get(String(question.id)) ?? new Set<string>();
-    const deltas = this.voteDeltas(question, optionId, current);
     next.set(String(question.id), this.nextSelection(question, optionId, current));
     this.answer.set(next);
-    deltas.forEach(([id, delta]) => this.supabase.changeVote(id, delta));
   }
 
   /**
@@ -72,29 +77,41 @@ export class FillOut {
   }
 
   /**
-   * Determines which options have to be up- or downvoted for a click.
-   * Must be called before nextSelection() because that mutates the current set.
-   *
-   * @param question The question the clicked option belongs to.
-   * @param optionId The ID of the clicked option.
-   * @param current The set of selected options before the click.
-   * @returns Pairs of option ID and vote delta, e.g. [['abc', -1], ['def', 1]].
+   * Navigates to the home page
    */
-  voteDeltas(question: QuestionInterface, optionId: string, current: Set<string>): [string, number][] {
-    if (question.multiple_options) return [[optionId, current.has(optionId) ? -1 : 1]];
-    const previous = [...current][0];
-    if (!previous) return [[optionId, 1]];
-    if (previous === optionId) return [];
-    return [
-      [previous, -1],
-      [optionId, 1],
-    ];
+  async onSubmit(): Promise<void> {
+    if (!this.allAnswered() || this.isSubmitted()) return;
+    this.isSubmitted.set(true);
+    try {
+      const ids = this.collectSelectedOptionIds();
+      await Promise.all(ids.map((id) => this.supabase.changeVote(id, 1)));
+      this.results.votesSubmitted.set(true);
+      this.participationService.markParticipated(this.results.currentId);
+      this.results.surveyResource.reload();
+      this.allreadyFilled.set(true);
+    } finally {
+      this.isSubmitted.set(false);
+    }
+    this.router.navigate(['']);
   }
 
   /**
-   * Navigates to the home page
+   * Collects the IDs of all selected options
+   *
+   * @returns A list of selected options id
    */
-  onSubmit(): void {
-    this.router.navigate(['']);
+  collectSelectedOptionIds(): string[] {
+    return [...this.answer().values()].flatMap((option) => [...option]);
+  }
+  /**
+   * Checks whether every question of the loaded survey has at least one selected option.
+   *
+   * @returns true if all questions are answered, otherwise false.
+   */
+  checkEveryQuestionAnswered(): boolean {
+    const survey = this.results.surveyResource.value();
+    if (!survey) return false;
+    const answers = this.answer();
+    return survey.questions.every((question) => (answers.get(String(question.id))?.size ?? 0) > 0);
   }
 }

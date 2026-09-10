@@ -28,6 +28,11 @@
     &--notready {
       background-color: $main-btn-notready;
     }
+
+    &:disabled {
+      background-color: rgba($secondary-orange, 0.45);
+      color: rgba($primary-black, 0.45);
+    }
   }
 
   &__secondary {
@@ -84,6 +89,7 @@
       }
     }
   }
+
   &--content {
     width: fit-content;
   }
@@ -111,7 +117,7 @@
         background-color: $main-btn-notready;
       }
 
-      &:hover {
+      &:hover:not(:disabled) {
         background-color: $main-btn-bg-hover;
 
         .btn__primary--icon {

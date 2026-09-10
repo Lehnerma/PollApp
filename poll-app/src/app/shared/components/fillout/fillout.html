@@ -1,13 +1,11 @@
 @if (results.surveyResource.isLoading()) {
   <p>Loading survey…</p>
-  <!-- todo add a spinner for slow loading -->
 } @else if (results.surveyResource.error()) {
   <p>Survey could not be loaded.</p>
-  <!-- todo add a route to the home page -->
 } @else if (results.surveyResource.value(); as survey) {
   <form (ngSubmit)="onSubmit()" class="form">
     <header class="header">
-      <app-status class="header__status" [status]="isPast() ? 'expired' : 'published'"></app-status>
+      <app-status [status]="isPast() ? 'expired' : 'published'" class="header__status"></app-status>
       <button aria-label="Back to overview" class="btn btn__secondary header__btn" routerLink="">
         <svg
           aria-hidden="true"
@@ -39,7 +37,7 @@
           @for (question of survey.questions; track question.id; let index = $index) {
             <li class="question__item">
               <div class="question__item--container">
-                <h2 class="question__name" id="q-{{ question.id }}">
+                <h2 class="question__name required" id="q-{{ question.id }}">
                   {{ index + 1 }} . {{ ensureQuestionMark(question.question_name) }}
                 </h2>
                 @if (question.multiple_options) {
@@ -47,7 +45,11 @@
                 }
               </div>
 
-              <fieldset [attr.aria-labelledby]="'q-' + question.id" [disabled]="isPast()" class="form__fieldset option__list">
+              <fieldset
+                [attr.aria-labelledby]="'q-' + question.id"
+                [disabled]="isPast() || allreadyFilled()"
+                class="form__fieldset option__list"
+              >
                 <!-- ! Options -->
                 @for (opt of question.options; track opt.id; let i = $index) {
                   <app-checkbox-component
@@ -68,21 +70,35 @@
         </ol>
       </section>
     </section>
-    <button class="btn btn__primary btn--content" routerLink="" type="submit">
-      Complete
-      <svg
-        aria-hidden="true"
-        class="btn__primary--icon"
-        fill="none"
-        height="16"
-        viewBox="0 0 18 16"
-        width="18"
-        xmlns="http://www.w3.org/2000/svg"
+    <section class="form__footer">
+      <button
+        [attr.aria-disabled]="!allAnswered()"
+        [disabled]="!allAnswered() || isSubmitted()"
+        class="btn btn__primary btn--content"
+        type="submit"
       >
-        <path
-          d="M6.1556 12.5078L16.0211 0.427617C16.2539 0.142539 16.5255 0 16.8359 0C17.1463 0 17.418 0.142539 17.6508 0.427617C17.8836 0.712695 18 1.05122 18 1.44321C18 1.83519 17.8836 2.17372 17.6508 2.4588L6.97045 15.5724C6.73763 15.8575 6.46602 16 6.1556 16C5.84518 16 5.57356 15.8575 5.34075 15.5724L0.335252 9.44321C0.102438 9.15813 -0.00911854 8.8196 0.000582034 8.42762C0.0102826 8.03563 0.13154 7.6971 0.364354 7.41203C0.597167 7.12695 0.873634 6.98441 1.19375 6.98441C1.51387 6.98441 1.79034 7.12695 2.02315 7.41203L6.1556 12.5078Z"
-        />
-      </svg>
-    </button>
+        Complete
+        <svg
+          aria-hidden="true"
+          class="btn__primary--icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 18 16"
+          width="18"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.1556 12.5078L16.0211 0.427617C16.2539 0.142539 16.5255 0 16.8359 0C17.1463 0 17.418 0.142539 17.6508 0.427617C17.8836 0.712695 18 1.05122 18 1.44321C18 1.83519 17.8836 2.17372 17.6508 2.4588L6.97045 15.5724C6.73763 15.8575 6.46602 16 6.1556 16C5.84518 16 5.57356 15.8575 5.34075 15.5724L0.335252 9.44321C0.102438 9.15813 -0.00911854 8.8196 0.000582034 8.42762C0.0102826 8.03563 0.13154 7.6971 0.364354 7.41203C0.597167 7.12695 0.873634 6.98441 1.19375 6.98441C1.51387 6.98441 1.79034 7.12695 2.02315 7.41203L6.1556 12.5078Z"
+          />
+        </svg>
+      </button>
+      @if (isPast()) {
+        <p class="form__hint--expired">The survey has expired. You can create a new one!</p>
+      } @else if (allreadyFilled()) {
+        <p class="form__hint--participation">You have already filled out the Survey.</p>
+      } @else if (!allAnswered()) {
+        <p class="form__hint--error">Pls fill out all questions!</p>
+      }
+    </section>
   </form>
 }

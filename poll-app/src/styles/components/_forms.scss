@@ -2,6 +2,7 @@
 
 .form {
   max-width: $lg-dp-width;
+
   &__fieldset {
     border: none;
 
@@ -47,6 +48,22 @@
     font-size: rem(18);
     font-weight: 700;
     color: $primary-white;
+
+    &--row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+      min-width: 0;
+      white-space: nowrap;
+    }
+
+    &--count {
+      font-family: $f-txt;
+      font-size: rem(14);
+      font-weight: 400;
+      color: $primary-white;
+    }
   }
 
   &__input {

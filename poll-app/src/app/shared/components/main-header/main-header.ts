@@ -8,8 +8,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   styleUrl: './main-header.scss',
 })
 export class MainHeader {
+  logoClick = output<void>();
   private route = inject(ActivatedRoute);
   private path = this.route.snapshot.routeConfig?.path;
-  logoClick = output<void>();
   currentLogo = this.path === '' ? 'assets/img/logo-full-orange.png' : 'assets/img/logo-full-purple.png';
 }

@@ -66,6 +66,13 @@ export class SurveyCreateComponent {
   }
 
   /**
+   * Returns the current character count of the survey description.
+   */
+  get charCount(): number {
+    return this.details.controls.description.value.length ?? 0;
+  }
+
+  /**
    * Returns the option form groups of the given question form group.
    *
    * @param question The question form group.
@@ -80,9 +87,9 @@ export class SurveyCreateComponent {
   createDetailsForm(): FormGroup<DetailsForm> {
     return this.fb.nonNullable.group({
       survey_name: ['', [Validators.required, Validators.minLength(3)]],
-      category: [''],
+      category: ['', [Validators.required]],
       expires_at: [''],
-      description: ['', Validators.maxLength(300)],
+      description: ['', Validators.maxLength(50)],
     });
   }
 
@@ -91,7 +98,7 @@ export class SurveyCreateComponent {
    */
   createQuestionForm(): FormGroup<QuestionForm> {
     return this.fb.nonNullable.group({
-      question_name: ['', [Validators.required, Validators.minLength(3)]],
+      question_name: ['', [Validators.required]],
       multiple_options: [false],
       options: this.fb.array([this.createOptionForm(), this.createOptionForm()]),
     });
@@ -102,7 +109,7 @@ export class SurveyCreateComponent {
    */
   createOptionForm(): FormGroup<OptionForm> {
     return this.fb.nonNullable.group({
-      option_name: ['', [Validators.required, Validators.minLength(2)]],
+      option_name: ['', [Validators.required]],
     });
   }
 

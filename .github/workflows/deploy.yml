@@ -1,0 +1,69 @@
+name: Deploy Join
+
+on:
+  # Nur wenn ein Pull Request auf "main" geschlossen wird (siehe if unten: nur bei Merge)
+  pull_request:
+    types: [closed]
+    branches: [main]
+  # Manuelles Auslösen über den Actions-Tab (nutzt den aktuellen Stand von "deploy")
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy Join
+    # Geschlossene, aber nicht gemergte PRs ueberspringen
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    env:
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
+      DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Bei Merge den Merge-Commit auschecken, bei manuellem Lauf den Branch-Stand
+          ref: ${{ github.event.pull_request.merge_commit_sha || github.ref }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - run: npm ci
+      - run: npm run build -- --configuration production
+
+      - name: Pruefen, ob alle Secrets/Variablen gesetzt sind
+        run: |
+          for name in SSH_USER SSH_HOST DEPLOY_PATH; do
+            if [ -z "${!name}" ]; then
+              echo "::error::$name ist nicht gesetzt (GitHub Secrets/Variables pruefen)"
+              exit 1
+            fi
+          done
+
+      - name: SSH vorbereiten
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Build per rsync auf den Server hochladen
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/id_deploy -p ${SSH_PORT} -o StrictHostKeyChecking=yes" \
+            dist/join/browser/ \
+            "${SSH_USER}@${SSH_HOST}:${DEPLOY_PATH}/"

@@ -36,10 +36,15 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: package-lock.json
+          cache-dependency-path: poll-app/package-lock.json
 
-      - run: npm ci
-      - run: npm run build -- --configuration production
+      - name: Abhaengigkeiten installieren
+        working-directory: poll-app
+        run: npm ci
+
+      - name: Angular-App bauen
+        working-directory: poll-app
+        run: npm run build -- --configuration production
 
       - name: Pruefen, ob alle Secrets/Variablen gesetzt sind
         run: |
@@ -65,5 +70,5 @@ jobs:
         run: |
           rsync -az --delete \
             -e "ssh -i ~/.ssh/id_deploy -p ${SSH_PORT} -o StrictHostKeyChecking=yes" \
-            dist/join/browser/ \
+            poll-app/dist/poll-app/browser/ \
             "${SSH_USER}@${SSH_HOST}:${DEPLOY_PATH}/"

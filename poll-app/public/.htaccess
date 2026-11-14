@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# HTTP -> HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# SPA-Fallback: alles, was keine echte Datei/Ordner ist, an index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
